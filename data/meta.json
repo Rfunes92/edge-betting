@@ -1,8 +1,13 @@
 {
-  "updated": "2026-10-23T03:52:35.925Z",
+  "updated": "2026-10-23T07:05:20.871Z",
   "source": "ESPN public site API (site.api.espn.com, sports.core.api.espn.com)",
   "oddsNote": "Odds provider is labeled exactly as ESPN returns it.",
   "sources": {
+    "cfb_injuries": {
+      "ok": true,
+      "teams": 3,
+      "players": 3
+    },
     "nfl_scoreboard": {
       "ok": true,
       "count": 14,
@@ -12,11 +17,6 @@
       "ok": true,
       "count": 56,
       "withOdds": 49
-    },
-    "cfb_injuries": {
-      "ok": true,
-      "teams": 3,
-      "players": 3
     },
     "nfl_injuries": {
       "ok": true,
