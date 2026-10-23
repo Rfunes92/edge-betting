@@ -198,7 +198,7 @@
     const settled = bets.filter(isSettled).sort((a, b) => (a.date === b.date ? (a.settledAt || a.createdAt) - (b.settledAt || b.createdAt) : a.date < b.date ? -1 : 1));
     const start = settings.bankroll;
     const empty = start == null || settled.length === 0;
-    $('chartEmpty').hidden = !empty;
+    $('chartEmpty').hidden = !empty; $('bankrollChart').parentElement.hidden = empty;
     $('chartEmpty').textContent = start == null ? 'Set your starting bankroll to see the curve.' : 'Settle a few bets to see your bankroll curve.';
     if (typeof Chart === 'undefined') { if (!empty) $('chartEmpty').hidden = false, $('chartEmpty').textContent = 'Chart library failed to load (offline?).'; return; }
     let run = start || 0; const labels = ['Start'], data = [start == null ? null : start];
@@ -206,7 +206,7 @@
     const ctx = $('bankrollChart').getContext('2d');
     const grad = ctx.createLinearGradient(0, 0, 0, 260); grad.addColorStop(0, 'rgba(0,229,255,.28)'); grad.addColorStop(1, 'rgba(0,229,255,0)');
     const ds = { data: empty ? [] : data, borderColor: '#00e5ff', backgroundColor: grad, fill: true, tension: 0.35, borderWidth: 2.2, pointRadius: data.length > 30 ? 0 : 2.5, pointHoverRadius: 5, pointBackgroundColor: '#00e5ff' };
-    if (chart) { chart.data.labels = empty ? [] : labels; chart.data.datasets[0] = ds; chart.update(); return; }
+    if (chart) { chart.resize(); chart.data.labels = empty ? [] : labels; chart.data.datasets[0] = ds; chart.update(); return; }
     Chart.defaults.font.family = "'Inter', system-ui, sans-serif"; Chart.defaults.color = '#8a96a3';
     chart = new Chart(ctx, {
       type: 'line', data: { labels: empty ? [] : labels, datasets: [ds] },
