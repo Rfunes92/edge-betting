@@ -1,7 +1,221 @@
 {
-  "updated": "2026-10-22T21:45:00-04:00",
-  "note": "Picks for this weekend's slate coming soon.",
+  "updated": "2026-10-23T15:50:00-04:00",
+  "note": "Week 7 + CFB/UFC 333 research done. 2 NFL plays at 1 unit each, both Low confidence. Nothing on Saturday. Recheck both after inactives Sunday ~11:45 AM ET. Break-even at -110 is 52.4%.",
   "pass": false,
   "passNote": "",
-  "picks": []
+  "picks": [
+    {
+      "id": "2026w7-sf-atl-spread",
+      "sport": "NFL",
+      "event": "San Francisco 49ers @ Atlanta Falcons",
+      "start": "2026-10-25T13:00:00-04:00",
+      "market": "Spread",
+      "selection": "49ers -2.5",
+      "book": "DraftKings",
+      "odds": -118,
+      "confidence": "Low",
+      "units": 1,
+      "recheck": "Recheck after inactives Sunday ~11:45 AM ET. If Mike Evans AND Nick Bosa are both inactive, pass this pick.",
+      "images": [
+        "https://a.espncdn.com/i/teamlogos/nfl/500/sf.png",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/atl.png"
+      ],
+      "books": {
+        "DraftKings": {
+          "line": "-2.5",
+          "odds": -118
+        },
+        "FanDuel": {
+          "line": "-2.5",
+          "odds": -120
+        }
+      },
+      "line": {
+        "open": "SF -4.5 (-110)",
+        "current": "SF -2.5 (-118)"
+      },
+      "reasoning": "The line dropped 2 points (under the key number 3) because of 49ers injury news, but every model number we pulled still shows a big gap between these teams. We get the better number; we are betting that the drop went too far.",
+      "data": {
+        "keyStats": [
+          "nflverse EPA/play, full season: SF +0.325 net (#1, Elite) vs ATL -0.121 (#27, Bad). Last 4 weeks: SF +0.269 vs ATL -0.061.",
+          "ESPN FPI gives SF a 79.3% win chance; DraftKings no-vig moneyline (-148/+124) implies about 57%.",
+          "ESPN team stats: 3rd-down conversion SF 51.5% vs ATL 38.9%; turnover margin SF +1 vs ATL -7.",
+          "Sharp Football: ATL blitzed 32% and 34% the last 2 weeks (season highs); Purdy vs the blitz is 10.0 YPA (#1), 7 TD, 1 INT.",
+          "Sharp Football: Penix under pressure completes 31% with a 22% sack rate; SF pressure rate the last 2 weeks was 51% and 46% (#3)."
+        ],
+        "injuries": [
+          "SF: WR Mike Evans questionable (not at start of Friday practice); DE Nick Bosa questionable (knee/calf, DNP Thursday); DE Mykel Williams and LB Jaden Dugger questionable.",
+          "ATL out: OT Michael Jerrell, CB Billy Bowman Jr., LB Divine Deablo, RB Brian Robinson Jr."
+        ],
+        "lineMove": "Opened SF -4.5 / ML -218; now -2.5 / ML -148 at DraftKings. Same -2.5 at most books (VegasInsider).",
+        "publicPct": {
+          "bets": "73% of spread tickets on SF",
+          "money": "60% of spread money on SF",
+          "source": "Action Network public betting page"
+        },
+        "fairLine": "FPI 79.3% would be about SF -7 or more; the market says -2.5.",
+        "marketLine": "SF -2.5 -118 (DK), -2.5 -120 (FD)",
+        "model": "ESPN FPI + nflverse EPA tiers",
+        "experts": [
+          "Sharp Football (info account, not a graded picker) posted the blitz/pressure and CMC inside-zone angles above, all pro-SF.",
+          "Sharp Football also showed SF Monday splits: Evans on field +0.57 EPA/play vs off field -0.14 (one game). That is why his status matters.",
+          "No graded pick on this game from our tracked experts as of Friday afternoon."
+        ]
+      },
+      "risks": [
+        "The 2-point move is probably the market pricing Evans and Bosa out; FPI and season EPA don't fully account for that.",
+        "Road favorite laying points; a 1- or 2-point SF win loses.",
+        "SF is the popular side (73% of tickets)."
+      ],
+      "sources": [
+        {
+          "name": "ESPN odds/FPI (data/games.json)",
+          "url": "https://www.espn.com/nfl/game/_/gameId/401873017"
+        },
+        {
+          "name": "nflverse play-by-play (EPA)",
+          "url": "https://github.com/nflverse/nflverse-data/releases"
+        },
+        {
+          "name": "VegasInsider NFL odds by book",
+          "url": "https://www.vegasinsider.com/nfl/odds/las-vegas/"
+        },
+        {
+          "name": "Action Network public betting",
+          "url": "https://www.actionnetwork.com/nfl/public-betting"
+        },
+        {
+          "name": "@SharpFootball: Purdy vs blitz",
+          "url": "https://x.com/SharpFootball/status/2113695197104406687"
+        },
+        {
+          "name": "@SharpFootball: Penix under pressure",
+          "url": "https://x.com/SharpFootball/status/2113669528353726963"
+        },
+        {
+          "name": "@SharpFootball: Evans on/off splits",
+          "url": "https://x.com/SharpFootball/status/2112388004719513821"
+        }
+      ]
+    },
+    {
+      "id": "2026w7-kc-sea-ml",
+      "sport": "NFL",
+      "event": "Kansas City Chiefs @ Seattle Seahawks (SNF)",
+      "start": "2026-10-25T20:20:00-04:00",
+      "market": "Moneyline",
+      "selection": "Chiefs ML",
+      "book": "DraftKings",
+      "odds": 120,
+      "confidence": "Low",
+      "units": 1,
+      "recheck": "Recheck after inactives Sunday ~11:45 AM ET. KC's tackle situation is the key check.",
+      "images": [
+        "https://a.espncdn.com/i/teamlogos/nfl/500/kc.png",
+        "https://a.espncdn.com/i/teamlogos/nfl/500/sea.png"
+      ],
+      "books": {
+        "DraftKings": {
+          "line": "ML",
+          "odds": 120
+        },
+        "FanDuel": {
+          "line": "+2.5 spread (ML not found publicly)",
+          "odds": -104
+        }
+      },
+      "line": {
+        "open": "KC +130 (spread +3 -115)",
+        "current": "KC +120 (spread +3 -118 on ESPN feed; +2.5 at most books)"
+      },
+      "reasoning": "The better team by every efficiency number we pulled is a road underdog. At +120 we need KC to win 45.5% of the time; FPI says 52.7%.",
+      "data": {
+        "keyStats": [
+          "nflverse EPA/play, full season: KC +0.219 net (#3, Elite) vs SEA +0.025 (#14, Average). Last 4 weeks: KC +0.242 vs SEA -0.066.",
+          "ESPN FPI: KC 52.7% to win; DraftKings no-vig moneyline implies 43.7%. Break-even at +120 is 45.5%.",
+          "ESPN team stats: yards per rush KC 5.5 vs SEA 3.9; turnover margin KC +5 vs SEA -1; SEA has 448 penalty yards (KC 344).",
+          "Sharp Football: defenses use 8+ in the box on 48% of KC runs (#4), and KC still averages 5.5 YPC (#1) with a 12% explosive-run rate (#2).",
+          "QBs: Mahomes 105/158, 1,309 yds, 9 TD, 3 INT. SEA leading passer Sam Darnold 90/149, 1,033 yds, 7 TD, 7 INT; QB Drew Lock questionable (elbow)."
+        ],
+        "injuries": [
+          "KC out: OT Jaylon Moore (concussion), WR Rashee Rice, RB Brashard Smith; OT Josh Simmons on IR; CB L'Jarius Sneed questionable.",
+          "SEA questionable: QB Drew Lock (elbow, limited Thu), RB Zach Charbonnet (practiced fully), Nwosu, Lawrence."
+        ],
+        "lineMove": "ML opened KC +130, now +120. Spread opened SEA -3, now -3 at DK (ESPN feed) and -2.5 at most other books. Total 45.5 to 42.5.",
+        "publicPct": {
+          "bets": "74% of ML tickets on KC (89% of spread tickets)",
+          "money": "83% of ML money on KC",
+          "source": "Action Network public betting page"
+        },
+        "fairLine": "FPI 52.7% is about KC -112; market is +120.",
+        "marketLine": "KC +120 (DK). FanDuel KC +2.5 -104 on the spread; FD moneyline not found publicly.",
+        "model": "ESPN FPI + nflverse EPA tiers",
+        "experts": [
+          "Sharp Football (info account) posted the KC rushing numbers above.",
+          "No graded pick on this game from our tracked experts as of Friday afternoon."
+        ]
+      },
+      "risks": [
+        "Two KC offensive tackles are out against a good Seattle defense (def EPA -0.142/play).",
+        "Road primetime game, and KC is the heavy public side; the move from +130 is public money too.",
+        "Moneyline: any loss, even by 1 point, loses. Low confidence means 1 unit only."
+      ],
+      "sources": [
+        {
+          "name": "ESPN odds/FPI (data/games.json)",
+          "url": "https://www.espn.com/nfl/game/_/gameId/401873022"
+        },
+        {
+          "name": "nflverse play-by-play (EPA)",
+          "url": "https://github.com/nflverse/nflverse-data/releases"
+        },
+        {
+          "name": "VegasInsider NFL odds by book",
+          "url": "https://www.vegasinsider.com/nfl/odds/las-vegas/"
+        },
+        {
+          "name": "Action Network public betting",
+          "url": "https://www.actionnetwork.com/nfl/public-betting"
+        },
+        {
+          "name": "@SharpFootball: KC run game",
+          "url": "https://x.com/SharpFootball/status/2112937454676418914"
+        }
+      ]
+    }
+  ],
+  "passes": [
+    {
+      "event": "Ole Miss @ Texas (CFB)",
+      "reason": "TEX moved from -9.5 to -3.5. FPI (TEX 70.9%) now likes Texas, but betting into a 6-point move with Texas missing Colin Simmons is not an edge. @vegasbedwards has Ole Miss TT Over 24.5 (tracked)."
+    },
+    {
+      "event": "Indiana @ Michigan (CFB)",
+      "reason": "FPI (IU 82%) and @thepowerrank (IU by ~10) are both above IU -7.5 (-105 DK/FD), but the hook past 7 and Michigan's QB switch from Underwood are unclear. Closest call; passed."
+    },
+    {
+      "event": "Tennessee @ South Carolina (CFB)",
+      "reason": "Line flipped 5 points to SC -2.5 while FPI has SC at 40.6%. We can't explain the move, so no bet."
+    },
+    {
+      "event": "Texas A&M @ Alabama (CFB)",
+      "reason": "Moved from -2.5 to -13.5. Too late; the value is gone."
+    },
+    {
+      "event": "Virginia Tech @ Clemson (CFB)",
+      "reason": "FPI is within 4% of the market. No edge found."
+    },
+    {
+      "event": "UFC 333: Volkanovski vs Evloev",
+      "reason": "A true pick'em (-110/-110) and we have no stat edge (ufcstats is unreachable). Pass."
+    },
+    {
+      "event": "UFC 333: Yan vs Dvalishvili",
+      "reason": "Yan already moved from -180 to -135, so we'd be chasing. Fightnomics notes a wrestler-heavy, low-KO card. Pass."
+    },
+    {
+      "event": "Other NFL Week 7",
+      "reason": "DEN, LAR and HOU lines moved 3 to 5 points already; DAL @ PHI MNF matches two weak EPA teams. No edge pulled."
+    }
+  ]
 }

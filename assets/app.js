@@ -274,6 +274,7 @@
           ${dd.keyStats ? `<div><h4>Key stats</h4><ul>${li(dd.keyStats)}</ul></div>` : ''}
           ${dd.injuries ? `<div><h4>Injuries</h4><ul>${li(dd.injuries)}</ul></div>` : ''}
           ${dd.matchup ? `<div><h4>Matchup</h4><ul>${li(dd.matchup)}</ul></div>` : ''}
+          ${dd.experts ? `<div><h4>What our experts say</h4><ul>${li(dd.experts)}</ul></div>` : ''}
           ${dd.lineMove ? `<div><h4>Line move</h4><p>${esc(dd.lineMove)}</p></div>` : ''}
           ${dd.publicPct && (dd.publicPct.bets != null || dd.publicPct.money != null) ? `<div><h4>Public vs money</h4><div class="split"><span>Bets ${esc(dd.publicPct.bets ?? '—')}%</span><div class="split-bar"><i style="width:${Math.max(0, Math.min(100, Number(dd.publicPct.bets) || 0))}%"></i></div><span>Money ${esc(dd.publicPct.money ?? '—')}%</span><div class="split-bar money"><i style="width:${Math.max(0, Math.min(100, Number(dd.publicPct.money) || 0))}%"></i></div></div>${dd.publicPct.source ? `<p class="muted small">${esc(dd.publicPct.source)}</p>` : ''}</div>` : ''}
           ${dd.fairLine || dd.marketLine ? `<div><h4>Our number vs market</h4><p>Fair <b>${esc(dd.fairLine || '—')}</b> · Market <b>${esc(dd.marketLine || '—')}</b>${dd.model ? `<br><span class="muted small">${esc(dd.model)}</span>` : ''}</p></div>` : ''}
@@ -283,6 +284,7 @@
         ${imgs.length ? `<div class="pick-imgs">${imgs.map((x) => `<img src="${esc(x.url)}" alt="${esc(x.alt || '')}" loading="lazy" onerror="this.style.visibility='hidden'">`).join('')}</div>` : ''}
         <div class="pick-event">${esc(p.event)}</div>
         <div class="pick-time">${p.start ? esc(fmtET(p.start)) : ''}</div>
+        ${p.recheck ? `<div class="pick-recheck">⏱ ${esc(p.recheck)}</div>` : ''}
         <div class="pick-bet"><div><div class="sel">${esc(p.selection)}</div><div class="mkt">${esc(p.market)}</div></div>
           <div><div class="odds">${validOdds(odds) ? fmtOdds(odds) : '—'}</div><div class="book">best: ${esc(p.book || '—')}</div></div></div>
         ${books.length ? `<div class="pick-books">${books.map(([k, v]) => `<div class="pb${k === bestBook ? ' best' : ''}"><span>${esc(k)}</span><b>${esc(v.line != null ? v.line + ' ' : '')}${validOdds(Number(v.odds)) ? fmtOdds(Number(v.odds)) : ''}</b></div>`).join('')}</div>` : ''}
@@ -295,6 +297,9 @@
         <button class="btn btn-primary" data-pick="${i}" ${s.active ? 'disabled' : ''}>${s.active ? 'No more bets this period' : 'Log this bet'}</button>
       </article>`;
     }).join('');
+    const passes = Array.isArray(d.passes) ? d.passes : [];
+    let pe = $('picksPasses'); if (!pe) { pe = document.createElement('div'); pe.id = 'picksPasses'; list.after(pe); }
+    pe.innerHTML = passes.length ? `<details class="card passes"><summary>Considered and passed (${passes.length})</summary><ul>${passes.map((x) => `<li>${typeof x === 'string' ? esc(x) : `<b>${esc(x.event)}</b>: ${esc(x.reason)}`}</li>`).join('')}</ul></details>` : '';
   }
   async function loadPicks() {
     try {
