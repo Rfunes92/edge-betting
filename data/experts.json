@@ -1,0 +1,436 @@
+{
+ "updated": "2026-10-23T19:13:37.156Z",
+ "note": "Watch list only. Labels: Verified record = third-party contest standings; Self-reported record = posted by the person/platform, not audited; Info source = data/analysis, not tracked picks. Nobody here is endorsed, and past records do not predict future results.",
+ "experts": [
+  {
+   "handle": "lasvegascris",
+   "name": "Cris (lvc)🏈",
+   "xId": "394432145",
+   "avatar": "https://pbs.twimg.com/profile_images/1870085370723086338/rKeYx3aL_200x200.jpg",
+   "followers": 18808,
+   "sports": [
+    "NFL"
+   ],
+   "label": "Verified record",
+   "why": "Circa Sports Million 2019 full-season standings list two @LASVEGASCRIS entries at T-20th (51-31-3) and T-31st (51-32-2); VSiN contest bio: winner of football contests at Palms, Wynn and Station, three top-20 Circa Million finishes.",
+   "source": "https://www.goldengatecasino.com/wp-content/uploads/Circa-Sports-Million-Full-Season-Standings-2019-12-30.pdf",
+   "caveats": "Contest records are ATS vs fixed contest lines, not market prices. Posts strategy more than daily picks.",
+   "picks": [],
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "pushes": 0,
+    "pending": 0,
+    "graded": 0,
+    "hitRate": null,
+    "units": 0,
+    "roi": null,
+    "assumedOddsPicks": 0,
+    "method": "Flat 1u per pick; -110 assumed when odds were not stated."
+   }
+  },
+  {
+   "handle": "FezzikSports",
+   "name": "Steve Fezzik",
+   "xId": "300466172",
+   "avatar": "https://pbs.twimg.com/profile_images/3288621010/c05483abdf57d8ab5357b0711ac125f5_200x200.jpeg",
+   "followers": 88957,
+   "sports": [
+    "NFL",
+    "College Football"
+   ],
+   "label": "Verified record",
+   "why": "Westgate 2025 SuperContest final standings: FEZZIK-1 52-37-1 (T-30th of thousands). Bio claims back-to-back SuperContest wins (2008, 2009) and a 9th-place 2025 Circa Million finish.",
+   "source": "https://www.westgateresorts.com/supercontest/download/2025%20SuperContest%20Final%20Standings.pdf?contest=%2F2025%2FSuperContest%2FStandings",
+   "caveats": "Older titles are from his bio and press; verify on Westgate archives. Media host (VSiN); check whether any service he promotes is paid.",
+   "picks": [],
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "pushes": 0,
+    "pending": 0,
+    "graded": 0,
+    "hitRate": null,
+    "units": 0,
+    "roi": null,
+    "assumedOddsPicks": 0,
+    "method": "Flat 1u per pick; -110 assumed when odds were not stated."
+   }
+  },
+  {
+   "handle": "chrisfallica",
+   "name": "Chris Fallica",
+   "xId": "41402360",
+   "avatar": "https://pbs.twimg.com/profile_images/531890784623030272/hc0c6x3-_200x200.jpeg",
+   "followers": 166838,
+   "sports": [
+    "College Football",
+    "NFL"
+   ],
+   "label": "Verified record",
+   "why": "Listed in the Circa/VSiN Friday Football Invitational standings (51-34 overall, 12-5 best bets on the page shown) alongside other pros.",
+   "source": "https://www.circasports.com/circa-friday-football-invitational",
+   "caveats": "Single-season invitational sample; the standings page season may not be current. TV personality (FOX), many picks are entertainment-format.",
+   "picks": [],
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "pushes": 0,
+    "pending": 0,
+    "graded": 0,
+    "hitRate": null,
+    "units": 0,
+    "roi": null,
+    "assumedOddsPicks": 0,
+    "method": "Flat 1u per pick; -110 assumed when odds were not stated."
+   }
+  },
+  {
+   "handle": "chuckedel",
+   "name": "Chuck Edel",
+   "xId": "85502894",
+   "avatar": "https://pbs.twimg.com/profile_images/2702455464/cf2e7000a459ad20390ea45d1ab73620_200x200.jpeg",
+   "followers": 9193,
+   "sports": [
+    "NFL",
+    "College Football"
+   ],
+   "label": "Verified record",
+   "why": "Circa/VSiN Friday Football Invitational standings: 49-36 overall.",
+   "source": "https://www.circasports.com/circa-friday-football-invitational",
+   "caveats": "Few free picks posted on X; one invitational season is a small sample.",
+   "picks": [],
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "pushes": 0,
+    "pending": 0,
+    "graded": 0,
+    "hitRate": null,
+    "units": 0,
+    "roi": null,
+    "assumedOddsPicks": 0,
+    "method": "Flat 1u per pick; -110 assumed when odds were not stated."
+   }
+  },
+  {
+   "handle": "vegasbedwards",
+   "name": "Brian Edwards",
+   "xId": "39767756",
+   "avatar": "https://pbs.twimg.com/profile_images/1826635570702888960/I4Jw_7Nv_200x200.jpg",
+   "followers": 11996,
+   "sports": [
+    "College Football"
+   ],
+   "label": "Verified record",
+   "why": "Circa/VSiN Friday Football Invitational standings list Brian Edwards at 33-37 (eliminated): a public, losing record, shown here for honesty.",
+   "source": "https://www.circasports.com/circa-friday-football-invitational",
+   "caveats": "Works for an offshore book (MajorWager) and VegasInsider, which sells picks. His verified contest record was below 50%.",
+   "picks": [
+    {
+     "id": "vegasbedwards-2113702141936414873",
+     "date": "2026-10-24",
+     "sport": "College Football",
+     "event": "Ole Miss Rebels at Texas Longhorns",
+     "espnGameId": "401856732",
+     "market": "teamTotal",
+     "team": "Ole Miss",
+     "side": "over",
+     "line": 24.5,
+     "selection": "Ole Miss team total Over 24.5",
+     "odds": null,
+     "units": null,
+     "book": "DraftKings",
+     "postUrl": "https://x.com/vegasbedwards/status/2113702141936414873",
+     "postedAt": "2026-10-23T18:40:00Z",
+     "result": "pending"
+    }
+   ],
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "pushes": 0,
+    "pending": 1,
+    "graded": 0,
+    "hitRate": null,
+    "units": 0,
+    "roi": null,
+    "assumedOddsPicks": 0,
+    "method": "Flat 1u per pick; -110 assumed when odds were not stated."
+   }
+  },
+  {
+   "handle": "MikesMMAPicks",
+   "name": "Mike's MMA Picks",
+   "xId": "3331470679",
+   "avatar": "https://pbs.twimg.com/profile_images/1486131753031016448/CKgHuw_Q_200x200.jpg",
+   "followers": 10762,
+   "sports": [
+    "UFC"
+   ],
+   "label": "Self-reported record",
+   "why": "Links a tracked betting record in his bio and posts losses publicly (e.g. \"-1U Buckley\" after UFC Edmonton).",
+   "source": "https://x.com/MikesMMAPicks/status/2111648776738013241",
+   "caveats": "Record is self-tracked, not third-party audited.",
+   "picks": [],
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "pushes": 0,
+    "pending": 0,
+    "graded": 0,
+    "hitRate": null,
+    "units": 0,
+    "roi": null,
+    "assumedOddsPicks": 0,
+    "method": "Flat 1u per pick; -110 assumed when odds were not stated."
+   }
+  },
+  {
+   "handle": "SeanZerillo",
+   "name": "Sean Zerillo",
+   "xId": "532327696",
+   "avatar": "https://pbs.twimg.com/profile_images/1644370549903114249/1uAQ2VYj_200x200.jpg",
+   "followers": 16478,
+   "sports": [
+    "UFC"
+   ],
+   "label": "Self-reported record",
+   "why": "Action Network UFC projections writer; bets are logged in the Action app (platform-tracked, includes losses).",
+   "source": "https://x.com/SeanZerillo",
+   "caveats": "Action Network is a sportsbook affiliate. Mostly MLB in October; UFC picks live in articles/app.",
+   "picks": [],
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "pushes": 0,
+    "pending": 0,
+    "graded": 0,
+    "hitRate": null,
+    "units": 0,
+    "roi": null,
+    "assumedOddsPicks": 0,
+    "method": "Flat 1u per pick; -110 assumed when odds were not stated."
+   }
+  },
+  {
+   "handle": "adamchernoff",
+   "name": "Adam Chernoff",
+   "xId": "382460715",
+   "avatar": "https://pbs.twimg.com/profile_images/2099190666945511424/8jFoif8K_200x200.jpg",
+   "followers": 65951,
+   "sports": [
+    "NFL"
+   ],
+   "label": "Self-reported record",
+   "why": "18 years handicapping NFL; posts detailed line analysis publicly each week.",
+   "source": "https://x.com/adamchernoff/status/2112026095625310343",
+   "caveats": "Pick write-ups are emailed (may be paid). No audited record found.",
+   "picks": [],
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "pushes": 0,
+    "pending": 0,
+    "graded": 0,
+    "hitRate": null,
+    "units": 0,
+    "roi": null,
+    "assumedOddsPicks": 0,
+    "method": "Flat 1u per pick; -110 assumed when odds were not stated."
+   }
+  },
+  {
+   "handle": "thepowerrank",
+   "name": "Ed Feng",
+   "xId": "87123771",
+   "avatar": "https://pbs.twimg.com/profile_images/1191534307246034944/rneIj-b5_200x200.jpg",
+   "followers": 24570,
+   "sports": [
+    "NFL",
+    "College Football"
+   ],
+   "label": "Info source",
+   "why": "Ed Feng (Stanford PhD): public predictive ratings for NFL and CFB, free newsletter bets.",
+   "source": "https://x.com/thepowerrank/status/2112726810471375290",
+   "caveats": "Model numbers are not picks; bets are announced via newsletter links, not tracked here.",
+   "picks": [],
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "pushes": 0,
+    "pending": 0,
+    "graded": 0,
+    "hitRate": null,
+    "units": 0,
+    "roi": null,
+    "assumedOddsPicks": 0,
+    "method": "Flat 1u per pick; -110 assumed when odds were not stated."
+   }
+  },
+  {
+   "handle": "ESPN_BillC",
+   "name": "Bill Connelly",
+   "xId": "156461982",
+   "avatar": "https://pbs.twimg.com/profile_images/1222292810776432640/73eURNVR_200x200.jpg",
+   "followers": 106917,
+   "sports": [
+    "College Football"
+   ],
+   "label": "Info source",
+   "why": "Creator of SP+ ratings (ESPN).",
+   "source": "https://x.com/ESPN_BillC",
+   "caveats": "Ratings, not betting picks.",
+   "picks": [],
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "pushes": 0,
+    "pending": 0,
+    "graded": 0,
+    "hitRate": null,
+    "units": 0,
+    "roi": null,
+    "assumedOddsPicks": 0,
+    "method": "Flat 1u per pick; -110 assumed when odds were not stated."
+   }
+  },
+  {
+   "handle": "SharpFootball",
+   "name": "Warren Sharp",
+   "xId": "68758745",
+   "avatar": "https://pbs.twimg.com/profile_images/1145917090303533057/SI9rHI_5_200x200.jpg",
+   "followers": 432681,
+   "sports": [
+    "NFL"
+   ],
+   "label": "Info source",
+   "why": "Warren Sharp: free matchup stats (pressure, coverage, EPA) posted daily.",
+   "source": "https://x.com/SharpFootball",
+   "caveats": "Sells picks: use the free stats only.",
+   "picks": [],
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "pushes": 0,
+    "pending": 0,
+    "graded": 0,
+    "hitRate": null,
+    "units": 0,
+    "roi": null,
+    "assumedOddsPicks": 0,
+    "method": "Flat 1u per pick; -110 assumed when odds were not stated."
+   }
+  },
+  {
+   "handle": "Josh_Insights",
+   "name": "Josh Appelbaum",
+   "xId": "825069407282089984",
+   "avatar": "https://pbs.twimg.com/profile_images/2029786999645671426/ihxgrkyD_200x200.jpg",
+   "followers": 29485,
+   "sports": [
+    "NFL",
+    "College Football"
+   ],
+   "label": "Info source",
+   "why": "Josh Appelbaum: daily free \"Sharp Report\" notes on line moves and splits.",
+   "source": "https://x.com/Josh_Insights/status/2113652366155153657",
+   "caveats": "Sells picks ($9.99/mo Substack): use the free notes only.",
+   "picks": [],
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "pushes": 0,
+    "pending": 0,
+    "graded": 0,
+    "hitRate": null,
+    "units": 0,
+    "roi": null,
+    "assumedOddsPicks": 0,
+    "method": "Flat 1u per pick; -110 assumed when odds were not stated."
+   }
+  },
+  {
+   "handle": "PJWalsh24",
+   "name": "PJ Walsh",
+   "xId": "890629945508200448",
+   "avatar": "https://pbs.twimg.com/profile_images/1462773537324904449/KHaHWuOp_200x200.jpg",
+   "followers": 5329,
+   "sports": [
+    "NFL",
+    "College Football"
+   ],
+   "label": "Info source",
+   "why": "Action Network / Better Collective: market and line-move notes.",
+   "source": "https://x.com/PJWalsh24",
+   "caveats": "Affiliate media; not a pick record.",
+   "picks": [],
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "pushes": 0,
+    "pending": 0,
+    "graded": 0,
+    "hitRate": null,
+    "units": 0,
+    "roi": null,
+    "assumedOddsPicks": 0,
+    "method": "Flat 1u per pick; -110 assumed when odds were not stated."
+   }
+  },
+  {
+   "handle": "Fightnomics",
+   "name": "Fightnomics Reed",
+   "xId": "368707658",
+   "avatar": "https://pbs.twimg.com/profile_images/421126909846499328/vHbHbDA0_200x200.jpeg",
+   "followers": 9150,
+   "sports": [
+    "UFC"
+   ],
+   "label": "Info source",
+   "why": "Reed Kuhn (ESPN, author of Fightnomics): UFC striking and grappling analytics per card.",
+   "source": "https://x.com/Fightnomics/status/2112599943894692210",
+   "caveats": "Analytics, not picks.",
+   "picks": [],
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "pushes": 0,
+    "pending": 0,
+    "graded": 0,
+    "hitRate": null,
+    "units": 0,
+    "roi": null,
+    "assumedOddsPicks": 0,
+    "method": "Flat 1u per pick; -110 assumed when odds were not stated."
+   }
+  },
+  {
+   "handle": "BestFightOdds",
+   "name": "BestFightOdds",
+   "xId": "47427385",
+   "avatar": "https://pbs.twimg.com/profile_images/541691409938399234/XOP5q1Al_200x200.jpeg",
+   "followers": 7665,
+   "sports": [
+    "UFC"
+   ],
+   "label": "Info source",
+   "why": "MMA line-shopping site; posts line moves across books.",
+   "source": "https://www.bestfightodds.com",
+   "caveats": "Odds data only.",
+   "picks": [],
+   "record": {
+    "wins": 0,
+    "losses": 0,
+    "pushes": 0,
+    "pending": 0,
+    "graded": 0,
+    "hitRate": null,
+    "units": 0,
+    "roi": null,
+    "assumedOddsPicks": 0,
+    "method": "Flat 1u per pick; -110 assumed when odds were not stated."
+   }
+  }
+ ]
+}

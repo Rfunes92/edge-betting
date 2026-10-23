@@ -24,6 +24,8 @@ jobs:
           node-version: '20'
       - name: Fetch ESPN data
         run: node scripts/fetch-data.mjs
+      - name: Grade expert picks
+        run: node scripts/grade-experts.mjs || echo "grader failed (non-fatal)"
       - name: Commit if changed
         run: |
           if git diff --quiet -- data/; then

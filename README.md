@@ -17,7 +17,11 @@ There is no backend. Bets, settings, line-shop rows, the watchlist and the weekl
 
 Chart.js (v4, jsDelivr CDN) and Inter (Google Fonts) are the only external resources.
 
-## Sections
+## Research-first layout
+Home: Top Picks, fresh-data tiles, the next games on the Slate, an Experts summary, and "How to read this". Tabs: Home · Slate · Experts (watch list + Consensus vs Edge) · Injuries (automatic, from `data/injuries.json`, filter by league/team/status) · Weekly plan · Sources · **Tools**.
+The manual-input features (bet log, guardrails/stats, line shop entry, watch notes, bankroll settings, import/export) are kept but collapsed inside **Tools**. Old links like `#log` and `#settings` open Tools automatically.
+
+## Sections (detail)
 - **Slate** — this week's NFL, college (FBS) and UFC games from the automated ESPN feed: logos, fighter headshots, spread/ML/total with a plain-English line, injury badges, and a detail sheet with odds (open → current), injuries and research links. "Shop" copies the price into the Line shop.
 - **Home** — Top Picks, How to read this, Guardrails (today / this week Mon–Sun ET vs limits, STOP banner, chasing flags), Stats (bankroll, P/L, record, win rate, ROI, avg CLV, profit by sport and bet type, bankroll chart).
 - **Bet log** — add / edit / delete, one-tap settle, warning when stake > 2% of current bankroll.
@@ -95,6 +99,39 @@ Rules for picks content:
 | `data/meta.json` | `updated` (last time the data changed) and per-source status/counts. |
 
 The odds provider is labeled exactly as ESPN returns it (currently DraftKings). FanDuel isn't in ESPN's feed, so enter it by hand in the Line shop. Files are committed only when the data actually changes. If a source fails, the last good copy is kept.
+
+## `data/experts.json` schema
+```jsonc
+{
+  "updated": "ISO time",
+  "note": "How to read the labels",
+  "experts": [{
+    "handle": "lasvegascris",          // X handle (checked through X user lookup)
+    "name": "Cris (lvc)", "xId": "394432145",
+    "avatar": "https://pbs.twimg.com/...", // profile_image_url from the lookup
+    "followers": 18808,
+    "sports": ["NFL"],
+    "label": "Verified record",        // "Verified record" | "Self-reported record" | "Info source"
+    "why": "Why credible, in one or two sentences",
+    "source": "https://… link backing the claim",
+    "caveats": "Sells picks / small sample / affiliate …",
+    "picks": [{
+      "id": "handle-postId", "date": "2026-10-24", "sport": "College Football",
+      "event": "Ole Miss Rebels at Texas Longhorns", "espnGameId": "401856732",
+      "market": "spread|moneyline|total|teamTotal|prop|other",
+      "team": "Ole Miss", "side": "over|under", "line": 24.5,   // structured fields the grader uses
+      "selection": "Ole Miss team total Over 24.5",
+      "odds": null, "units": null, "book": "DraftKings",
+      "postUrl": "https://x.com/<handle>/status/<id>", "postedAt": "ISO",
+      "result": "pending|win|loss|push|void", "gradedBy": "auto:espn|manual"
+    }],
+    "record": { "wins": 0, "losses": 0, "pushes": 0, "pending": 1, "graded": 0, "hitRate": null,
+                "units": 0, "roi": null, "assumedOddsPicks": 0,
+                "method": "Flat 1u per pick; -110 assumed when odds were not stated." }
+  }]
+}
+```
+Only explicit picks that someone posted before the game belong here, each linked to the exact post. `scripts/grade-experts.mjs` runs in the data-feed workflow. It finds the game on ESPN's scoreboard (by `espnGameId`, or by `date` + `team`), grades spread, moneyline, total and team-total picks once the game is final, then recomputes `record`. Anything it can't parse (props, parlays, futures) stays pending so you can grade it by hand (set `result`, `gradedBy: "manual"`). The site shows a small-sample warning below 50 graded picks.
 
 ## Bet export columns (CSV)
 `id,date,book,sport,market,pick,odds,stake,closing,result,createdAt,settledAt` — `date` is `YYYY-MM-DD`, odds are American, `result` is `pending|win|loss|push|void`, timestamps are epoch ms. JSON export is `{ app, version, exportedAt, settings, bets }`.

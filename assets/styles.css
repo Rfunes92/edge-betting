@@ -370,3 +370,64 @@ body.no-scroll{overflow:hidden}
 }
 @media (min-width:1000px){.games{grid-template-columns:repeat(3,1fr)}}
 .ib.ok{background:rgba(46,230,166,.1);color:var(--green)}
+
+/* Home fresh data */
+.fresh{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.fresh-tile{text-decoration:none;color:var(--text)}
+.fresh-note{grid-column:1/-1;margin:2px 2px 0}
+#homeSlate .game{margin:0}
+/* Tools */
+.tools-wrap{border:1px solid var(--border);border-radius:var(--radius);background:var(--bg2)}
+.tools-wrap>summary{cursor:pointer;list-style:none;display:flex;flex-direction:column;gap:2px;padding:16px;font-weight:700}
+.tools-wrap>summary::-webkit-details-marker{display:none}
+.tools-wrap>summary::after{content:"Show ▾";position:absolute;right:30px;color:var(--cyan);font-size:13px;font-weight:600}
+.tools-wrap{position:relative}
+.tools-wrap[open]>summary::after{content:"Hide ▴"}
+.tools-inner{padding:0 12px 12px}
+.tools-inner>.section:first-child{margin-top:4px}
+/* Injuries */
+.inj-controls{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.inj-team{margin-bottom:10px}
+/* Experts */
+.exp-grid{display:grid;grid-template-columns:1fr;gap:12px}
+.exp{margin:0}
+.exp-head{display:flex;gap:12px;align-items:center}
+.exp-av{width:52px;height:52px;border-radius:50%;object-fit:cover;border:1px solid var(--border2);background:#1a1f26;flex:0 0 52px}
+.exp-id{flex:1;min-width:0}
+.exp-name{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.exp-id a{text-decoration:none}
+.lab{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:3px 7px;border-radius:6px;white-space:nowrap;align-self:flex-start}
+.lab.ver{background:var(--cyan-d);color:var(--cyan);border:1px solid var(--cyan-b)}
+.lab.self{background:rgba(255,181,71,.1);color:var(--amber)}
+.lab.info{background:rgba(255,255,255,.07);color:var(--muted)}
+.exp-why{font-size:13.5px;color:#c6cfd8;margin:12px 0 6px}
+.exp-cav{font-size:12.5px;color:#ffd59a;margin:0 0 10px}
+.exp-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:6px}
+.exp-stats div{background:rgba(0,0,0,.25);border:1px solid var(--border);border-radius:10px;padding:7px 6px;text-align:center}
+.exp-stats span{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.exp-stats b{font-size:15px}
+.exp-warn{font-size:12px;color:var(--muted);margin:8px 0 0;padding:7px 10px;border-radius:9px;border:1px dashed var(--border2)}
+.exp-picks{margin-top:12px}
+.ep{display:flex;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--border);text-decoration:none;color:var(--text);font-size:13.5px}
+.ep.compact{border-top:0;padding:0}
+.ep-t{flex:1;min-width:0}
+.ep-go{color:var(--cyan)}
+.ep-r{flex:0 0 22px;height:22px;border-radius:7px;display:grid;place-items:center;font-size:12px;font-weight:800;background:rgba(255,255,255,.07);color:var(--muted)}
+.ep-r.win{background:rgba(46,230,166,.14);color:var(--green)}.ep-r.loss{background:rgba(255,93,108,.14);color:var(--red)}.ep-r.pending{background:var(--cyan-d);color:var(--cyan)}
+.exp-sum{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;text-align:center;margin-bottom:10px}
+.exp-sum b{display:block;font-size:20px}.exp-sum span{font-size:11px;color:var(--muted)}
+.exp-mini{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--border)}
+.exp-mini img{width:34px;height:34px;border-radius:50%;flex:0 0 34px}
+.exp-mini>div{flex:1;min-width:0}
+.cons{margin-bottom:10px}
+.cons-head{display:flex;justify-content:space-between;gap:8px;margin-bottom:8px}
+.cons-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--border);font-size:14px}
+.cons-side{font-weight:700}
+.cons-who{display:flex;align-items:center;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.cons-who img{width:24px;height:24px;border-radius:50%;border:1px solid var(--border2)}
+.cons-row.edge .cons-side{color:var(--cyan)}
+@media (min-width:720px){.exp-grid{grid-template-columns:repeat(2,1fr)}.fresh{grid-template-columns:repeat(4,1fr)}}
+@media (min-width:1000px){.exp-grid{grid-template-columns:repeat(3,1fr)}}
+.exp-grid>*,.games>*{min-width:0}
+.log-filters{flex-wrap:wrap}
+.exp-why,.exp-cav{overflow-wrap:anywhere}

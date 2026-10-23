@@ -14,6 +14,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
 <script src="assets/app.js" defer></script>
 <script src="assets/slate.js" defer></script>
+<script src="assets/experts.js" defer></script>
 </head>
 <body>
 <header class="topbar">
@@ -29,12 +30,11 @@
   <nav class="tabs" aria-label="Sections">
     <a href="#home" class="tab" data-view="home">Home</a>
     <a href="#slate" class="tab" data-view="slate">Slate</a>
-    <a href="#log" class="tab" data-view="log">My bets</a>
-    <a href="#lineshop" class="tab" data-view="lineshop">Line shop</a>
-    <a href="#tracker" class="tab" data-view="tracker">Injury watch</a>
+    <a href="#experts" class="tab" data-view="experts">Experts</a>
+    <a href="#injuries" class="tab" data-view="injuries">Injuries</a>
     <a href="#rhythm" class="tab" data-view="rhythm">Weekly plan</a>
     <a href="#sources" class="tab" data-view="sources">Sources</a>
-    <a href="#settings" class="tab" data-view="settings">Settings</a>
+    <a href="#tools" class="tab" data-view="tools">Tools</a>
   </nav>
 </header>
 
@@ -47,10 +47,6 @@
     </div>
   </div>
 
-  <div id="setupNudge" class="nudge" hidden>
-    <div><strong>Set your bankroll and limits first.</strong> Stake sizes, picks, and guardrails depend on them.</div>
-    <a href="#settings" class="btn btn-sm btn-primary">Open settings</a>
-  </div>
 
   <div class="view" id="v-home">
   <!-- TOP PICKS -->
@@ -64,6 +60,24 @@
     <div id="picksList" class="picks-grid"></div>
     <p class="breakeven">Break-even reminder: at -110 you need to win about <b>52.4%</b> of bets just to break even.</p>
     <p class="disclaimer">No pick is guaranteed. The house has an edge on every bet. Stakes are capped at 2% of your bankroll.</p>
+  </section>
+
+  <!-- FRESH DATA -->
+  <section id="fresh" class="section">
+    <div class="section-head"><h2>Fresh data</h2><span class="muted small" id="freshUpdated"></span></div>
+    <div class="fresh" id="freshGrid"></div>
+  </section>
+
+  <!-- SLATE PREVIEW -->
+  <section id="slatePreview" class="section">
+    <div class="section-head"><h2>Next up</h2><a class="small" href="#slate">Full slate →</a></div>
+    <div id="homeSlate" class="games"></div>
+  </section>
+
+  <!-- EXPERTS SUMMARY -->
+  <section id="expertsSummary" class="section">
+    <div class="section-head"><h2>Experts this week</h2><a class="small" href="#experts">All experts →</a></div>
+    <div id="homeExperts"></div>
   </section>
 
   <!-- HOW TO READ THIS -->
@@ -81,6 +95,91 @@
     </div>
   </section>
 
+</div>
+  <!-- SLATE -->
+  <div class="view" id="v-slate" hidden>
+  <section class="section">
+    <div class="section-head"><h2>This week's slate</h2><span class="muted small" id="slateUpdated"></span></div>
+    <p class="slate-intro muted small">Lines from ESPN's free feed (the odds provider is named on each card). Tap a game for odds, injuries and research links. Always check DraftKings and FanDuel yourself before betting.</p>
+    <div class="log-filters" id="slateFilters">
+      <button class="chip active" data-sport="all">All</button><button class="chip" data-sport="NFL">NFL</button><button class="chip" data-sport="College Football">College</button><button class="chip" data-sport="UFC">UFC</button>
+      <button class="chip chip-toggle" id="slateUpcoming" aria-pressed="true">Upcoming only</button>
+    </div>
+    <div id="slateList" class="slate-list"><div class="empty">Loading slate…</div></div>
+  </section>
+  </div>
+
+
+  <!-- LINE SHOP -->
+
+  <!-- TRACKER -->
+
+  <!-- RHYTHM -->
+  <div class="view" id="v-rhythm" hidden>
+  <section class="section">
+    <div class="section-head"><h2>Weekly Rhythm</h2><span class="muted small" id="rhWeek"></span></div>
+    <div class="card"><div id="rhList" class="rh-list"></div>
+      <div class="form-actions"><span class="muted small">Resets every Monday (ET). Today's tasks are highlighted.</span><button class="btn btn-sm btn-ghost" id="rhReset" type="button">Reset this week</button></div>
+    </div>
+  </section>
+  </div>
+
+  <!-- SOURCES -->
+  <div class="view" id="v-sources" hidden>
+  <section class="section">
+    <div class="section-head"><h2>Sources</h2><span class="muted small">Research, not certainty</span></div>
+    <div id="srcList"></div>
+    <div class="section-head" style="margin-top:22px"><h2>X accounts</h2></div>
+    <p class="muted small" style="margin:-6px 2px 12px">Only one account below has a verifiable contest record. Everyone else is an information source — use their data, not their picks.</p>
+    <div id="xList" class="card x-card"></div>
+  </section>
+  </div>
+  <!-- EXPERTS -->
+  <div class="view" id="v-experts" hidden>
+  <section class="section">
+    <div class="section-head"><h2>Experts watch list</h2><span class="muted small" id="expUpdated"></span></div>
+    <p class="slate-intro muted small" id="expNote"></p>
+    <div class="log-filters" id="expFilters">
+      <button class="chip active" data-f="all">All</button><button class="chip" data-f="Verified record">Verified</button><button class="chip" data-f="Self-reported record">Self-reported</button><button class="chip" data-f="Info source">Info</button><button class="chip" data-f="UFC">UFC</button>
+    </div>
+    <div id="expList" class="exp-grid"></div>
+  </section>
+  <section class="section" id="consensus">
+    <div class="section-head"><h2>Consensus vs Edge</h2><span class="muted small">Who's on which side</span></div>
+    <p class="slate-intro muted small">Every Slate game with at least one tracked expert pick, split by side, next to Edge's own pick if there is one. A crowded side is information, not a reason to bet.</p>
+    <div id="consList"></div>
+  </section>
+  </div>
+
+  <!-- INJURIES (auto) -->
+  <div class="view" id="v-injuries" hidden>
+  <section class="section">
+    <div class="section-head"><h2>Injuries</h2><span class="muted small" id="injUpdated"></span></div>
+    <p class="slate-intro muted small">Built automatically from ESPN's injury reports every 3 hours. For practice reports, check NFL.com Wed–Fri around 4 PM ET.</p>
+    <div class="log-filters" id="injSport"><button class="chip active" data-s="nfl">NFL</button><button class="chip" data-s="cfb">College</button></div>
+    <div class="inj-controls">
+      <select id="injTeam" aria-label="Team"><option value="">All teams</option></select>
+      <select id="injStatus" aria-label="Status"><option value="key">Out / Doubtful / Questionable</option><option value="out">Out only</option><option value="all">Everyone (incl. IR)</option></select>
+    </div>
+    <div id="injList"></div>
+    <div class="card links-card"><div class="card-label">Quick links</div>
+      <div class="link-row">
+        <a class="btn btn-sm" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">NFL.com injuries ↗</a>
+        <a class="btn btn-sm" href="https://www.espn.com/nfl/injuries" target="_blank" rel="noopener">ESPN NFL injuries ↗</a>
+        <a class="btn btn-sm" href="https://www.actionnetwork.com/nfl/public-betting" target="_blank" rel="noopener">Action Network splits ↗</a>
+        <a class="btn btn-sm" href="https://www.tapology.com" target="_blank" rel="noopener">Tapology ↗</a>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- TOOLS (manual input, collapsed) -->
+  <div class="view" id="v-tools" hidden>
+  <section class="section">
+    <div class="section-head"><h2>Tools</h2><span class="muted small">Optional · saved on this device only</span></div>
+    <details class="tools-wrap" id="toolsWrap">
+      <summary><span>Manual tracking tools</span><span class="muted small">Bet log, guardrails, line shop, watch notes, bankroll settings</span></summary>
+      <div class="tools-inner">
   <!-- GUARDRAILS -->
   <section id="guardrails" class="section">
     <div class="section-head"><h2>Guardrails</h2><span class="muted small">Week = Mon–Sun · ET</span></div>
@@ -126,21 +225,6 @@
     </div>
   </section>
 
-</div>
-  <!-- SLATE -->
-  <div class="view" id="v-slate" hidden>
-  <section class="section">
-    <div class="section-head"><h2>This week's slate</h2><span class="muted small" id="slateUpdated"></span></div>
-    <p class="slate-intro muted small">Lines from ESPN's free feed (the odds provider is named on each card). Tap a game for odds, injuries and research links. Always check DraftKings and FanDuel yourself before betting.</p>
-    <div class="log-filters" id="slateFilters">
-      <button class="chip active" data-sport="all">All</button><button class="chip" data-sport="NFL">NFL</button><button class="chip" data-sport="College Football">College</button><button class="chip" data-sport="UFC">UFC</button>
-      <button class="chip chip-toggle" id="slateUpcoming" aria-pressed="true">Upcoming only</button>
-    </div>
-    <div id="slateList" class="slate-list"><div class="empty">Loading slate…</div></div>
-  </section>
-  </div>
-
-  <div class="view" id="v-log" hidden>
   <!-- BET LOG -->
   <section id="log" class="section">
     <div class="section-head"><h2>Bet log</h2><span class="muted small" id="betCount"></span></div>
@@ -185,8 +269,59 @@
     <div id="betList" class="bet-list"></div>
   </section>
 
-</div>
-  <div class="view" id="v-settings" hidden>
+  <section class="section">
+    <div class="section-head"><h2>Line Shop</h2><span class="muted small">DraftKings vs FanDuel</span></div>
+    <form id="lsForm" class="card form" autocomplete="off" novalidate>
+      <div class="form-title">Compare a price</div>
+      <div class="fields">
+        <label class="span-2">Event<input type="text" id="lsEvent" placeholder="e.g. Bills @ Chiefs" maxlength="120"></label>
+        <label>Sport<select id="lsSport"><option>NFL</option><option>College Football</option><option>UFC</option><option>Other</option></select></label>
+        <label>Market<select id="lsMarket"><option value="moneyline">Moneyline</option><option value="spread">Spread</option><option value="total">Total</option><option value="prop">Prop</option><option value="other">Other</option></select></label>
+        <label class="span-2">Selection<input type="text" id="lsSel" placeholder="e.g. Chiefs -2.5" maxlength="100"></label>
+        <label>DK odds<div class="odds-input"><button type="button" class="sign" data-for="lsDK" aria-label="Toggle sign">±</button><input type="text" inputmode="numeric" id="lsDK" placeholder="-110"></div></label>
+        <label>FD odds<div class="odds-input"><button type="button" class="sign" data-for="lsFD" aria-label="Toggle sign">±</button><input type="text" inputmode="numeric" id="lsFD" placeholder="-105"></div></label>
+        <label>DK other side <span class="opt">optional</span><div class="odds-input"><button type="button" class="sign" data-for="lsDKo" aria-label="Toggle sign">±</button><input type="text" inputmode="numeric" id="lsDKo" placeholder="-110"></div></label>
+        <label>FD other side <span class="opt">optional</span><div class="odds-input"><button type="button" class="sign" data-for="lsFDo" aria-label="Toggle sign">±</button><input type="text" inputmode="numeric" id="lsFDo" placeholder="-115"></div></label>
+      </div>
+      <p class="muted small">Enter both sides of the market (e.g. the opposite spread or the Under) to get a no-vig fair price.</p>
+      <div id="lsWarn" class="warnings"></div>
+      <div class="form-actions"><button type="submit" class="btn btn-primary">Add row</button></div>
+    </form>
+    <div id="lsList" class="bet-list"></div>
+    <div class="card links-card"><div class="card-label">Check current lines</div>
+      <div class="link-row">
+        <a class="btn btn-sm" href="https://www.vegasinsider.com/nfl/odds/las-vegas/" target="_blank" rel="noopener">VegasInsider ↗</a>
+        <a class="btn btn-sm" href="https://www.sportsbookreview.com/betting-odds/nfl-football/" target="_blank" rel="noopener">SportsbookReview ↗</a>
+        <a class="btn btn-sm" href="https://www.bestfightodds.com" target="_blank" rel="noopener">BestFightOdds ↗</a>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-head"><h2>Injury &amp; Line-Move Tracker</h2></div>
+    <form id="trForm" class="card form" autocomplete="off" novalidate>
+      <div class="fields">
+        <label>Sport<select id="trSport"><option>NFL</option><option>College Football</option><option>UFC</option><option>Other</option></select></label>
+        <label>Type<select id="trType"><option value="injury">Injury / status</option><option value="practice">Practice report</option><option value="weight">Weigh-in / missed weight</option><option value="line">Line move</option><option value="other">Other</option></select></label>
+        <label class="span-2">Team or fighter<input type="text" id="trSubj" placeholder="e.g. Ravens / L. Jackson" maxlength="100"></label>
+        <label class="span-2">Note<input type="text" id="trNote" placeholder="e.g. DNP Wed, LP Thu · line -3 → -1.5" maxlength="240"></label>
+        <label>Source<input type="text" id="trSrc" placeholder="e.g. NFL.com or URL" maxlength="200"></label>
+        <label>When<input type="datetime-local" id="trWhen"></label>
+      </div>
+      <div class="form-actions"><button type="submit" class="btn btn-primary">Add to watchlist</button></div>
+    </form>
+    <div class="log-filters" id="trFilters">
+      <button class="chip active" data-sport="all">All</button><button class="chip" data-sport="NFL">NFL</button><button class="chip" data-sport="College Football">CFB</button><button class="chip" data-sport="UFC">UFC</button><button class="chip" data-sport="Other">Other</button>
+    </div>
+    <div id="trList" class="bet-list"></div>
+    <div class="card links-card"><div class="card-label">Quick links</div>
+      <div class="link-row">
+        <a class="btn btn-sm" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">NFL.com injuries ↗</a>
+        <a class="btn btn-sm" href="https://www.espn.com/nfl/injuries" target="_blank" rel="noopener">ESPN NFL injuries ↗</a>
+        <a class="btn btn-sm" href="https://www.actionnetwork.com/nfl/public-betting" target="_blank" rel="noopener">Action Network splits ↗</a>
+        <a class="btn btn-sm" href="https://www.tapology.com" target="_blank" rel="noopener">Tapology ↗</a>
+      </div>
+    </div>
+  </section>
   <!-- SETTINGS -->
   <section id="settings" class="section">
     <div class="section-head"><h2>Settings</h2><span class="muted small">Saved on this device only</span></div>
@@ -226,87 +361,8 @@
       <p class="muted small">Import replaces your current bet log (you'll be asked first). JSON exports include settings. Export regularly as a backup — clearing browser data erases the log.</p>
     </div>
   </section>
-  </div>
-
-  <!-- LINE SHOP -->
-  <div class="view" id="v-lineshop" hidden>
-  <section class="section">
-    <div class="section-head"><h2>Line Shop</h2><span class="muted small">DraftKings vs FanDuel</span></div>
-    <form id="lsForm" class="card form" autocomplete="off" novalidate>
-      <div class="form-title">Compare a price</div>
-      <div class="fields">
-        <label class="span-2">Event<input type="text" id="lsEvent" placeholder="e.g. Bills @ Chiefs" maxlength="120"></label>
-        <label>Sport<select id="lsSport"><option>NFL</option><option>College Football</option><option>UFC</option><option>Other</option></select></label>
-        <label>Market<select id="lsMarket"><option value="moneyline">Moneyline</option><option value="spread">Spread</option><option value="total">Total</option><option value="prop">Prop</option><option value="other">Other</option></select></label>
-        <label class="span-2">Selection<input type="text" id="lsSel" placeholder="e.g. Chiefs -2.5" maxlength="100"></label>
-        <label>DK odds<div class="odds-input"><button type="button" class="sign" data-for="lsDK" aria-label="Toggle sign">±</button><input type="text" inputmode="numeric" id="lsDK" placeholder="-110"></div></label>
-        <label>FD odds<div class="odds-input"><button type="button" class="sign" data-for="lsFD" aria-label="Toggle sign">±</button><input type="text" inputmode="numeric" id="lsFD" placeholder="-105"></div></label>
-        <label>DK other side <span class="opt">optional</span><div class="odds-input"><button type="button" class="sign" data-for="lsDKo" aria-label="Toggle sign">±</button><input type="text" inputmode="numeric" id="lsDKo" placeholder="-110"></div></label>
-        <label>FD other side <span class="opt">optional</span><div class="odds-input"><button type="button" class="sign" data-for="lsFDo" aria-label="Toggle sign">±</button><input type="text" inputmode="numeric" id="lsFDo" placeholder="-115"></div></label>
       </div>
-      <p class="muted small">Enter both sides of the market (e.g. the opposite spread or the Under) to get a no-vig fair price.</p>
-      <div id="lsWarn" class="warnings"></div>
-      <div class="form-actions"><button type="submit" class="btn btn-primary">Add row</button></div>
-    </form>
-    <div id="lsList" class="bet-list"></div>
-    <div class="card links-card"><div class="card-label">Check current lines</div>
-      <div class="link-row">
-        <a class="btn btn-sm" href="https://www.vegasinsider.com/nfl/odds/las-vegas/" target="_blank" rel="noopener">VegasInsider ↗</a>
-        <a class="btn btn-sm" href="https://www.sportsbookreview.com/betting-odds/nfl-football/" target="_blank" rel="noopener">SportsbookReview ↗</a>
-        <a class="btn btn-sm" href="https://www.bestfightodds.com" target="_blank" rel="noopener">BestFightOdds ↗</a>
-      </div>
-    </div>
-  </section>
-  </div>
-
-  <!-- TRACKER -->
-  <div class="view" id="v-tracker" hidden>
-  <section class="section">
-    <div class="section-head"><h2>Injury &amp; Line-Move Tracker</h2></div>
-    <form id="trForm" class="card form" autocomplete="off" novalidate>
-      <div class="fields">
-        <label>Sport<select id="trSport"><option>NFL</option><option>College Football</option><option>UFC</option><option>Other</option></select></label>
-        <label>Type<select id="trType"><option value="injury">Injury / status</option><option value="practice">Practice report</option><option value="weight">Weigh-in / missed weight</option><option value="line">Line move</option><option value="other">Other</option></select></label>
-        <label class="span-2">Team or fighter<input type="text" id="trSubj" placeholder="e.g. Ravens / L. Jackson" maxlength="100"></label>
-        <label class="span-2">Note<input type="text" id="trNote" placeholder="e.g. DNP Wed, LP Thu · line -3 → -1.5" maxlength="240"></label>
-        <label>Source<input type="text" id="trSrc" placeholder="e.g. NFL.com or URL" maxlength="200"></label>
-        <label>When<input type="datetime-local" id="trWhen"></label>
-      </div>
-      <div class="form-actions"><button type="submit" class="btn btn-primary">Add to watchlist</button></div>
-    </form>
-    <div class="log-filters" id="trFilters">
-      <button class="chip active" data-sport="all">All</button><button class="chip" data-sport="NFL">NFL</button><button class="chip" data-sport="College Football">CFB</button><button class="chip" data-sport="UFC">UFC</button><button class="chip" data-sport="Other">Other</button>
-    </div>
-    <div id="trList" class="bet-list"></div>
-    <div class="card links-card"><div class="card-label">Quick links</div>
-      <div class="link-row">
-        <a class="btn btn-sm" href="https://www.nfl.com/injuries/" target="_blank" rel="noopener">NFL.com injuries ↗</a>
-        <a class="btn btn-sm" href="https://www.espn.com/nfl/injuries" target="_blank" rel="noopener">ESPN NFL injuries ↗</a>
-        <a class="btn btn-sm" href="https://www.actionnetwork.com/nfl/public-betting" target="_blank" rel="noopener">Action Network splits ↗</a>
-        <a class="btn btn-sm" href="https://www.tapology.com" target="_blank" rel="noopener">Tapology ↗</a>
-      </div>
-    </div>
-  </section>
-  </div>
-
-  <!-- RHYTHM -->
-  <div class="view" id="v-rhythm" hidden>
-  <section class="section">
-    <div class="section-head"><h2>Weekly Rhythm</h2><span class="muted small" id="rhWeek"></span></div>
-    <div class="card"><div id="rhList" class="rh-list"></div>
-      <div class="form-actions"><span class="muted small">Resets every Monday (ET). Today's tasks are highlighted.</span><button class="btn btn-sm btn-ghost" id="rhReset" type="button">Reset this week</button></div>
-    </div>
-  </section>
-  </div>
-
-  <!-- SOURCES -->
-  <div class="view" id="v-sources" hidden>
-  <section class="section">
-    <div class="section-head"><h2>Sources</h2><span class="muted small">Research, not certainty</span></div>
-    <div id="srcList"></div>
-    <div class="section-head" style="margin-top:22px"><h2>X accounts</h2></div>
-    <p class="muted small" style="margin:-6px 2px 12px">Only one account below has a verifiable contest record. Everyone else is an information source — use their data, not their picks.</p>
-    <div id="xList" class="card x-card"></div>
+    </details>
   </section>
   </div>
 </main>

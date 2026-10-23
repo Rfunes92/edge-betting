@@ -19,9 +19,8 @@
       ['SBR line history', 'https://www.sportsbookreview.com/betting-odds/college-football/']],
     UFC: (f) => f.fighters.flatMap((x) => {
       const q = encodeURIComponent(x.name); const last = encodeURIComponent(x.name.split(' ').slice(-1)[0]);
-      return [[x.name + ' · ESPN', 'https://www.espn.com/mma/fighter/_/id/' + x.id], [x.name + ' · UFCStats', 'http://ufcstats.com/statistics/fighters/search?query=' + last],
-        [x.name + ' · Tapology', 'https://www.tapology.com/search?term=' + q], [x.name + ' · BestFightOdds', 'https://www.bestfightodds.com/search?query=' + q]];
-    }).concat([['Sherdog Fight Finder', 'https://www.sherdog.com/stats/fightfinder'], ['Fight Matrix', 'https://www.fightmatrix.com']]),
+      return [[x.name + ' · ESPN', 'https://www.espn.com/mma/fighter/_/id/' + x.id], [x.name + ' · Tapology', 'https://www.tapology.com/search?term=' + q], [x.name + ' · BestFightOdds', 'https://www.bestfightodds.com/search?query=' + q]];
+    }).concat([['Sherdog Fight Finder', 'https://www.sherdog.com/stats/fightfinder'], ['Fight Matrix', 'https://www.fightmatrix.com'], ['UFC athletes', 'https://www.ufc.com/athletes']]),
   };
 
   const darkLogo = (u) => (u ? u.replace('/500/scoreboard/', '/500-dark/scoreboard/').replace(/\/500\/(?!-dark)/, '/500-dark/') : '');
@@ -97,7 +96,7 @@
   function render() {
     const list = $('slateList'); if (!list) return;
     if (!games) { list.innerHTML = '<div class="empty">Couldn\'t load the slate right now. Try again later.</div>'; return; }
-    index = {}; const out = [];
+    const out = [];
     const fb = (blk, key) => {
       if (!blk || !blk.games) return;
       const gs = blk.games.filter((g) => (!upcoming || g.status.state !== 'post')).sort((x, y) => new Date(x.start) - new Date(y.start));
@@ -195,7 +194,44 @@
     const get = (f) => fetch('data/' + f + '?t=' + Math.floor(Date.now() / 6e5), { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
     [games, inj, meta] = await Promise.all([get('games.json'), get('injuries.json'), get('meta.json')]);
     if (meta && meta.updated) $('slateUpdated').textContent = 'Updated ' + E.fmtET(meta.updated);
-    render();
+    render(); renderHome(); renderInjuries(true);
+    window.EdgeData = { games, inj, meta };
+    document.dispatchEvent(new Event('edge:data'));
+  }
+  function renderHome() {
+    const hs = $('homeSlate'); if (!hs || !games) return;
+    const up = [];
+    ['nfl', 'cfb'].forEach((k) => (games[k] && games[k].games || []).forEach((g) => { if (g.status.state === 'pre') { up.push({ g, k }); index[g.id] = { type: 'fb', g, key: k }; } }));
+    up.sort((a, b) => new Date(a.g.start) - new Date(b.g.start));
+    const nfl = up.filter((x) => x.k === 'nfl').slice(0, 2), cfb = up.filter((x) => x.k === 'cfb' && (x.g.home.rank || x.g.away.rank)).slice(0, 2);
+    let html = [...nfl, ...cfb].map((x) => footballCard(x.g, x.k)).join('');
+    const ev = games.ufc && games.ufc.events[0]; const main = ev && ev.fights.find((f) => f.status.state === 'pre');
+    if (main) { index[ev.id + ':' + main.id] = { type: 'ufc', ev, f: main }; html += fightCard(ev, main, ev.fights.indexOf(main)); }
+    hs.innerHTML = html || '<div class="empty">No upcoming games in the feed.</div>';
+    const fg = $('freshGrid');
+    if (fg) {
+      const src = (meta && meta.sources) || {}; const c = (k, f) => (src[k] && src[k].ok ? src[k][f] : '—');
+      $('freshUpdated').textContent = meta && meta.updated ? 'Feed updated ' + E.fmtET(meta.updated) : '';
+      const tiles = [['NFL games', c('nfl_scoreboard', 'count'), `${c('nfl_scoreboard', 'withOdds')} with odds`, '#slate'], ['College games', c('cfb_scoreboard', 'count'), `${c('cfb_scoreboard', 'withOdds')} with odds`, '#slate'],
+        ['UFC fights', c('ufc_scoreboard', 'fights'), `${c('ufc_scoreboard', 'withOdds')} with odds`, '#slate'], ['NFL injuries', c('nfl_injuries', 'players'), `${c('nfl_injuries', 'teams')} teams`, '#injuries']];
+      fg.innerHTML = tiles.map(([l, v, sub, h]) => `<a class="kpi fresh-tile" href="${h}"><div class="kpi-label">${l}</div><div class="kpi-val">${E.esc(v)}</div><div class="kpi-sub">${E.esc(sub)}</div></a>`).join('') + `<p class="muted small fresh-note">Odds via ESPN (${E.esc(((games.nfl && games.nfl.games.find((g) => g.odds)) || {}).odds?.provider || 'provider as listed')}). Refreshes every 3 hours.</p>`;
+    }
+  }
+  let injSport = 'nfl';
+  function renderInjuries(rebuildTeams) {
+    const list = $('injList'); if (!list) return;
+    if (meta && meta.updated) $('injUpdated').textContent = 'Updated ' + E.fmtET(meta.updated);
+    const data = (inj && inj[injSport]) || {};
+    const teams = Object.entries(data).sort((a, b) => a[1].team.localeCompare(b[1].team));
+    if (rebuildTeams) { const sel = $('injTeam'); sel.innerHTML = '<option value="">All teams</option>' + teams.map(([id, t]) => `<option value="${E.esc(id)}">${E.esc(t.team)}</option>`).join(''); }
+    const team = $('injTeam').value, mode = $('injStatus').value;
+    const sev = (st) => (/reserve|pup/i.test(st) ? 4 : /out|susp/i.test(st) ? 0 : /doubt/i.test(st) ? 1 : /quest|day/i.test(st) ? 2 : 3);
+    const keep = (i) => { const v = sev(i.status); return mode === 'all' ? true : mode === 'out' ? v === 0 : v <= 2; };
+    const html = teams.filter(([id]) => !team || id === team).map(([id, t]) => {
+      const items = t.items.filter(keep).sort((a, b) => sev(a.status) - sev(b.status)); if (!items.length) return '';
+      return `<div class="card inj-team"><div class="card-label">${E.esc(t.team)} <span class="muted">· ${items.length}</span></div>${items.map((i) => `<div class="inj-row">${i.headshot ? `<img src="${E.esc(i.headshot)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">` : '<span class="inj-ph"></span>'}<div><div><b>${E.esc(i.name)}</b> <span class="muted small">${E.esc(i.pos)}</span> <span class="ib ${['out', 'dbt', 'q', 'ok', 'q'][sev(i.status)]}">${E.esc(i.status)}</span></div>${i.injury ? `<div class="tm-sub">${E.esc(i.injury)}${i.date ? ' · ' + E.esc(E.fmtET(i.date)) : ''}</div>` : ''}${i.note ? `<div class="inj-note">${E.esc(i.note)}</div>` : ''}</div></div>`).join('')}</div>`;
+    }).join('');
+    list.innerHTML = html || `<div class="empty">${teams.length ? 'Nobody matches this filter.' : 'No injury data from ESPN for this league right now.'}</div>`;
   }
   function init() {
     E = window.Edge; if (!E) return;
@@ -206,7 +242,9 @@
       render();
     });
     $('slateUpcoming').classList.add('active');
-    $('slateList').addEventListener('click', (e) => { const g = e.target.closest('.game'); if (g) openSheet(g.dataset.key); });
+    ['slateList', 'homeSlate'].forEach((id) => $(id) && $(id).addEventListener('click', (e) => { const g = e.target.closest('.game'); if (g) openSheet(g.dataset.key); }));
+    $('injSport').addEventListener('click', (e) => { const c = e.target.closest('.chip'); if (!c) return; injSport = c.dataset.s; $('injSport').querySelectorAll('.chip').forEach((x) => x.classList.toggle('active', x === c)); renderInjuries(true); });
+    $('injTeam').addEventListener('change', () => renderInjuries(false)); $('injStatus').addEventListener('change', () => renderInjuries(false));
     $('sheet').addEventListener('click', (e) => {
       if (e.target.closest('[data-close]')) return closeSheet();
       const b = e.target.closest('[data-shop]'); if (b) { try { shop(JSON.parse(b.dataset.shop)); } catch (err) {} }

@@ -97,8 +97,8 @@
   function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 2600); }
 
   // ---------- Views / tabs ----------
-  const VIEWS = ['home', 'slate', 'log', 'lineshop', 'tracker', 'rhythm', 'sources', 'settings'];
-  const ALIAS = { picks: 'home', guardrails: 'home', stats: 'home', guide: 'home', top: 'home', data: 'settings' };
+  const VIEWS = ['home', 'slate', 'experts', 'injuries', 'rhythm', 'sources', 'tools'];
+  const ALIAS = { picks: 'home', guide: 'home', fresh: 'home', top: 'home', consensus: 'experts', guardrails: 'tools', stats: 'tools', log: 'tools', lineshop: 'tools', tracker: 'tools', settings: 'tools', data: 'tools' };
   function route() {
     let h = (location.hash || '#home').slice(1);
     const target = h; h = ALIAS[h] || h;
@@ -108,9 +108,10 @@
       const on = a.dataset.view === h; a.classList.toggle('active', on);
       if (on) a.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
     });
+    if (h === 'tools' && target !== 'tools') { const tw = $('toolsWrap'); if (tw) tw.open = true; }
     if (ALIAS[target] && target !== 'top') { const el = $(target); if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth' }), 30); }
     else window.scrollTo({ top: 0 });
-    if (h === 'home' && chart) chart.resize();
+    if (h === 'tools' && chart) setTimeout(() => chart.resize(), 50);
   }
   window.addEventListener('hashchange', route);
 
@@ -158,7 +159,7 @@
     $('chaseList').innerHTML = flags.length
       ? flags.map(({ b, f }) => `<div class="flag"><span class="flag-dot"></span><div><div><b>${esc(b.pick)}</b> <span class="muted small">· ${fmtDay(b.date)} · ${fmt$(b.stake)}</span></div><div class="muted small">${f.map(esc).join(' ')}</div></div></div>`).join('')
       : '<p class="muted small" style="margin:0">No chasing patterns detected. Keep it that way.</p>';
-    $('setupNudge').hidden = settings.bankroll != null && settings.dailyLimit != null && settings.weeklyLimit != null;
+    if ($('setupNudge')) $('setupNudge').hidden = settings.bankroll != null && settings.dailyLimit != null && settings.weeklyLimit != null;
   }
 
   // ---------- Render: stats ----------
@@ -493,12 +494,11 @@
       ['Action Network splits', 'https://www.actionnetwork.com/nfl/public-betting', 'Bet % vs money %. Splits come from partner-book samples, not the whole market.', 'partly'],
       ['Unabated', 'https://www.unabated.com', 'No-vig fair lines and market tools.', 'paid'] ] },
     { cat: 'UFC', items: [
-      ['UFCStats', 'http://ufcstats.com', 'Official strike and grappling stats per fight.', 'free'],
-      ['Tapology', 'https://www.tapology.com', 'Records, cards, and late-change news.', 'free'],
+      ['BestFightOdds', 'https://www.bestfightodds.com', 'MMA line shopping across books and line movement.', 'free'],
+      ['UFC athletes', 'https://www.ufc.com/athletes', 'Official profiles, reach, records and stats.', 'free'],
       ['Fight Matrix', 'https://www.fightmatrix.com', 'Ratings and historical rankings.', 'free'],
-      ['BestFightOdds', 'https://www.bestfightodds.com', 'MMA line shopping and line movement.', 'free'],
-      ['Sherdog', 'https://www.sherdog.com', 'Fighter records and news.', 'free'],
-      ['UFC athletes', 'https://www.ufc.com/athletes', 'Official profiles, reach, and stats.', 'free'] ] }
+      ['Sherdog', 'https://www.sherdog.com', 'Fighter records, fight finder and news.', 'free'],
+      ['Tapology', 'https://www.tapology.com', 'Records, cards and late-change news.', 'free'] ] }
   ];
   const XACCTS = [
     ['lasvegascris', 'Contest record (Circa / SuperContest history)', true],
@@ -621,7 +621,7 @@
   }
   window.Edge = {
     esc, fmtOdds, fmtET, implied, decimal, validOdds, probToAmerican, pct, toast, etDate, weekStart, addDays,
-    prefillForm, unitDollar, stopState,
+    prefillForm, unitDollar, stopState, fmtDay,
     addLine(r) { lines.push(Object.assign({ id: uid(), createdAt: Date.now() }, r)); save(K.lines, lines); renderLines(); },
   };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
