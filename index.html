@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="assets/styles.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
 <script src="assets/app.js" defer></script>
+<script src="assets/slate.js" defer></script>
 </head>
 <body>
 <header class="topbar">
@@ -27,10 +28,11 @@
   </div>
   <nav class="tabs" aria-label="Sections">
     <a href="#home" class="tab" data-view="home">Home</a>
-    <a href="#log" class="tab" data-view="log">Bet log</a>
-    <a href="#lineshop" class="tab" data-view="lineshop">Line Shop</a>
-    <a href="#tracker" class="tab" data-view="tracker">Tracker</a>
-    <a href="#rhythm" class="tab" data-view="rhythm">Weekly Rhythm</a>
+    <a href="#slate" class="tab" data-view="slate">Slate</a>
+    <a href="#log" class="tab" data-view="log">My bets</a>
+    <a href="#lineshop" class="tab" data-view="lineshop">Line shop</a>
+    <a href="#tracker" class="tab" data-view="tracker">Injury watch</a>
+    <a href="#rhythm" class="tab" data-view="rhythm">Weekly plan</a>
     <a href="#sources" class="tab" data-view="sources">Sources</a>
     <a href="#settings" class="tab" data-view="settings">Settings</a>
   </nav>
@@ -62,6 +64,21 @@
     <div id="picksList" class="picks-grid"></div>
     <p class="breakeven">Break-even reminder: at -110 you need to win about <b>52.4%</b> of bets just to break even.</p>
     <p class="disclaimer">No pick is guaranteed. The house has an edge on every bet. Stakes are capped at 2% of your bankroll.</p>
+  </section>
+
+  <!-- HOW TO READ THIS -->
+  <section id="guide" class="section">
+    <div class="section-head"><h2>How to read this</h2></div>
+    <div class="card guide">
+      <details open><summary>American odds</summary>
+        <p><b>-150</b> means you bet $150 to win $100 (the favorite). <b>+130</b> means a $100 bet wins $130 (the underdog). The number also gives the <b>chance the price implies</b>: -150 is 60%, +130 is 43%.</p>
+        <p><b>Spread:</b> <b>-3.5</b> means that team has to win by 4 or more. <b>+3.5</b> means that team covers if it loses by 3 or fewer, or wins. <b>Total 44.5:</b> Over wins if both teams combine for 45+ points.</p></details>
+      <details><summary>Units</summary><p>A unit is your standard bet: 1–2% of your bankroll (set in Settings). Most bets are 1 unit. Even a strong edge stays at 2 units max. Same size after a win or a loss, so no single bet can hurt you.</p></details>
+      <details><summary>Break-even</summary><p>At -110 you have to win <b>52.4%</b> of your bets just to break even, because the book keeps a cut. Going 50/50 at -110 loses money over time.</p></details>
+      <details><summary>CLV (closing line value)</summary><p>Compare the price you got with the price right before kickoff (the "closing line"). If you took Eagles -2.5 and it closed -3.5, you beat the close. Doing that again and again is the best sign you have a real edge. One week of wins or losses tells you very little.</p></details>
+      <details><summary>Line shopping</summary><p>DraftKings and FanDuel often post different prices for the same bet. Getting -105 instead of -115 lowers your break-even from 53.5% to 51.2%. Always check both books before betting. The Line shop tab does the math.</p></details>
+      <details><summary>Why we pass</summary><p>Most games don't offer an edge. Passing costs nothing. Forcing a bet on a weak slate pays the house's cut for no reason. A week with zero picks is a good outcome when nothing stands out.</p></details>
+    </div>
   </section>
 
   <!-- GUARDRAILS -->
@@ -110,12 +127,25 @@
   </section>
 
 </div>
+  <!-- SLATE -->
+  <div class="view" id="v-slate" hidden>
+  <section class="section">
+    <div class="section-head"><h2>This week's slate</h2><span class="muted small" id="slateUpdated"></span></div>
+    <p class="slate-intro muted small">Lines from ESPN's free feed (the odds provider is named on each card). Tap a game for odds, injuries and research links. Always check DraftKings and FanDuel yourself before betting.</p>
+    <div class="log-filters" id="slateFilters">
+      <button class="chip active" data-sport="all">All</button><button class="chip" data-sport="NFL">NFL</button><button class="chip" data-sport="College Football">College</button><button class="chip" data-sport="UFC">UFC</button>
+      <button class="chip chip-toggle" id="slateUpcoming" aria-pressed="true">Upcoming only</button>
+    </div>
+    <div id="slateList" class="slate-list"><div class="empty">Loading slate…</div></div>
+  </section>
+  </div>
+
   <div class="view" id="v-log" hidden>
   <!-- BET LOG -->
   <section id="log" class="section">
     <div class="section-head"><h2>Bet log</h2><span class="muted small" id="betCount"></span></div>
     <form id="betForm" class="card form" autocomplete="off" novalidate>
-      <div class="form-title" id="formTitle">Add a bet</div>
+      <div class="form-title" id="formTitle">Log a bet</div>
       <div class="fields">
         <label>Date<input type="date" id="fDate" required></label>
         <label>Book
@@ -285,6 +315,15 @@
   <p><strong>Betting money stays separate from bills, savings, and business money.</strong> Only bet the set-aside bankroll. If it's gone, it's gone — no top-ups.</p>
   <p class="muted small">Edge is a personal tracking tool. Data is stored locally in your browser. If gambling stops being fun, call 1-800-GAMBLER.</p>
 </footer>
+
+<div id="sheet" class="sheet" hidden aria-hidden="true">
+  <div class="sheet-backdrop" data-close></div>
+  <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <div class="sheet-grip" data-close></div>
+    <button class="sheet-x" data-close aria-label="Close">✕</button>
+    <div id="sheetBody"></div>
+  </div>
+</div>
 
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 </body>

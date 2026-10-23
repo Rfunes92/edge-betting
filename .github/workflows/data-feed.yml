@@ -1,0 +1,42 @@
+name: Data feed (ESPN odds, slate, injuries)
+
+on:
+  schedule:
+    - cron: '17 */3 * * *'   # every 3 hours (UTC), off the top of the hour
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: data-feed
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Fetch ESPN data
+        run: node scripts/fetch-data.mjs
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- data/; then
+            echo "No data changes."
+            exit 0
+          fi
+          git config user.name "edge-data-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/
+          git commit -m "data: refresh slate, odds, injuries"
+          git push
+      - name: Request Pages rebuild (belt and braces)
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${{ github.repository }}/pages/builds" || true

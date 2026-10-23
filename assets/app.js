@@ -97,8 +97,8 @@
   function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 2600); }
 
   // ---------- Views / tabs ----------
-  const VIEWS = ['home', 'log', 'lineshop', 'tracker', 'rhythm', 'sources', 'settings'];
-  const ALIAS = { picks: 'home', guardrails: 'home', stats: 'home', top: 'home', data: 'settings' };
+  const VIEWS = ['home', 'slate', 'log', 'lineshop', 'tracker', 'rhythm', 'sources', 'settings'];
+  const ALIAS = { picks: 'home', guardrails: 'home', stats: 'home', guide: 'home', top: 'home', data: 'settings' };
   function route() {
     let h = (location.hash || '#home').slice(1);
     const target = h; h = ALIAS[h] || h;
@@ -263,15 +263,34 @@
       const capped = u != null && units * u > mx;
       const odds = Number(p.odds);
       const be = validOdds(odds) ? implied(odds) : null;
+      const imgs = (Array.isArray(p.images) ? p.images : []).map((x) => (typeof x === 'string' ? { url: x } : x)).filter((x) => x && /^https:\/\//.test(x.url)).slice(0, 3);
+      const books = p.books && typeof p.books === 'object' ? Object.entries(p.books).filter(([, v]) => v && (v.odds != null || v.line != null)) : [];
+      const bestBook = books.length ? books.reduce((a, b) => (validOdds(Number(b[1].odds)) && (!validOdds(Number(a[1].odds)) || decimal(Number(b[1].odds)) > decimal(Number(a[1].odds))) ? b : a))[0] : null;
+      const dd = p.data && typeof p.data === 'object' ? p.data : null;
+      const li = (arr) => (Array.isArray(arr) ? arr : arr ? [arr] : []).map((r) => `<li>${esc(r)}</li>`).join('');
+      const srcs = (Array.isArray(p.sources) ? p.sources : []).map((x) => (typeof x === 'string' ? { name: x } : x)).filter(Boolean);
+      const dataHtml = dd ? `<details class="pick-data"><summary>Data behind it</summary><div class="dgrid">
+          ${dd.keyStats ? `<div><h4>Key stats</h4><ul>${li(dd.keyStats)}</ul></div>` : ''}
+          ${dd.injuries ? `<div><h4>Injuries</h4><ul>${li(dd.injuries)}</ul></div>` : ''}
+          ${dd.matchup ? `<div><h4>Matchup</h4><ul>${li(dd.matchup)}</ul></div>` : ''}
+          ${dd.lineMove ? `<div><h4>Line move</h4><p>${esc(dd.lineMove)}</p></div>` : ''}
+          ${dd.publicPct && (dd.publicPct.bets != null || dd.publicPct.money != null) ? `<div><h4>Public vs money</h4><div class="split"><span>Bets ${esc(dd.publicPct.bets ?? '—')}%</span><div class="split-bar"><i style="width:${Math.max(0, Math.min(100, Number(dd.publicPct.bets) || 0))}%"></i></div><span>Money ${esc(dd.publicPct.money ?? '—')}%</span><div class="split-bar money"><i style="width:${Math.max(0, Math.min(100, Number(dd.publicPct.money) || 0))}%"></i></div></div>${dd.publicPct.source ? `<p class="muted small">${esc(dd.publicPct.source)}</p>` : ''}</div>` : ''}
+          ${dd.fairLine || dd.marketLine ? `<div><h4>Our number vs market</h4><p>Fair <b>${esc(dd.fairLine || '—')}</b> · Market <b>${esc(dd.marketLine || '—')}</b>${dd.model ? `<br><span class="muted small">${esc(dd.model)}</span>` : ''}</p></div>` : ''}
+        </div></details>` : '';
       return `<article class="card pick${s.active ? ' disabled' : ''}" style="animation-delay:${i * 60}ms" aria-disabled="${s.active}">
         <div class="pick-top"><span class="tag">${esc(p.sport)}</span><span class="conf ${conf}">${conf} confidence</span></div>
+        ${imgs.length ? `<div class="pick-imgs">${imgs.map((x) => `<img src="${esc(x.url)}" alt="${esc(x.alt || '')}" loading="lazy" onerror="this.style.visibility='hidden'">`).join('')}</div>` : ''}
         <div class="pick-event">${esc(p.event)}</div>
         <div class="pick-time">${p.start ? esc(fmtET(p.start)) : ''}</div>
         <div class="pick-bet"><div><div class="sel">${esc(p.selection)}</div><div class="mkt">${esc(p.market)}</div></div>
           <div><div class="odds">${validOdds(odds) ? fmtOdds(odds) : '—'}</div><div class="book">best: ${esc(p.book || '—')}</div></div></div>
+        ${books.length ? `<div class="pick-books">${books.map(([k, v]) => `<div class="pb${k === bestBook ? ' best' : ''}"><span>${esc(k)}</span><b>${esc(v.line != null ? v.line + ' ' : '')}${validOdds(Number(v.odds)) ? fmtOdds(Number(v.odds)) : ''}</b></div>`).join('')}</div>` : ''}
+        ${p.line && (p.line.open || p.line.current) ? `<div class="pick-line muted small">Line: opened <b>${esc(p.line.open || '—')}</b> → now <b>${esc(p.line.current || '—')}</b></div>` : ''}
         <div class="pick-stake"><div><span class="muted">Stake</span> <b>${units}u</b></div><div><b>${stake == null ? 'Set bankroll' : fmt$(stake)}</b>${capped ? ' <span class="muted small">(capped at 2%)</span>' : ''}</div>${be != null ? `<div class="muted small" style="margin-left:auto">Break-even ${pct(be)}</div>` : ''}</div>
-        ${Array.isArray(p.reasoning) && p.reasoning.length ? `<h4>Why</h4><ul>${p.reasoning.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>` : ''}
+        ${Array.isArray(p.reasoning) && p.reasoning.length ? `<h4>Why we like it</h4><ul>${p.reasoning.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>` : ''}
         ${Array.isArray(p.risks) && p.risks.length ? `<h4>Key risks</h4><ul class="risks">${p.risks.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>` : ''}
+        ${dataHtml}
+        ${srcs.length ? `<div class="pick-src muted small">Sources: ${srcs.map((x) => (x.url && /^https?:\/\//.test(x.url) ? `<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.name || x.url)}</a>` : esc(x.name))).join(' · ')}</div>` : ''}
         <button class="btn btn-primary" data-pick="${i}" ${s.active ? 'disabled' : ''}>${s.active ? 'No more bets this period' : 'Log this bet'}</button>
       </article>`;
     }).join('');
@@ -600,5 +619,10 @@
     setInterval(() => { renderGuardrails(); renderPicks(); renderRhythm(); }, 60e3);
     window.addEventListener('load', () => { if (typeof Chart !== 'undefined') renderChart(); });
   }
+  window.Edge = {
+    esc, fmtOdds, fmtET, implied, decimal, validOdds, probToAmerican, pct, toast, etDate, weekStart, addDays,
+    prefillForm, unitDollar, stopState,
+    addLine(r) { lines.push(Object.assign({ id: uid(), createdAt: Date.now() }, r)); save(K.lines, lines); renderLines(); },
+  };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
