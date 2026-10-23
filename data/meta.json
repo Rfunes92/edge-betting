@@ -1,17 +1,17 @@
 {
-  "updated": "2026-10-23T15:55:17.284Z",
+  "updated": "2026-10-23T18:58:43.257Z",
   "source": "ESPN public site API (site.api.espn.com, sports.core.api.espn.com)",
   "oddsNote": "Odds provider is labeled exactly as ESPN returns it.",
   "sources": {
-    "nfl_scoreboard": {
-      "ok": true,
-      "count": 14,
-      "withOdds": 13
-    },
     "cfb_scoreboard": {
       "ok": true,
       "count": 56,
       "withOdds": 49
+    },
+    "nfl_scoreboard": {
+      "ok": true,
+      "count": 14,
+      "withOdds": 13
     },
     "cfb_injuries": {
       "ok": true,
