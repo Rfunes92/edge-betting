@@ -101,34 +101,37 @@
     const out = []; const ps = picks();
     ps.forEach((p, i) => {
       if (!active(p)) return; const m = findGame(p); const tag = p.selection || p.event;
-      const lm = lineMove(p, m); if (lm && lm.against) out.push({ lvl: 'red', text: `${tag}: line moved against us — ${lm.text}`, pid: i });
-      if (m && m.type === 'ufc' && /cancel|postpon/i.test(m.f.status.detail || '')) out.push({ lvl: 'red', text: `${tag}: fight ${m.f.status.detail}`, pid: i });
-      injFor(p, m, true).filter((x) => x.sev !== 'Questionable').slice(0, 3).forEach((x) => out.push({ lvl: x.sev === 'Out' ? 'red' : 'amber', text: `${tag}: ${x.team} ${x.pos} ${x.name} ${x.sev}`, pid: i }));
-      newsFor(p, m).slice(0, 3).forEach((n) => out.push({ lvl: imp(n) === 'high' ? 'red' : 'amber', text: `${tag}: ${n.title}`, nid: nid(n), seen: n.id }));
+      const lm = lineMove(p, m); if (lm && lm.against) out.push({ sport: sportOf(p), lvl: 'red', text: `${tag}: line moved against us — ${lm.text}`, pid: i });
+      if (m && m.type === 'ufc' && /cancel|postpon/i.test(m.f.status.detail || '')) out.push({ sport: 'ufc', lvl: 'red', text: `${tag}: fight ${m.f.status.detail}`, pid: i });
+      injFor(p, m, true).filter((x) => x.sev !== 'Questionable').slice(0, 3).forEach((x) => out.push({ sport: sportOf(p), lvl: x.sev === 'Out' ? 'red' : 'amber', text: `${tag}: ${x.team} ${x.pos} ${x.name} ${x.sev}`, pid: i }));
+      newsFor(p, m).slice(0, 3).forEach((n) => out.push({ sport: n.sport, lvl: imp(n) === 'high' ? 'red' : 'amber', text: `${tag}: ${n.title}`, nid: nid(n), seen: n.id }));
     });
     const seen = new Set(out.map((c) => c.seen).filter(Boolean));
     (news || []).forEach((n) => {
       if (seen.has(n.id)) return; const tx = itemText(n);
-      if (/miss(ed|es)? weight|weigh-in miss|failed to make weight|over the limit/.test(tx)) { out.push({ lvl: 'red', text: 'Weigh-in miss: ' + n.title, nid: nid(n) }); seen.add(n.id); }
-      else if (n.sport === 'ufc' && /cancel|scrapped|off the card|withdr[ae]w|pulled out|out of (the|his|her) fight/.test(tx)) { out.push({ lvl: 'red', text: 'Fight off: ' + n.title, nid: nid(n) }); seen.add(n.id); }
+      if (/miss(ed|es)? weight|weigh-in miss|failed to make weight|over the limit/.test(tx)) { out.push({ sport: n.sport, lvl: 'red', text: 'Weigh-in miss: ' + n.title, nid: nid(n) }); seen.add(n.id); }
+      else if (n.sport === 'ufc' && /cancel|scrapped|off the card|withdr[ae]w|pulled out|out of (the|his|her) fight/.test(tx)) { out.push({ sport: 'ufc', lvl: 'red', text: 'Fight off: ' + n.title, nid: nid(n) }); seen.add(n.id); }
     });
     const ufc = D().games && D().games.ufc;
-    ((ufc && ufc.events) || []).forEach((e) => e.fights.forEach((f) => { if (/cancel/i.test((f.status && f.status.detail) || '')) out.push({ lvl: 'red', text: `Fight cancelled: ${f.fighters.map((x) => x.name).join(' vs ')}` }); }));
-    const inj = D().inj; if (inj && inj.nfl) Object.values(inj.nfl).forEach((t) => t.items.forEach((x) => { const s = SEV(x.status); if (x.pos === 'QB' && (s === 'Out' || s === 'Doubtful') && ts(x.date) > Date.now() - 7 * 864e5) out.push({ lvl: 'amber', text: `${t.team} QB ${x.name} ${s}`, href: '#injuries' }); }));
+    ((ufc && ufc.events) || []).forEach((e) => e.fights.forEach((f) => { if (/cancel/i.test((f.status && f.status.detail) || '')) out.push({ sport: 'ufc', lvl: 'red', text: `Fight cancelled: ${f.fighters.map((x) => x.name).join(' vs ')}` }); }));
+    const inj = D().inj; if (inj && inj.nfl) Object.values(inj.nfl).forEach((t) => t.items.forEach((x) => { const s = SEV(x.status); if (x.pos === 'QB' && (s === 'Out' || s === 'Doubtful') && ts(x.date) > Date.now() - 7 * 864e5) out.push({ sport: 'nfl', lvl: 'amber', text: `${t.team} QB ${x.name} ${s}`, href: '#injuries' }); }));
     return { list: out, seen };
   }
+  // Constant ~50px/sec regardless of content length.
+  function tickSpeed() { const tr = $('tickerTrack'), run = tr && tr.querySelector('.tk-run'); if (run && run.offsetWidth) tr.style.animationDuration = (run.offsetWidth / 50).toFixed(1) + 's'; }
   function renderTicker() {
     const tk = $('ticker'), tr = $('tickerTrack'); if (!tk || !E) return;
     const { list, seen } = concerns();
     const rest = (news || []).filter((n) => !seen.has(n.id) && (imp(n) === 'high' || imp(n) === 'medium')).sort((a, b) => (imp(a) === 'high' ? 0 : 1) - (imp(b) === 'high' ? 0 : 1) || ts(b.published) - ts(a.published)).slice(0, 12);
-    const items = list.map((c) => `<a class="tk-item" href="${c.pid != null ? '#picks' : c.nid ? '#news' : c.href || '#news'}"${c.pid != null ? ` data-pid="${c.pid}"` : ''}${c.nid ? ` data-nid="${esc(c.nid)}"` : ''}><span class="cc ${c.lvl}">Concern</span>${esc(c.text)}</a>`)
-      .concat(rest.map((n) => `<a class="tk-item" href="#news" data-nid="${esc(nid(n))}"><span class="tk-t ${typeCls(n.type)}">${esc(typeLabel(n.type))}</span>${esc(n.title)}</a>`));
-    if (!items.length) { tk.hidden = true; return; }
-    tk.hidden = false; const html = items.join('<span class="tk-sep">•</span>');
+    const IC = { nfl: '🏈', cfb: '🎓', ufc: '🥊' }; const ic = (k) => (IC[k] ? `<span class="tk-ic" aria-hidden="true">${IC[k]}</span>` : '');
+    const items = list.map((c) => `<a class="tk-item" href="${c.pid != null ? '#picks' : c.nid ? '#news' : c.href || '#news'}"${c.pid != null ? ` data-pid="${c.pid}"` : ''}${c.nid ? ` data-nid="${esc(c.nid)}"` : ''}>${ic(c.sport)}<span class="tk-pill ${c.lvl === 'red' ? 'concern' : 'alert'}">${c.lvl === 'red' ? 'Concern' : 'Alert'}</span><span class="tk-tx">${esc(c.text)}</span></a>`)
+      .concat(rest.map((n) => `<a class="tk-item" href="#news" data-nid="${esc(nid(n))}">${ic(n.sport)}<span class="tk-pill news">${esc(typeLabel(n.type))}</span><span class="tk-tx">${esc(n.title)}</span></a>`));
+    if (!items.length) { tk.hidden = true; document.documentElement.classList.remove('has-tk'); return; }
+    tk.hidden = false; document.documentElement.classList.add('has-tk'); const html = items.join('<span class="tk-sep" aria-hidden="true"></span>');
     const still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-    tr.innerHTML = still ? html : `<span class="tk-run">${html}<span class="tk-sep">•</span></span><span class="tk-run" aria-hidden="true">${html}<span class="tk-sep">•</span></span>`;
+    tr.innerHTML = still ? html : `<span class="tk-run">${html}<span class="tk-sep" aria-hidden="true"></span></span><span class="tk-run" aria-hidden="true">${html}<span class="tk-sep" aria-hidden="true"></span></span>`;
     tr.classList.toggle('still', !!still);
-    tr.style.animationDuration = Math.max(25, items.length * 7) + 's';
+    tickSpeed();
   }
 
   // ---------- News list / home / slate strip ----------
@@ -183,6 +186,8 @@
     document.addEventListener('click', jump);
     const tk = $('ticker'); if (tk) { let t; tk.addEventListener('touchstart', () => { clearTimeout(t); tk.classList.add('paused'); }, { passive: true }); tk.addEventListener('touchend', () => { t = setTimeout(() => tk.classList.remove('paused'), 2500); }, { passive: true }); }
     setInterval(renderNews, 120e3);
+    window.addEventListener('resize', tickSpeed);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(tickSpeed);
     load();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
