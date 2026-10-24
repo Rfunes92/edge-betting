@@ -1,12 +1,31 @@
 {
-  "updated": "2026-10-24T03:51:46.055Z",
+  "updated": "2026-10-24T07:01:35.574Z",
   "items": [
+    {
+      "id": "espn-cfb-50263768",
+      "sport": "cfb",
+      "type": "news",
+      "title": "Davis Warren's 4 TD passes lead Stanford to a 31-28 win over NC State",
+      "summary": "— Davis Warren threw for 303 yards and four touchdowns to lead Stanford to a 31-28 victory over North Carolina State on Friday night.",
+      "event": "",
+      "fighters_or_teams": [
+        "Stanford Cardinal",
+        "Stanford University",
+        "NC State Wolfpack",
+        "North Carolina State University"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "http://www.espn.com/ncf/recap?gameId=401858272",
+      "published": "2026-10-24T06:11:52Z"
+    },
     {
       "id": "espn-cfb-50262750",
       "sport": "cfb",
       "type": "news",
       "title": "Texas AD Del Conte clarifies AI use on key play that failed in loss to Florida",
-      "summary": "Texas AD Chris Del Conte on Friday sought to clarify a report the team used a new AI-driven platform on a crucial play that failed in last week's loss to Florida.",
+      "summary": "Texas AD Chris Del Conte on Friday sought to clarify a report that the team used a new AI-driven platform on a crucial play that failed in last week's loss to Florida.",
       "event": "",
       "fighters_or_teams": [
         "Texas Longhorns",
@@ -16,7 +35,45 @@
       "edge_take": "",
       "source_name": "ESPN",
       "source_url": "https://www.espn.com/college-football/story/_/id/50262750/texas-ad-clarifies-use-ai-key-play-loss-florida",
-      "published": "2026-10-24T03:45:38Z"
+      "published": "2026-10-24T05:36:09Z"
+    },
+    {
+      "id": "espn-cfb-50263520",
+      "sport": "cfb",
+      "type": "news",
+      "title": "Tyler Hughes throws 2 TD passes, runs for score in Wyoming's 28-14 victory over Air Force",
+      "summary": "— Tyler Hughes finished with two touchdown passes and a touchdown run to propel Wyoming to a 28-14 victory over the Air Force Academy on Friday night.",
+      "event": "",
+      "fighters_or_teams": [
+        "Wyoming Cowboys",
+        "University of Wyoming",
+        "Air Force Falcons",
+        "United States Air Force Academy"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "http://www.espn.com/ncf/recap?gameId=401864525",
+      "published": "2026-10-24T05:01:46Z"
+    },
+    {
+      "id": "espn-cfb-50263404",
+      "sport": "cfb",
+      "type": "news",
+      "title": "Dawson Jones' 50-yard FG on final play lifts Army over Tulsa 38-35",
+      "summary": "— Dawson Jones kicked a 50-yard field goal on the final play of the game and Army rallied last in a 38-35 victory over Tulsa on Friday night.",
+      "event": "",
+      "fighters_or_teams": [
+        "Tulsa Golden Hurricane",
+        "University of Tulsa",
+        "Army Black Knights",
+        "United States Military Academy"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "http://www.espn.com/ncf/recap?gameId=401862808",
+      "published": "2026-10-24T04:33:55Z"
     },
     {
       "id": "espn-cfb-50262734",

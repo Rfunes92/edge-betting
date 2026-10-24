@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T03:51:45.904Z",
+  "updated": "2026-10-24T07:01:35.476Z",
   "oddsApi": {
     "lastFetch": "2026-10-24T02:13:08.423Z",
     "remaining": 493,
@@ -25,15 +25,15 @@
       "count": 56,
       "withOdds": 44
     },
-    "nfl_injuries": {
-      "ok": true,
-      "teams": 32,
-      "players": 800
-    },
     "cfb_injuries": {
       "ok": true,
       "teams": 3,
       "players": 3
+    },
+    "nfl_injuries": {
+      "ok": true,
+      "teams": 32,
+      "players": 800
     },
     "ufc_scoreboard": {
       "ok": true,
@@ -43,7 +43,7 @@
     },
     "oddsapi": {
       "ok": true,
-      "skipped": "budget: next pull in 4.4h",
+      "skipped": "budget: next pull in 1.2h",
       "remaining": 493
     },
     "espn_predictor": {
