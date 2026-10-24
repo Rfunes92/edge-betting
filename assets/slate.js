@@ -63,6 +63,49 @@
   }
   const noVig = (a, b) => { if (!E.validOdds(a) || !E.validOdds(b)) return null; const x = E.implied(a), y = E.implied(b); return { a: x / (x + y), b: y / (x + y), hold: x + y - 1 }; };
 
+  // ---------- DraftKings vs FanDuel (The Odds API) ----------
+  const DEC = (o) => (o > 0 ? 1 + o / 100 : 1 + 100 / Math.abs(o));
+  // Which book gives the bettor the better deal. kind: 'spread' (higher line better), 'over' (lower line better), 'under' (higher), 'ml'.
+  function bestBook(dk, fd, kind) {
+    if (!dk || !fd || dk.odds == null || fd.odds == null) return null;
+    if (kind !== 'ml' && dk.line != null && fd.line != null && dk.line !== fd.line) return (kind === 'over' ? dk.line < fd.line : dk.line > fd.line) ? 'DraftKings' : 'FanDuel';
+    return DEC(dk.odds) === DEC(fd.odds) ? null : DEC(dk.odds) > DEC(fd.odds) ? 'DraftKings' : 'FanDuel';
+  }
+  function bookSides(g) { // normalized {market: {DraftKings:{line,odds}, FanDuel:{...}}}
+    const b = g.books || {}; const out = {};
+    const put = (k, bk, v) => { if (v && v.odds != null) (out[k] = out[k] || {})[bk] = v; };
+    for (const bk of ['DraftKings', 'FanDuel']) { const o = b[bk]; if (!o) continue;
+      if (o.spread) { put('spread_away', bk, o.spread.away); put('spread_home', bk, o.spread.home); }
+      if (o.ml) { put('ml_away', bk, o.ml.away != null ? { odds: o.ml.away } : null); put('ml_home', bk, o.ml.home != null ? { odds: o.ml.home } : null); }
+      if (o.total && o.total.line != null) { put('over', bk, { line: o.total.line, odds: o.total.over }); put('under', bk, { line: o.total.line, odds: o.total.under }); } }
+    return out;
+  }
+  const KIND = (k) => (k.startsWith('spread') ? 'spread' : k.startsWith('ml') ? 'ml' : k);
+  const cellTxt = (v, k) => (!v ? '—' : (k.startsWith('spread') ? sgn(v.line) + ' ' : k === 'over' ? 'o' + v.line + ' ' : k === 'under' ? 'u' + v.line + ' ' : '') + E.fmtOdds(v.odds));
+  function bookCell(m, k, bk) { const v = m && m[bk]; const best = m && bestBook(m.DraftKings, m.FanDuel, KIND(k)) === bk; return `<span class="bkc${best ? ' best' : ''}"${best ? ' title="Best price"' : ''}>${E.esc(cellTxt(v, k))}</span>`; }
+  function cardBooks(g) {
+    const s = bookSides(g); if (!Object.keys(s).length) return '';
+    const row = (t, side) => `<div class="bk-row"><span class="bk-t">${E.esc(t.abbr || t.short)}</span>${bookCell(s['spread_' + side], 'spread_' + side, 'DraftKings')}${bookCell(s['spread_' + side], 'spread_' + side, 'FanDuel')}${bookCell(s['ml_' + side], 'ml_' + side, 'DraftKings')}${bookCell(s['ml_' + side], 'ml_' + side, 'FanDuel')}</div>`;
+    return `<div class="bk"><div class="bk-row bk-h"><span></span><span>Spread DK</span><span>Spread FD</span><span>Win DK</span><span>Win FD</span></div>${row(g.away, 'away')}${row(g.home, 'home')}
+      ${s.over ? `<div class="bk-row bk-tot"><span class="bk-t">Total</span>${bookCell(s.over, 'over', 'DraftKings')}${bookCell(s.over, 'over', 'FanDuel')}${bookCell(s.under, 'under', 'DraftKings')}${bookCell(s.under, 'under', 'FanDuel')}</div>` : ''}
+      <div class="bk-leg"><span class="bkc best">cyan</span> = best price between DraftKings and FanDuel</div></div>`;
+  }
+  function sheetBooks(g) {
+    const s = bookSides(g); if (!Object.keys(s).length) return '';
+    const A = g.away.abbr || g.away.short, H = g.home.abbr || g.home.short;
+    const rows = [['spread_away', A + ' spread'], ['spread_home', H + ' spread'], ['ml_away', A + ' to win'], ['ml_home', H + ' to win'], ['over', 'Over'], ['under', 'Under']].filter(([k]) => s[k]);
+    return `<div class="sh-sec"><div class="card-label">DraftKings vs FanDuel</div><table class="otbl bktbl"><thead><tr><th>Bet</th><th class="r">DraftKings</th><th class="r">FanDuel</th></tr></thead><tbody>
+      ${rows.map(([k, l]) => { const b = bestBook(s[k].DraftKings, s[k].FanDuel, KIND(k)); return `<tr><td>${E.esc(l)}${b ? ` <span class="bp">Best: ${b === 'DraftKings' ? 'DK' : 'FD'}</span>` : ''}</td><td class="r">${bookCell(s[k], k, 'DraftKings')}</td><td class="r">${bookCell(s[k], k, 'FanDuel')}</td></tr>`; }).join('')}
+      </tbody></table><p class="muted small">Prices via The Odds API${g.booksUpdated ? ', pulled ' + E.esc(E.fmtET(g.booksUpdated)) : ''}. Always confirm in the app before betting.</p></div>`;
+  }
+  function fighterBooks(x, o) {
+    const b = x.books; if (!b || (b.DraftKings == null && b.FanDuel == null)) return '';
+    const m = { DraftKings: b.DraftKings != null ? { odds: b.DraftKings } : null, FanDuel: b.FanDuel != null ? { odds: b.FanDuel } : null };
+    const best = bestBook(m.DraftKings, m.FanDuel, 'ml');
+    return `<div class="fbk"><span class="bkc${best === 'DraftKings' ? ' best' : ''}">DK ${b.DraftKings != null ? E.esc(E.fmtOdds(b.DraftKings)) : '—'}</span><span class="bkc${best === 'FanDuel' ? ' best' : ''}">FD ${b.FanDuel != null ? E.esc(E.fmtOdds(b.FanDuel)) : '—'}</span></div>`;
+  }
+  window.EdgeBooks = { bestBook, bookSides, DEC };
+
   // ---------- Cards ----------
   function footballCard(g, key) {
     const o = g.odds || {}; const sp = o.spread || {}, ml = o.moneyline || {};
@@ -74,13 +117,14 @@
       <div class="g-top"><span class="tag">${g.sport === 'NFL' ? 'NFL' : 'College'}</span><span class="g-time${live ? ' live' : ''}">${live ? 'LIVE · ' + E.esc(g.status.detail) : fin ? 'Final' : kick(g.start)}</span></div>
       <div class="g-head"><span></span><span>Spread</span><span>Win (ML)</span></div>
       ${row(g.away, 'away')}${row(g.home, 'home')}
+      ${cardBooks(g)}
       <div class="g-foot"><span>${o.total && o.total.line != null ? `Total <b>${o.total.line}</b>` : ''}${o.total && o.total.openLine != null && o.total.openLine !== o.total.line ? ` <span class="mv">(opened ${o.total.openLine})</span>` : ''}</span><span class="prov">${o.provider ? 'Odds: ' + E.esc(o.provider) : 'No odds yet'}</span></div>
       <div class="g-explain">${E.esc(explain(g))}</div></button>`;
   }
   function fighter(f, side) {
     return `<div class="ft ${side}"><div class="hs-wrap">${f.headshot ? `<img class="hs" src="${E.esc(f.headshot)}" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'hs ph',textContent:'${E.esc((f.name || '?')[0])}'}))">` : `<span class="hs ph">${E.esc((f.name || '?')[0])}</span>`}</div>
       <div class="ft-name">${E.esc(f.name)}</div><div class="tm-sub">${E.esc(f.record || '')}${f.country ? ' · ' + E.esc(f.country) : ''}</div>
-      <div class="ft-ml">${f.ml != null ? O(f.ml) : '—'}</div><div class="tm-sub">${f.ml != null ? E.pct(E.implied(f.ml), 0) + ' implied' : 'no line'}</div></div>`;
+      <div class="ft-ml">${f.ml != null ? O(f.ml) : '—'}</div><div class="tm-sub">${f.ml != null ? E.pct(E.implied(f.ml), 0) + ' implied' : 'no line'}</div>${fighterBooks(f)}</div>`;
   }
   function fightCard(ev, f, i) {
     const [a, b] = f.fighters; if (!a || !b) return '';
@@ -150,7 +194,8 @@
         </tbody></table>
         <p class="explain">${E.esc(explain(g))}</p>
         ${nv ? `<p class="muted small">No-vig win chance (from moneylines): ${E.esc(g.away.abbr)} ${E.pct(nv.a)} · ${E.esc(g.home.abbr)} ${E.pct(nv.b)} · book's cut ${E.pct(nv.hold)}</p>` : ''}
-        <p class="muted small">This is one book's price. "Shop" copies it into the Line shop so you can add FanDuel's number and compare.</p>` : '<p class="muted small">No line posted yet.</p>'}</div>
+        ${g.books ? '' : `<p class="muted small">This is one book's price. "Shop" copies it into the Line shop so you can add FanDuel's number and compare.</p>`}` : '<p class="muted small">No line posted yet.</p>'}</div>
+        ${sheetBooks(g)}
         <div class="sh-sec"><div class="card-label">${E.esc(g.away.short || g.away.name)} injuries</div>${injList(it.key, g.away)}</div>
         <div class="sh-sec"><div class="card-label">${E.esc(g.home.short || g.home.name)} injuries</div>${injList(it.key, g.home)}</div>
         <div class="sh-sec"><div class="card-label">Research this matchup</div>${links(SITES[g.sport](g))}</div>`;
@@ -172,6 +217,7 @@
         <p class="explain">${E.esc([mlExplain(a.short || a.name, a.ml), mlExplain(b.short || b.name, b.ml)].filter(Boolean).join(' '))}</p>
         ${nv ? `<p class="muted small">No-vig win chance: ${E.esc(a.short)} ${E.pct(nv.a)} · ${E.esc(b.short)} ${E.pct(nv.b)} · book's cut ${E.pct(nv.hold)}</p>` : ''}
         <p class="muted small">Check weigh-in results Friday. A missed weight or a late replacement changes everything.</p></div>
+        ${a.books || b.books ? `<div class="sh-sec"><div class="card-label">DraftKings vs FanDuel</div><table class="otbl bktbl"><thead><tr><th>Fighter</th><th class="r">DraftKings</th><th class="r">FanDuel</th></tr></thead><tbody>${[a, b].map((x) => { const m = { DraftKings: x.books && x.books.DraftKings != null ? { odds: x.books.DraftKings } : null, FanDuel: x.books && x.books.FanDuel != null ? { odds: x.books.FanDuel } : null }; const bb = bestBook(m.DraftKings, m.FanDuel, 'ml'); return `<tr><td>${E.esc(x.name)}${bb ? ` <span class="bp">Best: ${bb === 'DraftKings' ? 'DK' : 'FD'}</span>` : ''}</td><td class="r">${bookCell(m, 'ml', 'DraftKings')}</td><td class="r">${bookCell(m, 'ml', 'FanDuel')}</td></tr>`; }).join('')}</tbody></table><p class="muted small">Prices via The Odds API. Confirm in the app before betting.</p></div>` : ''}
         <div class="sh-sec"><div class="card-label">Research this fight</div>${links(SITES.UFC(f))}</div>`;
     }
     $('sheetBody').innerHTML = html;

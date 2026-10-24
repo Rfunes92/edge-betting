@@ -1,6 +1,632 @@
 {
-  "updated": "2026-10-23T22:05:00-04:00",
+  "updated": "2026-10-24T02:13:08.651Z",
   "items": [
+    {
+      "id": "espn-nfl-50261735",
+      "sport": "nfl",
+      "type": "news",
+      "title": "Lawrence McCutcheon, 5-time Pro Bowl RB for Rams, dies at 76",
+      "summary": "Lawrence McCutcheon, a five-time Pro Bowl running back for the Los Angeles Rams who went on to a long career in the team's front office, died Friday. He was 76.",
+      "event": "",
+      "fighters_or_teams": [
+        "Los Angeles Rams"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50261735/lawrence-mccutcheon-dies-76",
+      "published": "2026-10-24T02:03:23Z"
+    },
+    {
+      "id": "espn-nfl-50261267",
+      "sport": "nfl",
+      "type": "news",
+      "title": "Dallas Cowboys cheerleaders unionize, will begin collective bargaining",
+      "summary": "The Dallas Cowboys have agreed to recognize the Dallas Cowboys Cheerleaders Association as the collective bargaining representative for the team's cheer squad.",
+      "event": "",
+      "fighters_or_teams": [
+        "Dallas Cowboys"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50261267/dallas-cowboys-cheerleaders-announce-unionizing",
+      "published": "2026-10-24T01:24:21Z"
+    },
+    {
+      "id": "espn-nfl-50260609",
+      "sport": "nfl",
+      "type": "news",
+      "title": "49ers WR Evans, DE Bosa, WR Samuel out vs. Atlanta; WR Kirk may return",
+      "summary": "49ers receivers Mike Evans and Deebo Samuel Sr., and defensive end Nick Bosa are among a half dozen players who have been ruled out for Sunday's game against the Falcons.",
+      "event": "",
+      "fighters_or_teams": [
+        "San Francisco 49ers",
+        "Mike Evans",
+        "Nick Bosa",
+        "Deebo Samuel Sr"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50260609/49ers-wr-evans-de-bosa-wr-samuel-vs-atlanta-wr-kirk-return",
+      "published": "2026-10-24T01:07:00Z"
+    },
+    {
+      "id": "ufc333-line-yan-dvalishvili",
+      "sport": "ufc",
+      "type": "line-move",
+      "title": "Yan drifts from -183 to -149; Dvalishvili in to +127",
+      "summary": "Consensus moved about 4.8% toward Dvalishvili across 23 books. DraftKings Yan is -135 (opened -185), FanDuel -144.",
+      "event": "UFC 333",
+      "fighters_or_teams": [
+        "Petr Yan",
+        "Merab Dvalishvili"
+      ],
+      "impact": "high",
+      "edge_take": "Still a pass: DK -135 is the best Yan price but sits right at the market's ~57%, so there's no gap to bet.",
+      "source_name": "BestMMAStats",
+      "source_url": "https://www.bestmmastats.com/line-movement/petr-yan-vs-merab-dvalishvili-1168665",
+      "published": "2026-10-23T21:00:00-04:00"
+    },
+    {
+      "id": "ufc333-line-volkanovski-evloev",
+      "sport": "ufc",
+      "type": "line-move",
+      "title": "Main event settles at pick'em",
+      "summary": "Early lines had Evloev -185 / Volkanovski +160, then it flipped to roughly even. Now it's -108/-108 consensus; DK -110/-110, FD -108/-108.",
+      "event": "UFC 333",
+      "fighters_or_teams": [
+        "Alexander Volkanovski",
+        "Movsar Evloev"
+      ],
+      "impact": "medium",
+      "edge_take": "Still a pass: no stat edge on a coin flip.",
+      "source_name": "BestMMAStats",
+      "source_url": "https://www.bestmmastats.com/line-movement/alexander-volkanovski-vs-movsar-evloev-1168664",
+      "published": "2026-10-23T21:00:00-04:00"
+    },
+    {
+      "id": "ufc333-line-pico-keita",
+      "sport": "ufc",
+      "type": "line-move",
+      "title": "Pico steamed from -103 to -148; Keita flips to +126",
+      "summary": "Biggest move on the card (10.5% implied): Keita opened a -121 favorite and is now a +126 underdog.",
+      "event": "UFC 333",
+      "fighters_or_teams": [
+        "Aaron Pico",
+        "Losene Keita"
+      ],
+      "impact": "medium",
+      "edge_take": "Still a pass: we'd be chasing a move that's already done.",
+      "source_name": "BestMMAStats",
+      "source_url": "https://www.bestmmastats.com/line-movement",
+      "published": "2026-10-23T21:00:00-04:00"
+    },
+    {
+      "id": "ufc333-line-undercard",
+      "sport": "ufc",
+      "type": "line-move",
+      "title": "Undercard moves: Vagaev, Oki/Santos, Chopurov, Lucindo",
+      "summary": "Vagaev shortened from -194 to -151 (money toward Malkoun), Santos/Oki went from -144/+116 to -115/-104, Chopurov -514 to -600, and Lucindo -361 to -405 after Caliari's miss.",
+      "event": "UFC 333",
+      "fighters_or_teams": [
+        "Abubakar Vagaev",
+        "Jacob Malkoun",
+        "Daniel Santos",
+        "Bolaji Oki",
+        "Asaf Chopurov",
+        "Iasmin Lucindo"
+      ],
+      "impact": "low",
+      "edge_take": "Still a pass: no news explains these beyond the Caliari miss.",
+      "source_name": "BestMMAStats",
+      "source_url": "https://www.bestmmastats.com/line-movement",
+      "published": "2026-10-23T21:00:00-04:00"
+    },
+    {
+      "id": "espn-nfl-50228155",
+      "sport": "nfl",
+      "type": "news",
+      "title": "Fantasy playbook: NFL Week 7 Shadow Reports, lineup locks and projected scores",
+      "summary": "An all-encompassing look at the matchups to exploit or avoid and lineup locks in fantasy, as well as projected scores for all NFL games.",
+      "event": "",
+      "fighters_or_teams": [],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/fantasy/football/story/_/id/50228155/fantasy-playbook-projections-lineup-locks-week-7-shadow",
+      "published": "2026-10-24T00:11:30Z"
+    },
+    {
+      "id": "espn-nfl-50260535",
+      "sport": "nfl",
+      "type": "news",
+      "title": "Cowboys say still time to turn things around after 2-4 start",
+      "summary": "Cowboys stars Dak Prescott and CeeDee Lamb express belief that there's still time for the team to turn things around despite a 2-4 start.",
+      "event": "",
+      "fighters_or_teams": [
+        "Dallas Cowboys",
+        "Dak Prescott",
+        "CeeDee Lamb"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50260535/cowboys-say-turn-things-2-4-start",
+      "published": "2026-10-24T00:10:08Z"
+    },
+    {
+      "id": "espn-nfl-50260899",
+      "sport": "nfl",
+      "type": "news",
+      "title": "Giants LB Tremaine Edmunds (chest) out for year, source says",
+      "summary": "Giants linebacker Tremaine Edmunds will miss the rest of the season with a torn chest muscle, a source told ESPN's Jordan Raanan. Edmunds leads the team with 50 tackles and wears the green dot to make the calls on defense.",
+      "event": "",
+      "fighters_or_teams": [
+        "New York Giants",
+        "Tremaine Edmunds",
+        "Chauncey Golston",
+        "Micah McFadden"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50260899/giants-lb-tremaine-edmunds-chest-year-source-says",
+      "published": "2026-10-23T23:55:25Z"
+    },
+    {
+      "id": "espn-nfl-50261029",
+      "sport": "nfl",
+      "type": "news",
+      "title": "Seahawks rule out RB Zach Charbonnet vs. Chiefs",
+      "summary": "RB Zach Charbonnet's season debut will have to wait at least one more week as the Seahawks have ruled him out for Sunday's game against the Chiefs.",
+      "event": "",
+      "fighters_or_teams": [
+        "Zach Charbonnet",
+        "Seattle Seahawks"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50261029/seahawks-rule-rb-zach-charbonnet-vs-chiefs",
+      "published": "2026-10-23T22:41:56Z"
+    },
+    {
+      "id": "espn-nfl-40699880",
+      "sport": "nfl",
+      "type": "news",
+      "title": "Fantasy football buzz: Caleb Williams shows he is all the way back in TNF win",
+      "summary": "Caleb Williams did something no other Bears quarterback had done since 1962 as he led Chicago to a TNF win.",
+      "event": "",
+      "fighters_or_teams": [
+        "AJ Brown",
+        "Luther Burden III",
+        "D'Andre Swift",
+        "Marvin Harrison Jr"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/fantasy/football/story/_/id/40699880/fantasy-football-injuries-position-battles-nfl-news-analysis",
+      "published": "2026-10-23T21:38:40Z"
+    },
+    {
+      "id": "espn-nfl-50221073",
+      "sport": "nfl",
+      "type": "news",
+      "title": "Bets for National Tight Ends Day: Props and picks for Sunday's games",
+      "summary": "In recognition of National Tight Ends Day, we thought we'd share our favorite bets for the versatile playmakers.",
+      "event": "",
+      "fighters_or_teams": [
+        "Dallas Goedert",
+        "George Kittle",
+        "AJ Barner",
+        "Tyler Higbee"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/espn/betting/story/_/id/50221073/nfl-week-7-odds-tight-ends-betting-props-preview",
+      "published": "2026-10-23T21:20:18Z"
+    },
+    {
+      "id": "espn-nfl-50259857",
+      "sport": "nfl",
+      "type": "news",
+      "title": "Falcons' viral stripes will appear down center of helmets",
+      "summary": "A vertical stripe pattern that the Falcons used in a social media post will appear down the middle of the team's throwback helmets. The stripes drew significant online backlash as some saw similarity to Nazi Germany imagery.",
+      "event": "",
+      "fighters_or_teams": [
+        "Atlanta Falcons"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50259857/falcons-throwback-logo-include-viral-stripe-pattern",
+      "published": "2026-10-23T21:18:40Z"
+    },
+    {
+      "id": "espn-nfl-50259856",
+      "sport": "nfl",
+      "type": "news",
+      "title": "Cam Skattebo set to return to Giants RB mix after being 'taught a lesson'",
+      "summary": "After zero carries in Week 6, Cam Skattebo says he took a step back to evaluate and correct, and Giants' coach says he should return to the running back mix vs. the Texans.",
+      "event": "",
+      "fighters_or_teams": [
+        "Cam Skattebo",
+        "New York Giants"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50259856/cam-skattebo-set-return-giants-rb-mix",
+      "published": "2026-10-23T21:13:54Z"
+    },
+    {
+      "id": "espn-nfl-50260001",
+      "sport": "nfl",
+      "type": "news",
+      "title": "Ravens' Lamar Jackson (high ankle sprain) unsure if he'll play",
+      "summary": "Ravens quarterback Lamar Jackson said he's dealing with a high ankle sprain and is unsure if he'll play this week against the Bengals, but is \"heading in the right direction\" after missing the past two games.",
+      "event": "",
+      "fighters_or_teams": [
+        "Baltimore Ravens",
+        "Cincinnati Bengals",
+        "Lamar Jackson"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50260001/ravens-lamar-jackson-high-ankle-sprain-unsure-play",
+      "published": "2026-10-23T20:55:19Z"
+    },
+    {
+      "id": "espn-cfb-50259547",
+      "sport": "cfb",
+      "type": "news",
+      "title": "Oregon State standout WR Jesse Legree re-signs with Beavers for '27",
+      "summary": "Oregon State freshman receiver Jesse Legree, one of the country's breakout stars in 2026, has re-signed with the Beavers for next season, he announced Friday.",
+      "event": "",
+      "fighters_or_teams": [
+        "Oregon State Beavers",
+        "Oregon State University",
+        "Jesse Legree"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/college-football/story/_/id/50259547/oregon-state-standout-wr-jesse-legree-re-signs-beavers-27",
+      "published": "2026-10-23T20:50:14Z"
+    },
+    {
+      "id": "espn-cfb-50260251",
+      "sport": "cfb",
+      "type": "news",
+      "title": "Michigan QB Tommy Carr, grandson of ex-coach, to get first start, source confirms",
+      "summary": "Michigan freshman quarterback Tommy Carr will make his first start Saturday against No. 6 Indiana, a source confirmed to ESPN.",
+      "event": "",
+      "fighters_or_teams": [
+        "Michigan Wolverines",
+        "University of Michigan",
+        "Tommy Carr"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/college-football/story/_/id/50260251/michigan-qb-tommy-carr-start-indiana-source-confirms",
+      "published": "2026-10-23T20:49:28Z"
+    },
+    {
+      "id": "nfl-w7-sf-kirk-return",
+      "sport": "nfl",
+      "type": "lineup",
+      "title": "Christian Kirk expected back; Jordan Watkins leads thin SF WR room",
+      "summary": "Kirk (calf) is listed questionable but Shanahan plans to activate him. SF's top four Week 1 receivers are all unavailable.",
+      "event": "Week 7",
+      "fighters_or_teams": [
+        "San Francisco 49ers"
+      ],
+      "impact": "high",
+      "edge_take": "Pick pulled — pass",
+      "source_name": "ProFootballTalk",
+      "source_url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-evans-nick-bosa-among-several-49ers-ruled-out-for-week-7",
+      "published": "2026-10-23T16:45:00-04:00"
+    },
+    {
+      "id": "espn-nfl-50259989",
+      "sport": "nfl",
+      "type": "news",
+      "title": "Bears TE Cole Kmet out for season after knee injury vs. Patriots",
+      "summary": "Bears tight end Cole Kmet will miss the remainder of the 2026 season after he suffered a serious right knee injury during Chicago's 30-24 win over New England.",
+      "event": "",
+      "fighters_or_teams": [
+        "Cole Kmet",
+        "Chicago Bears"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50259989/bears-te-cole-kmet-season-knee-injury-vs-pats",
+      "published": "2026-10-23T20:33:18Z"
+    },
+    {
+      "id": "nfl-w7-sf-evans-bosa-out",
+      "sport": "nfl",
+      "type": "injury",
+      "title": "49ers rule out Mike Evans, Nick Bosa, Deebo Samuel at ATL",
+      "summary": "Shanahan ruled out WR Mike Evans (Achilles), DE Nick Bosa (calf), WR Deebo Samuel (hamstring), LBs Wallow and Gifford, and S Sigle. Evans and Bosa won't travel to Atlanta.",
+      "event": "Week 7",
+      "fighters_or_teams": [
+        "San Francisco 49ers",
+        "Atlanta Falcons"
+      ],
+      "impact": "high",
+      "edge_take": "Pick pulled — pass",
+      "source_name": "NBC Sports Bay Area",
+      "source_url": "https://www.nbcsportsbayarea.com/nfl/san-francisco-49ers/mike-evans-nick-bosa-out-injury-report/1973551/",
+      "published": "2026-10-23T16:30:00-04:00"
+    },
+    {
+      "id": "espn-nfl-50259999",
+      "sport": "nfl",
+      "type": "news",
+      "title": "Browns RBs Quinshon Judkins, Dylan Sampson expected to play",
+      "summary": "The Browns' top two running backs, Quinshon Judkins and Dylan Sampson, are expected to play against the Titans after being sidelined with injuries.",
+      "event": "",
+      "fighters_or_teams": [
+        "Quinshon Judkins",
+        "Dylan Sampson",
+        "Cleveland Browns"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50259999/browns-rbs-quinshon-judkins-dylan-sampson-expected-play",
+      "published": "2026-10-23T20:19:54Z"
+    },
+    {
+      "id": "nfl-w7-kc-tackles-out",
+      "sport": "nfl",
+      "type": "injury",
+      "title": "Chiefs without both starting tackles at SEA",
+      "summary": "RT Jaylon Moore is out (concussion) and LT Josh Simmons went on IR this week. WR Rashee Rice and RB Brashard Smith are out; CB L'Jarius Sneed is questionable, and Kelce (ankle) has no game status.",
+      "event": "Week 7",
+      "fighters_or_teams": [
+        "Kansas City Chiefs",
+        "Seattle Seahawks"
+      ],
+      "impact": "high",
+      "edge_take": "Pick pulled — pass",
+      "source_name": "Seahawks.com",
+      "source_url": "https://www.seahawks.com/news/2026-week-7-injury-report-chiefs-at-seahawks",
+      "published": "2026-10-23T15:39:00-04:00"
+    },
+    {
+      "id": "nfl-w7-sea-injuries",
+      "sport": "nfl",
+      "type": "injury",
+      "title": "Seahawks: Charbonnet, Thomas, Surratt out; Emmanwori questionable",
+      "summary": "RB Zach Charbonnet (knee) stays out and LBs Drake Thomas and Chazz Surratt are out. S Nick Emmanwori (hip, new Friday) plus Lawrence, Nwosu and O'Toole are questionable, and RG Anthony Bradford returns from IR.",
+      "event": "Week 7",
+      "fighters_or_teams": [
+        "Seattle Seahawks",
+        "Kansas City Chiefs"
+      ],
+      "impact": "high",
+      "edge_take": "Pick pulled — pass",
+      "source_name": "Seahawks.com",
+      "source_url": "https://www.seahawks.com/news/2026-week-7-injury-report-chiefs-at-seahawks",
+      "published": "2026-10-23T15:39:00-04:00"
+    },
+    {
+      "id": "espn-nfl-50259748",
+      "sport": "nfl",
+      "type": "news",
+      "title": "Rams WR Puka Nacua misses practice, questionable vs. Raiders with calf injury",
+      "summary": "Rams wide receiver Puka Nacua (calf) will not practice Friday and is questionable to play Sunday against the Raiders, coach Sean McVay said.",
+      "event": "",
+      "fighters_or_teams": [
+        "Los Angeles Rams",
+        "Puka Nacua"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50259748/rams-wr-puka-nacua-questionable-vs-raiders-calf-injury",
+      "published": "2026-10-23T19:17:30Z"
+    },
+    {
+      "id": "espn-nfl-50259196",
+      "sport": "nfl",
+      "type": "news",
+      "title": "Baker Mayfield returns for Bucs, but WR Emeka Egbuka, RT Luke Goedeke out",
+      "summary": "Buccaneers quarterback Baker Mayfield will make his return following a three-game absence, but he will be without his top target in wide receiver Emeka Egbuka.",
+      "event": "",
+      "fighters_or_teams": [
+        "Tampa Bay Buccaneers",
+        "Emeka Egbuka",
+        "Baker Mayfield",
+        "Luke Goedeke"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50259196/baker-mayfield-returns-emeka-egbuka-luke-goedeke-out",
+      "published": "2026-10-23T18:56:07Z"
+    },
+    {
+      "id": "espn-cfb-50216670",
+      "sport": "cfb",
+      "type": "news",
+      "title": "Top 25 betting lines: Texas favored vs. Ole Miss, Utah the fave vs. Houston",
+      "summary": "This week's odds and FPI predictions for Texas-Ole Miss, Utah-Houston and every top 25 matchup.",
+      "event": "",
+      "fighters_or_teams": [
+        "Ohio State Buckeyes",
+        "The Ohio State University",
+        "Georgia Bulldogs",
+        "University of Georgia"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/espn/betting/story/_/id/50216670/2026-college-football-week-8-top-25-betting-lines-odds",
+      "published": "2026-10-23T18:50:37Z"
+    },
+    {
+      "id": "espn-nfl-50259624",
+      "sport": "nfl",
+      "type": "news",
+      "title": "Cards rookie RB Jeremiyah Love to miss second straight game with ankle injury",
+      "summary": "Cardinals rookie RB Jeremiyah Love will miss his second straight game Sunday as he continues to recover from an ankle injury.",
+      "event": "",
+      "fighters_or_teams": [
+        "Arizona Cardinals",
+        "Jeremiyah Love"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50259624/cardinals-rookie-rb-jeremiyah-love-miss-second-straight-game",
+      "published": "2026-10-23T18:46:10Z"
+    },
+    {
+      "id": "espn-nfl-50179373",
+      "sport": "nfl",
+      "type": "news",
+      "title": "NFL Week 7 betting odds: Lines and totals for every game",
+      "summary": "A look at the odds, spreads, totals and FPI predictions for every NFL game in Week 7.",
+      "event": "",
+      "fighters_or_teams": [
+        "Arizona Cardinals",
+        "Atlanta Falcons",
+        "Baltimore Ravens",
+        "Buffalo Bills"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/espn/betting/story/_/id/50179373/2026-nfl-week-7-schedule-odds-point-spreads-totals",
+      "published": "2026-10-23T18:45:06Z"
+    },
+    {
+      "id": "espn-nfl-50259638",
+      "sport": "nfl",
+      "type": "news",
+      "title": "DraftKings DFS cheat sheet: Best values for Sunday's main slate",
+      "summary": "Build a winning DFS lineup with our DraftKings NFL Week 7 cheat sheet identifying the best stacks and values",
+      "event": "",
+      "fighters_or_teams": [],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/fantasy/football/story/_/id/50259638/draftkings-nfl-dfs-values-week-7",
+      "published": "2026-10-23T18:38:07Z"
+    },
+    {
+      "id": "espn-nfl-50259536",
+      "sport": "nfl",
+      "type": "news",
+      "title": "Colts' Tyler Warren to miss second game with groin injury",
+      "summary": "Tight end Tyler Warren will miss his second consecutive game with a groin injury when the Colts travel to face the Vikings on Sunday.",
+      "event": "",
+      "fighters_or_teams": [
+        "Tyler Warren",
+        "Indianapolis Colts"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50259536/colts-tyler-warren-miss-second-game-groin-injury",
+      "published": "2026-10-23T18:37:51Z"
+    },
+    {
+      "id": "espn-nfl-50240486",
+      "sport": "nfl",
+      "type": "news",
+      "title": "NFL Week 7 uniforms: Alternates galore as Texans go battle red, Lions all-black",
+      "summary": "Here's a look at what each NFL team is wearing in Week 7, led by alternate looks from Houston, Detroit and Dallas.",
+      "event": "",
+      "fighters_or_teams": [
+        "Arizona Cardinals",
+        "Atlanta Falcons",
+        "Baltimore Ravens",
+        "Buffalo Bills"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50240486/nfl-week-7-uniforms",
+      "published": "2026-10-23T18:23:48Z"
+    },
+    {
+      "id": "espn-cfb-50259224",
+      "sport": "cfb",
+      "type": "news",
+      "title": "Arizona State makes switch to Mikey Keene as quarterback",
+      "summary": "Arizona State coach Kenny Dillingham has made a change at quarterback, going with Mikey Keene over Cutter Boley for Saturday's game against Kansas State.",
+      "event": "",
+      "fighters_or_teams": [
+        "Mikey Keene",
+        "Cutter Boley",
+        "Arizona State Sun Devils",
+        "Arizona State University"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/college-football/story/_/id/50259224/arizona-state-makes-switch-mikey-keene-quarterback",
+      "published": "2026-10-23T18:14:00Z"
+    },
+    {
+      "id": "espn-nfl-50259154",
+      "sport": "nfl",
+      "type": "news",
+      "title": "Dolphins rookie WR Caleb Douglas set to return vs. Jets",
+      "summary": "Miami Dolphins rookie receiver Caleb Douglas will play Sunday against the New York Jets after missing the past three games with a right ankle injury.",
+      "event": "",
+      "fighters_or_teams": [
+        "Miami Dolphins",
+        "Caleb Douglas"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50259154/dolphins-rookie-wr-caleb-douglas-set-return-vs-jets",
+      "published": "2026-10-23T17:58:17Z"
+    },
+    {
+      "id": "espn-nfl-50249186",
+      "sport": "nfl",
+      "type": "news",
+      "title": "Cowboys vs. Eagles: Where to watch 'Monday Night Football'",
+      "summary": "Here's what to know about the Week 7 matchup.",
+      "event": "",
+      "fighters_or_teams": [],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50249186/cowboys-vs-eagles-watch-monday-night-football-week-7",
+      "published": "2026-10-23T17:43:58Z"
+    },
+    {
+      "id": "espn-ufc-50257331",
+      "sport": "ufc",
+      "type": "news",
+      "title": "After two opposite fights, what should be expected from Yan vs. Dvalishvili 3",
+      "summary": "Merab Dvalishvili has tweaked his fight plan, while Yan has gone all-in on his. Which strategy will win out?",
+      "event": "",
+      "fighters_or_teams": [
+        "Merab Dvalishvili",
+        "Petr Yan"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/mma/story/_/id/50257331/petr-yan-merab-dvalishvili-trilogy",
+      "published": "2026-10-23T13:47:33Z"
+    },
     {
       "id": "ufc333-wi-caliari-miss",
       "sport": "ufc",
@@ -105,22 +731,110 @@
       "published": "2026-10-23T02:35:00-04:00"
     },
     {
-      "id": "ufc333-news-allen-out-keita-in",
+      "id": "espn-ufc-50238314",
       "sport": "ufc",
       "type": "news",
-      "title": "Arnold Allen out; Losene Keita faces Aaron Pico",
-      "summary": "Allen withdrew in mid-September, still rehabbing from past treatments, and Keita (off a Sept. 5 first-round KO) replaced him against Pico. The fight is on and both made weight.",
-      "event": "UFC 333",
+      "title": "UFC 333 preview and picks for featherweight, men's bantamweight titles",
+      "summary": "Check out the matchups and expert predictions for both championship fights at UFC 333 in Abu Dhabi.",
+      "event": "",
       "fighters_or_teams": [
-        "Arnold Allen",
-        "Aaron Pico",
-        "Losene Keita"
+        "Alexander Volkanovski",
+        "Movsar Evloev",
+        "Petr Yan",
+        "Merab Dvalishvili"
       ],
-      "impact": "medium",
-      "edge_take": "Still a pass: the market already priced it (see Pico line move).",
-      "source_name": "MiddleEasy",
-      "source_url": "https://middleeasy.com/mma-news/arnold-allen-withdraws-ufc-333-aaron-pico-losene-keita/",
-      "published": "2026-09-18T12:00:00-04:00"
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/mma/story/_/id/50238314/ufc-333-preview-picks",
+      "published": "2026-10-22T15:23:59Z"
+    },
+    {
+      "id": "espn-ufc-50245442",
+      "sport": "ufc",
+      "type": "news",
+      "title": "Khamzat Chimaev pushes for Sean Strickland rematch",
+      "summary": "Khamzat Chimaev believes he should still be the UFC's middleweight champion and wants Sean Strickland to accept a rematch if he is serious about making money.",
+      "event": "",
+      "fighters_or_teams": [
+        "Khamzat Chimaev",
+        "Sean Strickland"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/mma/story/_/id/50245442/khamzat-chimaev-sean-strickland-rematch",
+      "published": "2026-10-22T05:19:14Z"
+    },
+    {
+      "id": "espn-ufc-50223020",
+      "sport": "ufc",
+      "type": "news",
+      "title": "Retirement doesn't scare Alexander Volkanovski, but neither does fighting at 40",
+      "summary": "Even at 38 years old, UFC featherweight champion Alexander Volkanovski says he will deliver one of the finest performances of his career at UFC 333.",
+      "event": "",
+      "fighters_or_teams": [
+        "Alexander Volkanovski",
+        "Movsar Evloev"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/mma/story/_/id/50223020/alexander-volkanovski-ufc-333",
+      "published": "2026-10-22T00:20:14Z"
+    },
+    {
+      "id": "espn-ufc-24067525",
+      "sport": "ufc",
+      "type": "news",
+      "title": "Blanchfield out, Suarez and Jandiroba move up in pound-for-pound rankings",
+      "summary": "After winning UFC women's flyweight title, Silva rises in ESPN's P4P top 10.",
+      "event": "",
+      "fighters_or_teams": [
+        "Islam Makhachev",
+        "Petr Yan",
+        "Merab Dvalishvili",
+        "Tom Aspinall"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/mma/story/_/id/24067525/mma-pound-pound-rankings",
+      "published": "2026-10-21T13:59:22Z"
+    },
+    {
+      "id": "espn-ufc-50189696",
+      "sport": "ufc",
+      "type": "news",
+      "title": "UFC champ Alexander Volkanovski proposes 'send-off' superbout vs. Justin Gaethje",
+      "summary": "UFC featherweight champion Alexander Volkanovski is calling for a \"send-off\" superfight against lightweight champion Justin Gaethje.",
+      "event": "",
+      "fighters_or_teams": [
+        "Alexander Volkanovski",
+        "Justin Gaethje"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/mma/story/_/id/50189696/ufc-champ-volkanovski-proposes-send-superbout-vs-gaethje",
+      "published": "2026-10-21T13:12:41Z"
+    },
+    {
+      "id": "espn-ufc-50207665",
+      "sport": "ufc",
+      "type": "news",
+      "title": "Jasmine Jasudavicius outpoints Erin Blanchfield at UFC Fight Night",
+      "summary": "Jasmine Jasudavicius stated her case as a contender in the UFC women's featherweight division, dominating Erin Blanchfield on the canvas to win by unanimous decision.",
+      "event": "",
+      "fighters_or_teams": [
+        "Jasmine Jasudavicius",
+        "Erin Blanchfield"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/college-football/story/_/id/50207665/jasmine-jasudavicius-outpoints-erin-blanchfield-ufc-fight-night",
+      "published": "2026-10-21T13:11:05Z"
     },
     {
       "id": "ufc333-injury-yan-back",
@@ -140,143 +854,60 @@
       "published": "2026-10-20T12:00:00-04:00"
     },
     {
-      "id": "ufc333-line-yan-dvalishvili",
+      "id": "espn-ufc-21807736",
       "sport": "ufc",
-      "type": "line-move",
-      "title": "Yan drifts from -183 to -149; Dvalishvili in to +127",
-      "summary": "Consensus moved about 4.8% toward Dvalishvili across 23 books. DraftKings Yan is -135 (opened -185), FanDuel -144.",
-      "event": "UFC 333",
+      "type": "news",
+      "title": "Knockout performance lands Mike Malott in MMA divisional rankings",
+      "summary": "Here's a look at every weight class to determine the best of the best in UFC, PFL and beyond.",
+      "event": "",
       "fighters_or_teams": [
+        "Dricus Du Plessis",
+        "Islam Makhachev",
+        "Ilia Topuria",
+        "Zhang Weili"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/mma/story/_/id/21807736/mma-divisional-rankings-ufc-pfl-rankings-weight-class",
+      "published": "2026-10-20T11:51:55Z"
+    },
+    {
+      "id": "espn-ufc-50206478",
+      "sport": "ufc",
+      "type": "news",
+      "title": "Petr Yan vs. Merab Dvalishvili joins rare list of trilogy bouts at UFC 333",
+      "summary": "ESPN categorizes all 19 of the UFC's trilogies ahead of Petr Yan vs. Merab Dvalishvili 3 at UFC 333 on Saturday.",
+      "event": "",
+      "fighters_or_teams": [
+        "Merab Dvalishvili",
         "Petr Yan",
-        "Merab Dvalishvili"
-      ],
-      "impact": "high",
-      "edge_take": "Still a pass: DK -135 is the best Yan price but sits right at the market's ~57%, so there's no gap to bet.",
-      "source_name": "BestMMAStats",
-      "source_url": "https://www.bestmmastats.com/line-movement/petr-yan-vs-merab-dvalishvili-1168665",
-      "published": "2026-10-23T21:00:00-04:00"
-    },
-    {
-      "id": "ufc333-line-volkanovski-evloev",
-      "sport": "ufc",
-      "type": "line-move",
-      "title": "Main event settles at pick'em",
-      "summary": "Early lines had Evloev -185 / Volkanovski +160, then it flipped to roughly even. Now it's -108/-108 consensus; DK -110/-110, FD -108/-108.",
-      "event": "UFC 333",
-      "fighters_or_teams": [
         "Alexander Volkanovski",
-        "Movsar Evloev"
+        "Max Holloway"
       ],
-      "impact": "medium",
-      "edge_take": "Still a pass: no stat edge on a coin flip.",
-      "source_name": "BestMMAStats",
-      "source_url": "https://www.bestmmastats.com/line-movement/alexander-volkanovski-vs-movsar-evloev-1168664",
-      "published": "2026-10-23T21:00:00-04:00"
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/mma/story/_/id/50206478/ufc-333-petr-yan-merab-dvalishvili-join-trilogy-list",
+      "published": "2026-10-19T13:45:06Z"
     },
     {
-      "id": "ufc333-line-pico-keita",
+      "id": "ufc333-news-allen-out-keita-in",
       "sport": "ufc",
-      "type": "line-move",
-      "title": "Pico steamed from -103 to -148; Keita flips to +126",
-      "summary": "Biggest move on the card (10.5% implied): Keita opened a -121 favorite and is now a +126 underdog.",
+      "type": "news",
+      "title": "Arnold Allen out; Losene Keita faces Aaron Pico",
+      "summary": "Allen withdrew in mid-September, still rehabbing from past treatments, and Keita (off a Sept. 5 first-round KO) replaced him against Pico. The fight is on and both made weight.",
       "event": "UFC 333",
       "fighters_or_teams": [
+        "Arnold Allen",
         "Aaron Pico",
         "Losene Keita"
       ],
       "impact": "medium",
-      "edge_take": "Still a pass: we'd be chasing a move that's already done.",
-      "source_name": "BestMMAStats",
-      "source_url": "https://www.bestmmastats.com/line-movement",
-      "published": "2026-10-23T21:00:00-04:00"
-    },
-    {
-      "id": "ufc333-line-undercard",
-      "sport": "ufc",
-      "type": "line-move",
-      "title": "Undercard moves: Vagaev, Oki/Santos, Chopurov, Lucindo",
-      "summary": "Vagaev shortened from -194 to -151 (money toward Malkoun), Santos/Oki went from -144/+116 to -115/-104, Chopurov -514 to -600, and Lucindo -361 to -405 after Caliari's miss.",
-      "event": "UFC 333",
-      "fighters_or_teams": [
-        "Abubakar Vagaev",
-        "Jacob Malkoun",
-        "Daniel Santos",
-        "Bolaji Oki",
-        "Asaf Chopurov",
-        "Iasmin Lucindo"
-      ],
-      "impact": "low",
-      "edge_take": "Still a pass: no news explains these beyond the Caliari miss.",
-      "source_name": "BestMMAStats",
-      "source_url": "https://www.bestmmastats.com/line-movement",
-      "published": "2026-10-23T21:00:00-04:00"
-    },
-    {
-      "id": "nfl-w7-sf-evans-bosa-out",
-      "sport": "nfl",
-      "type": "injury",
-      "title": "49ers rule out Mike Evans, Nick Bosa, Deebo Samuel at ATL",
-      "summary": "Shanahan ruled out WR Mike Evans (Achilles), DE Nick Bosa (calf), WR Deebo Samuel (hamstring), LBs Wallow and Gifford, and S Sigle. Evans and Bosa won't travel to Atlanta.",
-      "event": "Week 7",
-      "fighters_or_teams": [
-        "San Francisco 49ers",
-        "Atlanta Falcons"
-      ],
-      "impact": "high",
-      "edge_take": "Pick pulled — pass",
-      "source_name": "NBC Sports Bay Area",
-      "source_url": "https://www.nbcsportsbayarea.com/nfl/san-francisco-49ers/mike-evans-nick-bosa-out-injury-report/1973551/",
-      "published": "2026-10-23T16:30:00-04:00"
-    },
-    {
-      "id": "nfl-w7-sf-kirk-return",
-      "sport": "nfl",
-      "type": "lineup",
-      "title": "Christian Kirk expected back; Jordan Watkins leads thin SF WR room",
-      "summary": "Kirk (calf) is listed questionable but Shanahan plans to activate him. SF's top four Week 1 receivers are all unavailable.",
-      "event": "Week 7",
-      "fighters_or_teams": [
-        "San Francisco 49ers"
-      ],
-      "impact": "high",
-      "edge_take": "Pick pulled — pass",
-      "source_name": "ProFootballTalk",
-      "source_url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-evans-nick-bosa-among-several-49ers-ruled-out-for-week-7",
-      "published": "2026-10-23T16:45:00-04:00"
-    },
-    {
-      "id": "nfl-w7-kc-tackles-out",
-      "sport": "nfl",
-      "type": "injury",
-      "title": "Chiefs without both starting tackles at SEA",
-      "summary": "RT Jaylon Moore is out (concussion) and LT Josh Simmons went on IR this week. WR Rashee Rice and RB Brashard Smith are out; CB L'Jarius Sneed is questionable, and Kelce (ankle) has no game status.",
-      "event": "Week 7",
-      "fighters_or_teams": [
-        "Kansas City Chiefs",
-        "Seattle Seahawks"
-      ],
-      "impact": "high",
-      "edge_take": "Pick pulled — pass",
-      "source_name": "Seahawks.com",
-      "source_url": "https://www.seahawks.com/news/2026-week-7-injury-report-chiefs-at-seahawks",
-      "published": "2026-10-23T15:39:00-04:00"
-    },
-    {
-      "id": "nfl-w7-sea-injuries",
-      "sport": "nfl",
-      "type": "injury",
-      "title": "Seahawks: Charbonnet, Thomas, Surratt out; Emmanwori questionable",
-      "summary": "RB Zach Charbonnet (knee) stays out and LBs Drake Thomas and Chazz Surratt are out. S Nick Emmanwori (hip, new Friday) plus Lawrence, Nwosu and O'Toole are questionable, and RG Anthony Bradford returns from IR.",
-      "event": "Week 7",
-      "fighters_or_teams": [
-        "Seattle Seahawks",
-        "Kansas City Chiefs"
-      ],
-      "impact": "high",
-      "edge_take": "Pick pulled — pass",
-      "source_name": "Seahawks.com",
-      "source_url": "https://www.seahawks.com/news/2026-week-7-injury-report-chiefs-at-seahawks",
-      "published": "2026-10-23T15:39:00-04:00"
+      "edge_take": "Still a pass: the market already priced it (see Pico line move).",
+      "source_name": "MiddleEasy",
+      "source_url": "https://middleeasy.com/mma-news/arnold-allen-withdraws-ufc-333-aaron-pico-losene-keita/",
+      "published": "2026-09-18T12:00:00-04:00"
     }
   ]
 }

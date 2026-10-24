@@ -48,16 +48,29 @@
   const itemText = (i) => [i.title, i.summary, i.event, (i.fighters_or_teams || []).join(' ')].join(' ').toLowerCase();
   const newsFor = (p, m) => { const t = terms(p, m).map((x) => x.toLowerCase()); return (news || []).filter((i) => i.sport === sportOf(p) && t.some((x) => itemText(i).includes(x))); };
   const cents = (o) => (o > 0 ? o - 100 : o + 100);
+  // Best live DraftKings/FanDuel price for the pick's side (The Odds API), falling back to ESPN.
+  function liveBest(p, m, side) {
+    const B = window.EdgeBooks; if (!B || !m) return null;
+    if (m.type === 'ufc') { const x = m.f.fighters[side], b = x && x.books; if (!b) return null; const mm = { DraftKings: b.DraftKings != null ? { odds: b.DraftKings } : null, FanDuel: b.FanDuel != null ? { odds: b.FanDuel } : null }; const bk = B.bestBook(mm.DraftKings, mm.FanDuel, 'ml') || (mm.DraftKings ? 'DraftKings' : 'FanDuel'); return mm[bk] ? { bk, ...mm[bk], all: mm } : null; }
+    const s = B.bookSides(m.g), k = (/money|ml/i.test(p.market || '') ? 'ml_' : 'spread_') + side, mm = s[k]; if (!mm) return null;
+    const bk = B.bestBook(mm.DraftKings, mm.FanDuel, k.startsWith('ml') ? 'ml' : 'spread') || (mm.DraftKings ? 'DraftKings' : 'FanDuel'); return mm[bk] ? { bk, ...mm[bk], all: mm, k } : null;
+  }
   function lineMove(p, m) {
     if (!m) return null; const side = sideOf(p, m); const posted = p.books && p.books[p.book] ? p.books[p.book] : {};
     if (m.type === 'ufc') {
-      if (side == null) return null; const f = m.f.fighters[side]; if (f.ml == null) return null;
-      const against = E.validOdds(Number(p.odds)) && cents(Number(p.odds)) - cents(f.ml) >= 20;
-      return { text: `${f.name} ML opened ${f.mlOpen != null ? E.fmtOdds(f.mlOpen) : '—'} → now ${E.fmtOdds(f.ml)}${p.odds != null ? ` (we posted ${E.fmtOdds(Number(p.odds))})` : ''}`, against };
+      if (side == null) return null; const f = m.f.fighters[side]; const lb = liveBest(p, m, side); const now = lb ? lb.odds : f.ml; if (now == null) return null;
+      const against = E.validOdds(Number(p.odds)) && cents(Number(p.odds)) - cents(now) >= 20;
+      return { text: `${f.name} ML opened ${f.mlOpen != null ? E.fmtOdds(f.mlOpen) : '—'} → best now ${E.fmtOdds(now)}${lb ? ' at ' + lb.bk : ''}${p.odds != null ? ` (we posted ${E.fmtOdds(Number(p.odds))})` : ''}`, against, live: lb };
     }
     const o = m.g.odds; if (!o || side == null) return null;
     const isML = /money|ml/i.test(p.market || ''); const sp = o.spread && o.spread[side], ml = o.moneyline && o.moneyline[side]; const t = m.g[side].abbr || m.g[side].short;
-    let against = false, text;
+    let against = false, text; const lb = liveBest(p, m, side);
+    if (lb) {
+      const pl = parseFloat(posted.line);
+      if (isML) { text = `${t} ML best now ${E.fmtOdds(lb.odds)} at ${lb.bk}${ml && ml.open != null ? ` (opened ${E.fmtOdds(ml.open)})` : ''}${p.odds != null ? `, we posted ${E.fmtOdds(Number(p.odds))}` : ''}`; against = E.validOdds(Number(p.odds)) && cents(Number(p.odds)) - cents(lb.odds) >= 20; }
+      else { text = `${t} spread best now ${(lb.line > 0 ? '+' : '') + lb.line} (${E.fmtOdds(lb.odds)}) at ${lb.bk}${sp && sp.openLine != null ? `, opened ${(sp.openLine > 0 ? '+' : '') + sp.openLine}` : ''}${Number.isFinite(pl) ? `, we posted ${(pl > 0 ? '+' : '') + pl}` : ''}`; against = Number.isFinite(pl) && pl - lb.line >= 1.5; }
+      return { text, against, live: lb };
+    }
     if (isML && ml) { text = `${t} ML opened ${ml.open != null ? E.fmtOdds(ml.open) : '—'} → now ${E.fmtOdds(ml.odds)}${p.odds != null ? ` (we posted ${E.fmtOdds(Number(p.odds))})` : ''}`; against = E.validOdds(Number(p.odds)) && ml.odds != null && cents(Number(p.odds)) - cents(ml.odds) >= 20; }
     else if (sp && sp.line != null) { const pl = parseFloat(posted.line); text = `${t} spread opened ${sp.openLine != null ? (sp.openLine > 0 ? '+' : '') + sp.openLine : '—'} → now ${(sp.line > 0 ? '+' : '') + sp.line} (${o.provider || 'ESPN'})${Number.isFinite(pl) ? `, we posted ${(pl > 0 ? '+' : '') + pl}` : ''}`; against = Number.isFinite(pl) && pl - sp.line >= 1.5; }
     else return null;
@@ -81,6 +94,7 @@
     const m = findGame(p), lm = lineMove(p, m), inj = injFor(p, m, false), nw = newsFor(p, m), ex = expertsFor(p, m);
     const li = (a) => a.join('');
     return `<details class="pick-why" data-k="w${i}"><summary>Why — live evidence${lm && lm.against ? ' <span class="cc red">Line moved against us</span>' : ''}</summary><div class="why-grid">
+      ${lm && lm.live && lm.live.all ? `<div><h4>Live prices now</h4><div class="fbk">${['DraftKings', 'FanDuel'].map((bk) => { const v = lm.live.all[bk]; return `<span class="bkc${v && bk === lm.live.bk && lm.live.all.DraftKings && lm.live.all.FanDuel ? ' best' : ''}">${bk === 'DraftKings' ? 'DK' : 'FD'} ${v ? esc((v.line != null ? (v.line > 0 ? '+' : '') + v.line + ' ' : '') + E.fmtOdds(v.odds)) : '—'}</span>`; }).join('')}<span class="muted small">cyan = best price</span></div></div>` : ''}
       <div><h4>Line move</h4><p>${lm ? esc(lm.text) + (lm.against ? ' <b class="neg">— moved against the pick</b>' : '') : '<span class="muted">No live line for this game in the feed.</span>'}</p></div>
       ${m && m.type === 'fb' ? `<div><h4>Injuries (ESPN)</h4>${inj.length ? `<ul>${li(inj.slice(0, 8).map((x) => `<li><b>${esc(x.team)}</b> ${esc(x.name)} <span class="muted small">${esc(x.pos)}</span> <span class="ib ${x.sev === 'Out' ? 'out' : x.sev === 'Doubtful' ? 'dbt' : 'q'}">${esc(x.sev)}</span>${x.ours ? ' <span class="cc amber">our side</span>' : ''}</li>`))}</ul>` : '<p class="muted">No Out/Doubtful/Questionable listed.</p>'}</div>` : ''}
       <div><h4>News</h4>${nw.length ? `<ul>${li(nw.slice(0, 5).map((n) => `<li><a href="#news" data-nid="${esc(nid(n))}">${esc(n.title)}</a> <span class="muted small">${esc(rel(n.published))}</span>${n.edge_take ? `<div class="small">Edge: ${esc(n.edge_take)}</div>` : ''}</li>`))}</ul>` : '<p class="muted">No matching news in the feed.</p>'}</div>

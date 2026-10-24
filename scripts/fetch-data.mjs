@@ -185,6 +185,86 @@ async function writeNews() {
   console.log(`News written: ${curated.length} curated + ${autoKeep.length} auto.`);
 }
 
+// ---------- The Odds API (DraftKings + FanDuel). Key from env ODDS_API_KEY only; never logged or written. ----------
+// Budget: free tier = 500 credits/month. Cost per sport call = markets returned x 1 region (empty responses are free).
+// We only call when (a) the sport has events in the next 7 days (free /events check) and (b) enough hours have passed
+// that the remaining credits stretch to month end with a 50-credit reserve (≤ ~450 used/month) (minimum 6h between pulls).
+const OA = 'https://api.the-odds-api.com/v4/sports';
+const OA_SPORTS = [['nfl', 'americanfootball_nfl', 'h2h,spreads,totals'], ['cfb', 'americanfootball_ncaaf', 'h2h,spreads,totals'], ['ufc', 'mma_mixed_martial_arts', 'h2h']];
+const BK = { draftkings: 'DraftKings', fanduel: 'FanDuel' };
+async function oaGet(path, params) {
+  const key = process.env.ODDS_API_KEY;
+  const qs = new URLSearchParams({ ...params, apiKey: key });
+  const r = await fetch(`${OA}/${path}?${qs}`, { signal: AbortSignal.timeout(20000) });
+  const h = { remaining: num(r.headers.get('x-requests-remaining')), used: num(r.headers.get('x-requests-used')), last: num(r.headers.get('x-requests-last')) };
+  if (!r.ok) { const e = new Error('HTTP ' + r.status); e.h = h; throw e; }
+  return { data: await r.json(), h };
+}
+function compactEvent(key, ev) {
+  const b = {};
+  for (const bm of ev.bookmakers || []) {
+    const name = BK[bm.key]; if (!name) continue; const o = { updated: bm.last_update };
+    for (const m of bm.markets || []) {
+      const by = (n) => m.outcomes.find((x) => x.name === n);
+      if (m.key === 'h2h') o.ml = { home: by(ev.home_team)?.price ?? null, away: by(ev.away_team)?.price ?? null };
+      if (m.key === 'spreads') { const hh = by(ev.home_team), aa = by(ev.away_team); o.spread = { home: hh ? { line: hh.point, odds: hh.price } : null, away: aa ? { line: aa.point, odds: aa.price } : null }; }
+      if (m.key === 'totals') { const ov = by('Over'), un = by('Under'); o.total = { line: ov?.point ?? un?.point ?? null, over: ov?.price ?? null, under: un?.price ?? null }; }
+    }
+    b[name] = o;
+  }
+  return { id: ev.id, sport: key, start: ev.commence_time, home: ev.home_team, away: ev.away_team, books: b };
+}
+async function oddsApi(oldMeta, oldCache) {
+  const prev = (oldMeta && oldMeta.oddsApi) || {};
+  if (!process.env.ODDS_API_KEY) { sources.oddsapi = { ok: false, error: 'ODDS_API_KEY not set — kept last prices' }; return { cache: oldCache, info: { ...prev, skipped: 'no key' } }; }
+  const now = Date.now(), monthEnd = Date.UTC(new Date().getUTCFullYear(), new Date().getUTCMonth() + 1, 1);
+  const hoursLeft = (monthEnd - now) / 36e5, sinceH = prev.lastFetch ? (now - Date.parse(prev.lastFetch)) / 36e5 : 1e9;
+  const remaining = prev.remaining != null && prev.lastFetch && new Date(prev.lastFetch).getUTCMonth() === new Date().getUTCMonth() ? prev.remaining : 500;
+  const perRound = prev.lastRoundCost || 7;
+  const minGap = Math.max(6, (hoursLeft * perRound) / Math.max(1, remaining - 50));
+  if (remaining - perRound < 50 || sinceH < minGap) {
+    sources.oddsapi = { ok: true, skipped: `budget: next pull in ${Math.max(0, minGap - sinceH).toFixed(1)}h`, remaining };
+    return { cache: oldCache, info: prev };
+  }
+  const to = new Date(now + 7 * 864e5).toISOString().replace(/\.\d+Z$/, 'Z');
+  const events = [...((oldCache && oldCache.events) || [])]; let cost = 0, h = null; const got = {};
+  for (const [key, sk, markets] of OA_SPORTS) {
+    try {
+      const ev = await oaGet(`${sk}/events`, { commenceTimeTo: to }); // free
+      if (!ev.data.length) { got[key] = 0; continue; }
+      const r = await oaGet(`${sk}/odds`, { regions: 'us', bookmakers: 'draftkings,fanduel', markets, oddsFormat: 'american', commenceTimeTo: to });
+      h = r.h; cost += r.h.last || 0;
+      const fresh = r.data.map((e) => compactEvent(key, e)).filter((e) => Object.keys(e.books).length);
+      for (let i = events.length - 1; i >= 0; i--) if (events[i].sport === key) events.splice(i, 1);
+      events.push(...fresh); got[key] = fresh.length;
+    } catch (e) { got[key] = 'error ' + e.message; if (e.h) h = e.h; if (/HTTP (401|429)/.test(e.message)) break; }
+  }
+  const keep = events.filter((e) => Date.parse(e.start) > now - 2 * 864e5);
+  const info = { lastFetch: new Date().toISOString(), remaining: h ? h.remaining : remaining, used: h ? h.used : null, lastRoundCost: cost || perRound, events: got, budget: '≤ ~450 credits/month; auto-spaced (min 6h) so remaining credits last to month end' };
+  sources.oddsapi = { ok: Object.values(got).some((v) => typeof v === 'number'), events: got, remaining: info.remaining, cost };
+  return { cache: { updated: info.lastFetch, events: keep }, info };
+}
+const normT = (s) => String(s || '').toLowerCase().replace(/\bst\.?\b/g, 'state').replace(/&/g, 'and').replace(/[^a-z0-9]/g, '');
+const lastN = (s) => normT(String(s || '').trim().split(/\s+/).slice(-1)[0]);
+function mergeBooks(games, cache) {
+  if (!cache || !cache.events) return;
+  const near = (a, b) => Math.abs(Date.parse(a) - Date.parse(b)) < 18 * 36e5;
+  for (const key of ['nfl', 'cfb']) for (const g of (games[key] && games[key].games) || []) {
+    const H = normT(g.home.name), A = normT(g.away.name);
+    const m = cache.events.find((e) => e.sport === key && near(e.start, g.start) && normT(e.home) === H && normT(e.away) === A)
+      || cache.events.find((e) => e.sport === key && near(e.start, g.start) && [[e.home, H], [e.away, A]].every(([x, y]) => { const n = normT(x); return n.startsWith(y) || y.startsWith(n); }));
+    if (m) { g.books = m.books; g.booksUpdated = cache.updated; } else delete g.books;
+  }
+  for (const ev of (games.ufc && games.ufc.events) || []) for (const f of ev.fights) {
+    const [a, b] = f.fighters; if (!a || !b) continue;
+    const m = cache.events.find((e) => e.sport === 'ufc' && near(e.start, f.start || ev.date) && [[a.name], [b.name]].every(([n]) => [e.home, e.away].some((x) => lastN(x) === lastN(n))));
+    f.fighters.forEach((x) => delete x.books);
+    if (!m) continue;
+    for (const x of f.fighters) { const side = lastN(m.home) === lastN(x.name) ? 'home' : 'away'; x.books = {}; for (const [bk, o] of Object.entries(m.books)) if (o.ml && o.ml[side] != null) x.books[bk] = o.ml[side]; }
+    f.booksUpdated = cache.updated;
+  }
+}
+
 async function readOld(name) { try { return await readFile(new URL(name, OUT), 'utf8'); } catch { return null; } }
 
 const [nfl, cfb, mma, nflInj, cfbInj] = await Promise.all([
@@ -199,14 +279,20 @@ const oldGames = JSON.parse((await readOld('games.json')) || '{}');
 const oldInj = JSON.parse((await readOld('injuries.json')) || '{}');
 // If a source failed this run, keep the last good copy rather than blanking the site.
 const games = { nfl: nfl || oldGames.nfl || null, cfb: cfb || oldGames.cfb || null, ufc: mma || oldGames.ufc || null };
+let oldMeta = {}; try { oldMeta = JSON.parse((await readOld('meta.json')) || '{}'); } catch {}
+let oldOdds = null; try { oldOdds = JSON.parse((await readOld('oddsapi.json')) || 'null'); } catch {}
+const oa = await oddsApi(oldMeta, oldOdds);
+mergeBooks(games, oa.cache);
+const oaChanged = JSON.stringify(oa.cache) !== JSON.stringify(oldOdds) || JSON.stringify(oa.info) !== JSON.stringify(oldMeta.oddsApi || {});
 const inj = { nfl: nflInj || oldInj.nfl || {}, cfb: cfbInj || oldInj.cfb || {} };
 const gStr = JSON.stringify(games), iStr = JSON.stringify(inj);
-const changed = gStr !== JSON.stringify(oldGames) || iStr !== JSON.stringify(oldInj);
+const changed = gStr !== JSON.stringify(oldGames) || iStr !== JSON.stringify(oldInj) || oaChanged;
 await mkdir(OUT, { recursive: true });
 if (changed || !(await readOld('meta.json'))) {
   await writeFile(new URL('games.json', OUT), gStr);
   await writeFile(new URL('injuries.json', OUT), iStr);
-  await writeFile(new URL('meta.json', OUT), JSON.stringify({ updated: new Date().toISOString(), source: 'ESPN public site API (site.api.espn.com, sports.core.api.espn.com)', oddsNote: 'Odds provider is labeled exactly as ESPN returns it.', sources }, null, 2));
+  if (oa.cache) await writeFile(new URL('oddsapi.json', OUT), JSON.stringify(oa.cache));
+  await writeFile(new URL('meta.json', OUT), JSON.stringify({ updated: new Date().toISOString(), oddsApi: oa.info, source: 'ESPN public site API (site.api.espn.com, sports.core.api.espn.com) + The Odds API (DraftKings, FanDuel)', oddsNote: 'Odds provider is labeled exactly as ESPN returns it.', sources }, null, 2));
   console.log('Data changed — files written.');
 } else console.log('No data change.');
 try { await writeNews(); } catch (e) { console.log('news failed (non-fatal): ' + e.message); }
