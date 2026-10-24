@@ -207,11 +207,11 @@
     },
     {
       "event": "UFC 333: Volkanovski vs Evloev",
-      "reason": "A true pick'em (-110/-110) and we have no stat edge (ufcstats is unreachable). Pass."
+      "reason": "A true pick'em (-110/-110) and we have no stat edge (ufcstats is unreachable). Pass. Weigh-in: both made weight (144.5/145). Still a pass at -108/-108."
     },
     {
       "event": "UFC 333: Yan vs Dvalishvili",
-      "reason": "Yan already moved from -180 to -135, so we'd be chasing. Fightnomics notes a wrestler-heavy, low-KO card. Pass."
+      "reason": "Yan already moved from -180 to -135, so we'd be chasing. Fightnomics notes a wrestler-heavy, low-KO card. Pass. Weigh-in: both made 135. Yan now -149 consensus (DK -135), drift likely tied to his January back surgery. Still a pass, 0 units."
     },
     {
       "event": "Other NFL Week 7",

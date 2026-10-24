@@ -1,0 +1,282 @@
+{
+  "updated": "2026-10-23T22:20:00-04:00",
+  "items": [
+    {
+      "id": "ufc333-wi-caliari-miss",
+      "sport": "ufc",
+      "type": "weigh-in",
+      "title": "Caliari misses weight by 4.5 lbs",
+      "summary": "Nicolle Caliari weighed 120.5 lbs, 4.5 over the 116-lb non-title strawweight limit; Iasmin Lucindo made 115. The bout goes on at catchweight and Caliari forfeits 30% of her purse to Lucindo.",
+      "event": "UFC 333",
+      "fighters_or_teams": [
+        "Nicolle Caliari",
+        "Iasmin Lucindo"
+      ],
+      "impact": "high",
+      "edge_take": "Still a pass: Lucindo is already about -405 and a 4.5-lb miss could mean a bad cut or a size edge, so no clear angle.",
+      "source_name": "MMA Fighting",
+      "source_url": "https://www.mmafighting.com/ufc/517122/ufc-333-weigh-in-results-championship-bouts-set-prelim-fighter-misses-weight-by-almost-5-pounds",
+      "published": "2026-10-23T02:35:00-04:00"
+    },
+    {
+      "id": "ufc333-wi-volkanovski-evloev",
+      "sport": "ufc",
+      "type": "weigh-in",
+      "title": "Volkanovski 144.5, Evloev 145: main event official",
+      "summary": "Both featherweight title fighters made weight: Alexander Volkanovski 144.5 and Movsar Evloev 145.",
+      "event": "UFC 333",
+      "fighters_or_teams": [
+        "Alexander Volkanovski",
+        "Movsar Evloev"
+      ],
+      "impact": "medium",
+      "edge_take": "Still a pass: clean weigh-in, true pick'em near -108 each.",
+      "source_name": "UFC.com",
+      "source_url": "https://www.ufc.com/news/official-weigh-results-ufc-333-volkanovski-vs-evloev",
+      "published": "2026-10-23T02:35:00-04:00"
+    },
+    {
+      "id": "ufc333-wi-yan-dvalishvili",
+      "sport": "ufc",
+      "type": "weigh-in",
+      "title": "Yan and Dvalishvili both 135: co-main official",
+      "summary": "Petr Yan and Merab Dvalishvili each weighed 135 lbs for their bantamweight title trilogy.",
+      "event": "UFC 333",
+      "fighters_or_teams": [
+        "Petr Yan",
+        "Merab Dvalishvili"
+      ],
+      "impact": "medium",
+      "edge_take": "Still a pass: no weigh-in red flags for either man.",
+      "source_name": "UFC.com",
+      "source_url": "https://www.ufc.com/news/official-weigh-results-ufc-333-volkanovski-vs-evloev",
+      "published": "2026-10-23T02:35:00-04:00"
+    },
+    {
+      "id": "ufc333-wi-main-card-rest",
+      "sport": "ufc",
+      "type": "weigh-in",
+      "title": "Rest of main card makes weight",
+      "summary": "Kavanagh 125.5 vs Temirov 126, Volkov 256 vs Kuniev 265, Pico 145.5 vs Keita 146. All on weight.",
+      "event": "UFC 333",
+      "fighters_or_teams": [
+        "Lone'er Kavanagh",
+        "Ramazan Temirov",
+        "Alexander Volkov",
+        "Rizvan Kuniev",
+        "Aaron Pico",
+        "Losene Keita"
+      ],
+      "impact": "low",
+      "edge_take": "Still a pass: no weigh-in news here.",
+      "source_name": "Yahoo Sports (Uncrowned)",
+      "source_url": "https://ca.sports.yahoo.com/news/live/ufc-333-volkanovski-vs-evloev-live-weigh-in-results-and-video-for-saturdays-fight-card-020000261.html",
+      "published": "2026-10-23T02:35:00-04:00"
+    },
+    {
+      "id": "ufc333-wi-prelims",
+      "sport": "ufc",
+      "type": "weigh-in",
+      "title": "All other prelim fighters make weight",
+      "summary": "Murzakanov 206/Reyes 205, Krylov 206/Yakhyaev 206, Magomedov 185.5/Rowston 185, Dawson 156/Aliev 155, Thicknesse 135.5/Chopurov 136, Vagaev 185.5/Malkoun 186, Oki 146/Santos 146, Steele 156/Gugnon 156. Caliari was the only miss on the 28-fighter card.",
+      "event": "UFC 333",
+      "fighters_or_teams": [
+        "Azamat Murzakanov",
+        "Dominick Reyes",
+        "Nikita Krylov",
+        "Abdul Rakhman Yakhyaev",
+        "Abus Magomedov",
+        "Cam Rowston",
+        "Grant Dawson",
+        "Nurullo Aliev",
+        "Colby Thicknesse",
+        "Asaf Chopurov",
+        "Abubakar Vagaev",
+        "Jacob Malkoun",
+        "Bolaji Oki",
+        "Daniel Santos",
+        "Kody Steele",
+        "Noah Gugnon"
+      ],
+      "impact": "low",
+      "edge_take": "Still a pass: nothing at the scale moves these.",
+      "source_name": "Sherdog",
+      "source_url": "https://www.sherdog.com/news/news/UFC-333-weighin-results-Title-fights-set-Fighter-heavy-by-45-pounds-203308",
+      "published": "2026-10-23T02:35:00-04:00"
+    },
+    {
+      "id": "ufc333-news-allen-out-keita-in",
+      "sport": "ufc",
+      "type": "news",
+      "title": "Arnold Allen out; Losene Keita faces Aaron Pico",
+      "summary": "Allen withdrew in mid-September, still rehabbing from past treatments, and Keita (off a Sept. 5 first-round KO) replaced him against Pico. The fight is on and both made weight.",
+      "event": "UFC 333",
+      "fighters_or_teams": [
+        "Arnold Allen",
+        "Aaron Pico",
+        "Losene Keita"
+      ],
+      "impact": "medium",
+      "edge_take": "Still a pass: the market already priced it (see Pico line move).",
+      "source_name": "MiddleEasy",
+      "source_url": "https://middleeasy.com/mma-news/arnold-allen-withdraws-ufc-333-aaron-pico-losene-keita/",
+      "published": "2026-09-18T12:00:00-04:00"
+    },
+    {
+      "id": "ufc333-injury-yan-back",
+      "sport": "ufc",
+      "type": "injury",
+      "title": "Yan's first fight back after January back surgery",
+      "summary": "Petr Yan had nine-hour lumbar surgery in January and fights about nine months later. Sean O'Malley said that could be too soon, but no new injury has been reported and Yan made weight.",
+      "event": "UFC 333",
+      "fighters_or_teams": [
+        "Petr Yan",
+        "Merab Dvalishvili"
+      ],
+      "impact": "medium",
+      "edge_take": "Still a pass: this is the likely reason Yan drifted, and we can't price the risk better than the market.",
+      "source_name": "MMA Fighting",
+      "source_url": "https://www.mmafighting.com/ufc/516750/sean-omalley-thinks-petr-yan-made-a-mistake-ahead-of-trilogy-bout-with-merab-dvalishvili",
+      "published": "2026-10-20T12:00:00-04:00"
+    },
+    {
+      "id": "ufc333-line-yan-dvalishvili",
+      "sport": "ufc",
+      "type": "line-move",
+      "title": "Yan drifts from -183 to -149; Dvalishvili in to +127",
+      "summary": "Consensus moved about 4.8% toward Dvalishvili across 23 books. DraftKings Yan is -135 (opened -185), FanDuel -144.",
+      "event": "UFC 333",
+      "fighters_or_teams": [
+        "Petr Yan",
+        "Merab Dvalishvili"
+      ],
+      "impact": "high",
+      "edge_take": "Still a pass: DK -135 is the best Yan price but sits right at the market's ~57%, so there's no gap to bet.",
+      "source_name": "BestMMAStats",
+      "source_url": "https://www.bestmmastats.com/line-movement/petr-yan-vs-merab-dvalishvili-1168665",
+      "published": "2026-10-23T21:00:00-04:00"
+    },
+    {
+      "id": "ufc333-line-volkanovski-evloev",
+      "sport": "ufc",
+      "type": "line-move",
+      "title": "Main event settles at pick'em",
+      "summary": "Early lines had Evloev -185 / Volkanovski +160, then it flipped to roughly even. Now it's -108/-108 consensus; DK -110/-110, FD -108/-108.",
+      "event": "UFC 333",
+      "fighters_or_teams": [
+        "Alexander Volkanovski",
+        "Movsar Evloev"
+      ],
+      "impact": "medium",
+      "edge_take": "Still a pass: no stat edge on a coin flip.",
+      "source_name": "BestMMAStats",
+      "source_url": "https://www.bestmmastats.com/line-movement/alexander-volkanovski-vs-movsar-evloev-1168664",
+      "published": "2026-10-23T21:00:00-04:00"
+    },
+    {
+      "id": "ufc333-line-pico-keita",
+      "sport": "ufc",
+      "type": "line-move",
+      "title": "Pico steamed from -103 to -148; Keita flips to +126",
+      "summary": "Biggest move on the card (10.5% implied): Keita opened a -121 favorite and is now a +126 underdog.",
+      "event": "UFC 333",
+      "fighters_or_teams": [
+        "Aaron Pico",
+        "Losene Keita"
+      ],
+      "impact": "medium",
+      "edge_take": "Still a pass: we'd be chasing a move that's already done.",
+      "source_name": "BestMMAStats",
+      "source_url": "https://www.bestmmastats.com/line-movement",
+      "published": "2026-10-23T21:00:00-04:00"
+    },
+    {
+      "id": "ufc333-line-undercard",
+      "sport": "ufc",
+      "type": "line-move",
+      "title": "Undercard moves: Vagaev, Oki/Santos, Chopurov, Lucindo",
+      "summary": "Vagaev shortened from -194 to -151 (money toward Malkoun), Santos/Oki went from -144/+116 to -115/-104, Chopurov -514 to -600, and Lucindo -361 to -405 after Caliari's miss.",
+      "event": "UFC 333",
+      "fighters_or_teams": [
+        "Abubakar Vagaev",
+        "Jacob Malkoun",
+        "Daniel Santos",
+        "Bolaji Oki",
+        "Asaf Chopurov",
+        "Iasmin Lucindo"
+      ],
+      "impact": "low",
+      "edge_take": "Still a pass: no news explains these beyond the Caliari miss.",
+      "source_name": "BestMMAStats",
+      "source_url": "https://www.bestmmastats.com/line-movement",
+      "published": "2026-10-23T21:00:00-04:00"
+    },
+    {
+      "id": "nfl-w7-sf-evans-bosa-out",
+      "sport": "nfl",
+      "type": "injury",
+      "title": "49ers rule out Mike Evans, Nick Bosa, Deebo Samuel at ATL",
+      "summary": "Shanahan ruled out WR Mike Evans (Achilles), DE Nick Bosa (calf), WR Deebo Samuel (hamstring), LBs Wallow and Gifford, and S Sigle. Evans and Bosa won't travel to Atlanta.",
+      "event": "Week 7",
+      "fighters_or_teams": [
+        "San Francisco 49ers",
+        "Atlanta Falcons"
+      ],
+      "impact": "high",
+      "edge_take": "This hits Edge's own pass rule for SF -2.5 (both Evans and Bosa out), so the play should be pulled unless Edge re-grades it.",
+      "source_name": "NBC Sports Bay Area",
+      "source_url": "https://www.nbcsportsbayarea.com/nfl/san-francisco-49ers/mike-evans-nick-bosa-out-injury-report/1973551/",
+      "published": "2026-10-23T16:30:00-04:00"
+    },
+    {
+      "id": "nfl-w7-sf-kirk-return",
+      "sport": "nfl",
+      "type": "lineup",
+      "title": "Christian Kirk expected back; Jordan Watkins leads thin SF WR room",
+      "summary": "Kirk (calf) is listed questionable but Shanahan plans to activate him. SF's top four Week 1 receivers are all unavailable.",
+      "event": "Week 7",
+      "fighters_or_teams": [
+        "San Francisco 49ers"
+      ],
+      "impact": "medium",
+      "edge_take": "Doesn't save the SF -2.5 play; the WR room is very thin.",
+      "source_name": "ProFootballTalk",
+      "source_url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-evans-nick-bosa-among-several-49ers-ruled-out-for-week-7",
+      "published": "2026-10-23T16:45:00-04:00"
+    },
+    {
+      "id": "nfl-w7-kc-tackles-out",
+      "sport": "nfl",
+      "type": "injury",
+      "title": "Chiefs without both starting tackles at SEA",
+      "summary": "RT Jaylon Moore is out (concussion) and LT Josh Simmons went on IR this week. WR Rashee Rice and RB Brashard Smith are out; CB L'Jarius Sneed is questionable, and Kelce (ankle) has no game status.",
+      "event": "Week 7",
+      "fighters_or_teams": [
+        "Kansas City Chiefs",
+        "Seattle Seahawks"
+      ],
+      "impact": "high",
+      "edge_take": "The KC ML play's key check (the tackles) has gone against it, so Edge should re-grade it or lean pass.",
+      "source_name": "Seahawks.com",
+      "source_url": "https://www.seahawks.com/news/2026-week-7-injury-report-chiefs-at-seahawks",
+      "published": "2026-10-23T15:39:00-04:00"
+    },
+    {
+      "id": "nfl-w7-sea-injuries",
+      "sport": "nfl",
+      "type": "injury",
+      "title": "Seahawks: Charbonnet, Thomas, Surratt out; Emmanwori questionable",
+      "summary": "RB Zach Charbonnet (knee) stays out and LBs Drake Thomas and Chazz Surratt are out. S Nick Emmanwori (hip, new Friday) plus Lawrence, Nwosu and O'Toole are questionable, and RG Anthony Bradford returns from IR.",
+      "event": "Week 7",
+      "fighters_or_teams": [
+        "Seattle Seahawks",
+        "Kansas City Chiefs"
+      ],
+      "impact": "medium",
+      "edge_take": "Small help for KC, but it doesn't offset losing both tackles.",
+      "source_name": "Seahawks.com",
+      "source_url": "https://www.seahawks.com/news/2026-week-7-injury-report-chiefs-at-seahawks",
+      "published": "2026-10-23T15:39:00-04:00"
+    }
+  ]
+}
