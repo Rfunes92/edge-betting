@@ -67,6 +67,8 @@ async function football(key, label, path, query) {
         id: e.id, sport: label, name: e.name || '', short: e.shortName || '', start: e.date || c.date || null,
         status: { state: st.state || 'pre', detail: st.shortDetail || st.detail || '' },
         venue: c.venue ? [c.venue.fullName, c.venue.address && c.venue.address.city].filter(Boolean).join(' · ') : null,
+        indoor: c.venue ? !!c.venue.indoor : null, city: c.venue && c.venue.address ? c.venue.address.city || null : null, state: c.venue && c.venue.address ? c.venue.address.state || null : null,
+        espnWeather: e.weather ? { temp: e.weather.temperature ?? null, text: e.weather.displayValue || '' } : null,
         neutral: !!c.neutralSite, broadcast: c.broadcast || ((c.broadcasts || [])[0] || {}).names?.[0] || null,
         home: team(home), away: team(away), odds: gameOdds((c.odds || [])[0]), espnUrl: link ? link.href : null,
       };
@@ -265,6 +267,65 @@ function mergeBooks(games, cache) {
   }
 }
 
+// ---------- Research extras: ESPN Matchup Predictor, Open-Meteo weather, line history ----------
+const within = (iso, days) => { const t = Date.parse(iso); return t > Date.now() - 3 * 36e5 && t < Date.now() + days * 864e5; };
+async function predictors(games, oldGames) {
+  const prev = {}; for (const k of ['nfl', 'cfb']) for (const g of (oldGames[k] && oldGames[k].games) || []) if (g.model) prev[g.id] = g.model;
+  const todo = [];
+  for (const [k, path] of [['nfl', 'nfl'], ['cfb', 'college-football']]) for (const g of (games[k] && games[k].games) || []) {
+    if (g.status.state !== 'pre' || !within(g.start, 8)) continue; if (k === 'cfb' && !g.odds) continue; todo.push([g, path]);
+  }
+  let ok = 0;
+  await pool(todo.slice(0, 80), 6, async ([g, path]) => {
+    try {
+      const s = await getJSON(`${SITE}/football/${path}/summary?event=${g.id}`, 1); const p = s.predictor;
+      const h = p && p.homeTeam && num(p.homeTeam.gameProjection), a = p && p.awayTeam && num(p.awayTeam.gameProjection);
+      if (h != null && a != null) { g.model = { src: 'ESPN Matchup Predictor (FPI)', home: h / 100, away: a / 100 }; ok++; }
+      else if (prev[g.id]) g.model = prev[g.id];
+    } catch { if (prev[g.id]) g.model = prev[g.id]; }
+  });
+  sources.espn_predictor = { ok: true, games: ok };
+}
+const STATES = { AL: 'Alabama', AK: 'Alaska', AZ: 'Arizona', AR: 'Arkansas', CA: 'California', CO: 'Colorado', CT: 'Connecticut', DE: 'Delaware', DC: 'District of Columbia', FL: 'Florida', GA: 'Georgia', HI: 'Hawaii', ID: 'Idaho', IL: 'Illinois', IN: 'Indiana', IA: 'Iowa', KS: 'Kansas', KY: 'Kentucky', LA: 'Louisiana', ME: 'Maine', MD: 'Maryland', MA: 'Massachusetts', MI: 'Michigan', MN: 'Minnesota', MS: 'Mississippi', MO: 'Missouri', MT: 'Montana', NE: 'Nebraska', NV: 'Nevada', NH: 'New Hampshire', NJ: 'New Jersey', NM: 'New Mexico', NY: 'New York', NC: 'North Carolina', ND: 'North Dakota', OH: 'Ohio', OK: 'Oklahoma', OR: 'Oregon', PA: 'Pennsylvania', RI: 'Rhode Island', SC: 'South Carolina', SD: 'South Dakota', TN: 'Tennessee', TX: 'Texas', UT: 'Utah', VT: 'Vermont', VA: 'Virginia', WA: 'Washington', WV: 'West Virginia', WI: 'Wisconsin', WY: 'Wyoming' };
+async function weather(games, geo) {
+  const todo = []; for (const k of ['nfl', 'cfb']) for (const g of (games[k] && games[k].games) || []) if (g.status.state === 'pre' && g.indoor === false && g.city && within(g.start, 7)) todo.push(g);
+  let ok = 0;
+  await pool(todo, 5, async (g) => {
+    try {
+      if (!g.state || !STATES[g.state]) return; // US venues only
+      const gk = `${g.city}|${g.state || ''}`;
+      if (!geo[gk]) {
+        const r = await getJSON(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(g.city)}&count=10&countryCode=US`, 1);
+        const st = STATES[g.state] || g.state; const hit = (r.results || []).find((x) => !st || x.admin1 === st) || null;
+        geo[gk] = hit ? [+hit.latitude.toFixed(3), +hit.longitude.toFixed(3)] : 0;
+      }
+      if (!geo[gk]) return; const [lat, lon] = geo[gk];
+      const w = await getJSON(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,precipitation_probability,wind_speed_10m,wind_gusts_10m&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=UTC&forecast_days=8`, 1);
+      const hr = new Date(g.start).toISOString().slice(0, 13) + ':00'; const i = (w.hourly && w.hourly.time || []).indexOf(hr); if (i < 0) return;
+      const H = w.hourly; g.wx = { temp: Math.round(H.temperature_2m[i]), wind: Math.round(H.wind_speed_10m[i]), gust: Math.round(H.wind_gusts_10m[i]), precip: H.precipitation_probability[i] ?? null, src: 'Open-Meteo' }; ok++;
+    } catch {}
+  });
+  sources.weather = { ok: true, games: ok, outdoorChecked: todo.length };
+}
+function snapshot(games, hist) {
+  const now = new Date().toISOString().slice(0, 16) + 'Z', out = { updated: now, games: {} }, H = (hist && hist.games) || {};
+  for (const k of ['nfl', 'cfb']) for (const g of (games[k] && games[k].games) || []) {
+    if (!g.odds || !within(g.start, 10)) continue; const o = g.odds, sp = o.spread && o.spread.home, ml = o.moneyline || {};
+    const pt = [now, sp ? sp.line : null, o.total ? o.total.line : null, ml.home ? ml.home.odds : null, ml.away ? ml.away.odds : null];
+    const arr = (H[g.id] || []).slice();
+    if (!arr.length) { const hs = o.spread && o.spread.home; const op = ['open', hs ? hs.openLine ?? null : null, o.total ? o.total.openLine ?? null : null, ml.home ? ml.home.open ?? null : null, ml.away ? ml.away.open ?? null : null]; if (op.slice(1).some((x) => x != null)) arr.push(op); }
+    const last = arr[arr.length - 1];
+    if (!last || JSON.stringify(last.slice(1)) !== JSON.stringify(pt.slice(1))) arr.push(pt);
+    out.games[g.id] = arr.slice(-40);
+  }
+  for (const ev of (games.ufc && games.ufc.events) || []) for (const f of ev.fights) {
+    if (f.status.state !== 'pre') continue; const [a, b] = f.fighters; if (!a || !b || a.ml == null) continue;
+    const id = 'ufc-' + f.id, pt = [now, a.ml, b.ml]; const arr = (H[id] || []).slice(); if (!arr.length && (a.mlOpen != null || b.mlOpen != null)) arr.push(['open', a.mlOpen ?? null, b.mlOpen ?? null]); const last = arr[arr.length - 1];
+    if (!last || JSON.stringify(last.slice(1)) !== JSON.stringify(pt.slice(1))) arr.push(pt); out.games[id] = arr.slice(-40);
+  }
+  return out;
+}
+
 async function readOld(name) { try { return await readFile(new URL(name, OUT), 'utf8'); } catch { return null; } }
 
 const [nfl, cfb, mma, nflInj, cfbInj] = await Promise.all([
@@ -283,6 +344,11 @@ let oldMeta = {}; try { oldMeta = JSON.parse((await readOld('meta.json')) || '{}
 let oldOdds = null; try { oldOdds = JSON.parse((await readOld('oddsapi.json')) || 'null'); } catch {}
 const oa = await oddsApi(oldMeta, oldOdds);
 mergeBooks(games, oa.cache);
+let geo = {}; try { geo = JSON.parse((await readOld('geo.json')) || '{}'); } catch {}
+let oldHist = null; try { oldHist = JSON.parse((await readOld('history.json')) || 'null'); } catch {}
+try { await predictors(games, oldGames); } catch (e) { sources.espn_predictor = { ok: false, error: e.message }; }
+try { await weather(games, geo); } catch (e) { sources.weather = { ok: false, error: e.message }; }
+const hist = snapshot(games, oldHist);
 const oaChanged = JSON.stringify(oa.cache) !== JSON.stringify(oldOdds) || JSON.stringify(oa.info) !== JSON.stringify(oldMeta.oddsApi || {});
 const inj = { nfl: nflInj || oldInj.nfl || {}, cfb: cfbInj || oldInj.cfb || {} };
 const gStr = JSON.stringify(games), iStr = JSON.stringify(inj);
@@ -292,6 +358,8 @@ if (changed || !(await readOld('meta.json'))) {
   await writeFile(new URL('games.json', OUT), gStr);
   await writeFile(new URL('injuries.json', OUT), iStr);
   if (oa.cache) await writeFile(new URL('oddsapi.json', OUT), JSON.stringify(oa.cache));
+  await writeFile(new URL('geo.json', OUT), JSON.stringify(geo));
+  await writeFile(new URL('history.json', OUT), JSON.stringify(hist));
   await writeFile(new URL('meta.json', OUT), JSON.stringify({ updated: new Date().toISOString(), oddsApi: oa.info, source: 'ESPN public site API (site.api.espn.com, sports.core.api.espn.com) + The Odds API (DraftKings, FanDuel)', oddsNote: 'Odds provider is labeled exactly as ESPN returns it.', sources }, null, 2));
   console.log('Data changed — files written.');
 } else console.log('No data change.');
