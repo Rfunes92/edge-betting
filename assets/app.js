@@ -205,15 +205,15 @@
     let run = start || 0; const labels = ['Start'], data = [start == null ? null : start];
     settled.forEach((b) => { run += profitOf(b); labels.push(fmtDay(b.date)); data.push(+run.toFixed(2)); });
     const ctx = $('bankrollChart').getContext('2d');
-    const grad = ctx.createLinearGradient(0, 0, 0, 260); grad.addColorStop(0, 'rgba(0,229,255,.28)'); grad.addColorStop(1, 'rgba(0,229,255,0)');
-    const ds = { data: empty ? [] : data, borderColor: '#00e5ff', backgroundColor: grad, fill: true, tension: 0.35, borderWidth: 2.2, pointRadius: data.length > 30 ? 0 : 2.5, pointHoverRadius: 5, pointBackgroundColor: '#00e5ff' };
+    const grad = ctx.createLinearGradient(0, 0, 0, 260); grad.addColorStop(0, 'rgba(245,165,36,.28)'); grad.addColorStop(1, 'rgba(245,165,36,0)');
+    const ds = { data: empty ? [] : data, borderColor: '#F5A524', backgroundColor: grad, fill: true, tension: 0.35, borderWidth: 2.2, pointRadius: data.length > 30 ? 0 : 2.5, pointHoverRadius: 5, pointBackgroundColor: '#F5A524' };
     if (chart) { chart.resize(); chart.data.labels = empty ? [] : labels; chart.data.datasets[0] = ds; chart.update(); return; }
     Chart.defaults.font.family = "'Inter', system-ui, sans-serif"; Chart.defaults.color = '#8a96a3';
     chart = new Chart(ctx, {
       type: 'line', data: { labels: empty ? [] : labels, datasets: [ds] },
       options: {
         responsive: true, maintainAspectRatio: false, animation: { duration: 700, easing: 'easeOutCubic' }, interaction: { mode: 'index', intersect: false },
-        plugins: { legend: { display: false }, tooltip: { backgroundColor: '#151a20', borderColor: 'rgba(0,229,255,.35)', borderWidth: 1, padding: 10, displayColors: false, callbacks: { label: (c) => fmt$(c.parsed.y) } } },
+        plugins: { legend: { display: false }, tooltip: { backgroundColor: '#122C51', borderColor: 'rgba(245,165,36,.35)', borderWidth: 1, padding: 10, displayColors: false, callbacks: { label: (c) => fmt$(c.parsed.y) } } },
         scales: { x: { grid: { display: false }, ticks: { maxTicksLimit: 6, maxRotation: 0 } }, y: { grid: { color: 'rgba(255,255,255,.05)' }, border: { display: false }, ticks: { maxTicksLimit: 5, callback: (v) => '$' + Number(v).toLocaleString() } } }
       }
     });

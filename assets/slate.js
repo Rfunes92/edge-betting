@@ -159,7 +159,7 @@
     const v = pts.map((p) => p[1]).filter((x) => x != null); if (v.length < 2) return '';
     const W = 260, Hh = 46, min = Math.min(...v), max = Math.max(...v), rng = max - min || 1;
     const xy = pts.filter((p) => p[1] != null).map((p, i, a) => [(i / (a.length - 1)) * (W - 8) + 4, Hh - 6 - ((p[1] - min) / rng) * (Hh - 14)]);
-    return `<div class="spark"><div class="sp-l"><span>${E.esc(label)}</span><b>${E.esc(fmt(v[0]))} → ${E.esc(fmt(v[v.length - 1]))}</b></div><svg viewBox="0 0 ${W} ${Hh}" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="#00e5ff" stroke-width="2" points="${xy.map((p) => p.map((n) => n.toFixed(1)).join(',')).join(' ')}"/>${xy.map((p, i) => i === xy.length - 1 ? `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="3" fill="#00e5ff"/>` : '').join('')}</svg></div>`;
+    return `<div class="spark"><div class="sp-l"><span>${E.esc(label)}</span><b>${E.esc(fmt(v[0]))} → ${E.esc(fmt(v[v.length - 1]))}</b></div><svg viewBox="0 0 ${W} ${Hh}" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="#F5A524" stroke-width="2" points="${xy.map((p) => p.map((n) => n.toFixed(1)).join(',')).join(' ')}"/>${xy.map((p, i) => i === xy.length - 1 ? `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="3" fill="#F5A524"/>` : '').join('')}</svg></div>`;
   }
   async function fillHistory(id, kind, names) {
     const el = $('shHist'); if (!el) return; const h = await loadHist(); const arr = (h && h.games && h.games[id]) || [];
