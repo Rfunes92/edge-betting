@@ -97,8 +97,8 @@
   function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 2600); }
 
   // ---------- Views / tabs ----------
-  const VIEWS = ['home', 'slate', 'experts', 'injuries', 'rhythm', 'sources', 'tools'];
-  const ALIAS = { picks: 'home', guide: 'home', fresh: 'home', top: 'home', consensus: 'experts', guardrails: 'tools', stats: 'tools', log: 'tools', lineshop: 'tools', tracker: 'tools', settings: 'tools', data: 'tools' };
+  const VIEWS = ['home', 'slate', 'news', 'experts', 'injuries', 'rhythm', 'sources', 'tools'];
+  const ALIAS = { picks: 'home', guide: 'home', fresh: 'home', top: 'home', consensus: 'experts', guardrails: 'tools', stats: 'tools', log: 'tools', lineshop: 'tools', tracker: 'tools', settings: 'tools', data: 'tools', all: 'slate', nfl: 'slate', cfb: 'slate', college: 'slate', ufc: 'slate' };
   function route() {
     let h = (location.hash || '#home').slice(1);
     const target = h; h = ALIAS[h] || h;
@@ -253,11 +253,13 @@
     const passOn = d.pass === true || (d.pass && d.pass.active);
     const passText = typeof d.pass === 'object' && d.pass ? d.pass.note : d.passNote;
     if (passOn) { note.hidden = false; note.className = 'picks-note pass'; note.innerHTML = `<strong>Pass</strong>${esc(passText || 'The slate is weak. Not betting is a position too.')}`; }
-    else if (!picks.length) { note.hidden = false; note.className = 'picks-note'; note.innerHTML = `<strong>No picks posted</strong>${esc(d.note || 'Check back later.')}`; }
+    else if (!picks.length) { note.hidden = false; note.className = 'picks-note'; note.innerHTML = `<strong>No strong plays right now — passing is a win</strong>${esc(d.note || 'Check the passes below for what we looked at.')}`; }
     else if (d.note) { note.hidden = false; note.className = 'picks-note'; note.innerHTML = esc(d.note); }
     else note.hidden = true;
     const u = unitDollar(), mx = maxDollar();
-    list.innerHTML = picks.map((p, i) => {
+    const RANK = { High: 0, Medium: 1, Low: 2 };
+    const openK = new Set([...list.querySelectorAll('details[open][data-k]')].map((x) => x.dataset.k));
+    list.innerHTML = picks.map((p, i) => [p, i]).sort((a, b) => (RANK[a[0].confidence] ?? 3) - (RANK[b[0].confidence] ?? 3) || (Number(b[0].units) || 0) - (Number(a[0].units) || 0)).map(([p, i], rank) => {
       const conf = ['Low', 'Medium', 'High'].includes(p.confidence) ? p.confidence : 'Low';
       const units = Math.max(0, Number(p.units) || 0);
       const stake = u == null ? null : Math.min(units * u, mx);
@@ -270,7 +272,7 @@
       const dd = p.data && typeof p.data === 'object' ? p.data : null;
       const li = (arr) => (Array.isArray(arr) ? arr : arr ? [arr] : []).map((r) => `<li>${esc(r)}</li>`).join('');
       const srcs = (Array.isArray(p.sources) ? p.sources : []).map((x) => (typeof x === 'string' ? { name: x } : x)).filter(Boolean);
-      const dataHtml = dd ? `<details class="pick-data"><summary>Data behind it</summary><div class="dgrid">
+      const dataHtml = dd ? `<details class="pick-data" data-k="d${i}"><summary>Data behind it</summary><div class="dgrid">
           ${dd.keyStats ? `<div><h4>Key stats</h4><ul>${li(dd.keyStats)}</ul></div>` : ''}
           ${dd.injuries ? `<div><h4>Injuries</h4><ul>${li(dd.injuries)}</ul></div>` : ''}
           ${dd.matchup ? `<div><h4>Matchup</h4><ul>${li(dd.matchup)}</ul></div>` : ''}
@@ -279,8 +281,8 @@
           ${dd.publicPct && (dd.publicPct.bets != null || dd.publicPct.money != null) ? `<div><h4>Public vs money</h4><div class="split"><span>Bets ${esc(dd.publicPct.bets ?? '—')}%</span><div class="split-bar"><i style="width:${Math.max(0, Math.min(100, Number(dd.publicPct.bets) || 0))}%"></i></div><span>Money ${esc(dd.publicPct.money ?? '—')}%</span><div class="split-bar money"><i style="width:${Math.max(0, Math.min(100, Number(dd.publicPct.money) || 0))}%"></i></div></div>${dd.publicPct.source ? `<p class="muted small">${esc(dd.publicPct.source)}</p>` : ''}</div>` : ''}
           ${dd.fairLine || dd.marketLine ? `<div><h4>Our number vs market</h4><p>Fair <b>${esc(dd.fairLine || '—')}</b> · Market <b>${esc(dd.marketLine || '—')}</b>${dd.model ? `<br><span class="muted small">${esc(dd.model)}</span>` : ''}</p></div>` : ''}
         </div></details>` : '';
-      return `<article class="card pick${s.active ? ' disabled' : ''}" style="animation-delay:${i * 60}ms" aria-disabled="${s.active}">
-        <div class="pick-top"><span class="tag">${esc(p.sport)}</span><span class="conf ${conf}">${conf} confidence</span></div>
+      return `<article class="card pick${s.active ? ' disabled' : ''}" data-pid="${i}" style="animation-delay:${rank * 60}ms" aria-disabled="${s.active}">
+        <div class="pick-top"><span class="tag">#${rank + 1} · ${esc(p.sport)}</span><span class="conf ${conf}">${conf} confidence</span></div>
         ${imgs.length ? `<div class="pick-imgs">${imgs.map((x) => `<img src="${esc(x.url)}" alt="${esc(x.alt || '')}" loading="lazy" onerror="this.style.visibility='hidden'">`).join('')}</div>` : ''}
         <div class="pick-event">${esc(p.event)}</div>
         <div class="pick-time">${p.start ? esc(fmtET(p.start)) : ''}</div>
@@ -297,6 +299,8 @@
         <button class="btn btn-primary" data-pick="${i}" ${s.active ? 'disabled' : ''}>${s.active ? 'No more bets this period' : 'Log this bet'}</button>
       </article>`;
     }).join('');
+    document.dispatchEvent(new Event('edge:picks'));
+    list.querySelectorAll('details[data-k]').forEach((x) => { if (openK.has(x.dataset.k)) x.open = true; });
     const passes = Array.isArray(d.passes) ? d.passes : [];
     let pe = $('picksPasses'); if (!pe) { pe = document.createElement('div'); pe.id = 'picksPasses'; list.after(pe); }
     pe.innerHTML = passes.length ? `<details class="card passes"><summary>Considered and passed (${passes.length})</summary><ul>${passes.map((x) => `<li>${typeof x === 'string' ? esc(x) : `<b>${esc(x.event)}</b>: ${esc(x.reason)}`}</li>`).join('')}</ul></details>` : '';
@@ -307,6 +311,7 @@
       if (!r.ok) throw new Error(r.status);
       picksData = await r.json();
     } catch (e) { picksData = { error: true }; }
+    window.EdgePicks = picksData;
     renderPicks();
   }
   const SPORT_MAP = (s) => { s = String(s || '').toLowerCase(); if (s === 'nfl') return 'NFL'; if (s.includes('college') || s === 'cfb' || s === 'ncaaf') return 'College Football'; if (s === 'ufc' || s === 'mma') return 'UFC'; return 'Other'; };

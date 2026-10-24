@@ -155,6 +155,36 @@ async function injuries(key, path) {
   } catch (e) { sources[key + '_injuries'] = { ok: false, error: String(e.message || e) }; return null; }
 }
 
+// ---------- News: ESPN public news, merged with hand-curated items (never overwritten) ----------
+async function newsFeed(key, path) {
+  try {
+    const d = await getJSON(`${SITE}/${path}/news?limit=25`);
+    const items = (d.articles || []).filter((a) => a.headline && a.type !== 'Media').map((a) => ({
+      id: `espn-${key}-${a.id}`, sport: key, type: 'news', title: a.headline, summary: a.description || '', event: '',
+      fighters_or_teams: (a.categories || []).filter((c) => c.type === 'athlete' || c.type === 'team').map((c) => c.description).filter(Boolean).slice(0, 4),
+      impact: 'low', edge_take: '', source_name: 'ESPN', source_url: (a.links && a.links.web && a.links.web.href) || '', published: a.published || a.lastModified || '',
+    }));
+    sources[key + '_news'] = { ok: true, count: items.length };
+    return items;
+  } catch (e) { sources[key + '_news'] = { ok: false, error: String(e.message || e) }; return null; }
+}
+const isCurated = (i) => !!(i.edge_take || (i.type && i.type !== 'news') || !String(i.id || '').startsWith('espn-'));
+async function writeNews() {
+  const fresh = (await Promise.all([newsFeed('nfl', 'football/nfl'), newsFeed('cfb', 'football/college-football'), newsFeed('ufc', 'mma/ufc')])).flat().filter(Boolean);
+  let old = { items: [] }; try { old = JSON.parse((await readOld('news.json')) || '{"items":[]}'); } catch {}
+  const oldItems = Array.isArray(old.items) ? old.items : [];
+  const curated = oldItems.filter(isCurated), curIds = new Set(curated.map((i) => i.id));
+  const cutoff = Date.now() - 7 * 864e5, ts = (i) => Date.parse(i.published) || 0;
+  const auto = new Map();
+  oldItems.filter((i) => !isCurated(i)).concat(fresh).forEach((i) => { if (!curIds.has(i.id) && ts(i) >= cutoff) auto.set(i.id, i); });
+  const room = Math.max(0, 60 - curated.length);
+  const autoKeep = [...auto.values()].sort((a, b) => ts(b) - ts(a)).slice(0, room);
+  const items = curated.concat(autoKeep).sort((a, b) => ts(b) - ts(a));
+  if (JSON.stringify(items) === JSON.stringify(oldItems)) return console.log('No news change.');
+  await writeFile(new URL('news.json', OUT), JSON.stringify({ updated: new Date().toISOString(), items }, null, 2));
+  console.log(`News written: ${curated.length} curated + ${autoKeep.length} auto.`);
+}
+
 async function readOld(name) { try { return await readFile(new URL(name, OUT), 'utf8'); } catch { return null; } }
 
 const [nfl, cfb, mma, nflInj, cfbInj] = await Promise.all([
@@ -179,5 +209,6 @@ if (changed || !(await readOld('meta.json'))) {
   await writeFile(new URL('meta.json', OUT), JSON.stringify({ updated: new Date().toISOString(), source: 'ESPN public site API (site.api.espn.com, sports.core.api.espn.com)', oddsNote: 'Odds provider is labeled exactly as ESPN returns it.', sources }, null, 2));
   console.log('Data changed — files written.');
 } else console.log('No data change.');
+try { await writeNews(); } catch (e) { console.log('news failed (non-fatal): ' + e.message); }
 console.log(JSON.stringify(sources, null, 2));
 if (!nfl && !cfb && !mma) process.exitCode = 1;

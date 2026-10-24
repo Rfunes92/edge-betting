@@ -15,9 +15,11 @@
 <script src="assets/app.js" defer></script>
 <script src="assets/slate.js" defer></script>
 <script src="assets/experts.js" defer></script>
+<script src="assets/news.js" defer></script>
 </head>
 <body>
 <header class="topbar">
+  <div class="ticker" id="ticker" hidden aria-label="Breaking news and concerns"><span class="tk-label">LIVE</span><div class="tk-viewport"><div class="tk-track" id="tickerTrack"></div></div></div>
   <div class="topbar-inner">
     <a class="brand" href="#home" aria-label="Edge home">
       <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#0f1317" stroke="rgba(0,229,255,.35)"/><path d="M9 22 L16 9 L23 22" stroke="#00e5ff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -30,6 +32,7 @@
   <nav class="tabs" aria-label="Sections">
     <a href="#home" class="tab" data-view="home">Home</a>
     <a href="#slate" class="tab" data-view="slate">Slate</a>
+    <a href="#news" class="tab" data-view="news">News</a>
     <a href="#experts" class="tab" data-view="experts">Experts</a>
     <a href="#injuries" class="tab" data-view="injuries">Injuries</a>
     <a href="#rhythm" class="tab" data-view="rhythm">Weekly plan</a>
@@ -37,6 +40,14 @@
     <a href="#tools" class="tab" data-view="tools">Tools</a>
   </nav>
 </header>
+
+<nav class="sportnav" id="sportNav" aria-label="Sports">
+  <div class="sn-title">Sports</div>
+  <a href="#all" class="sn" data-sk="all"><span class="sn-ic" aria-hidden="true">⚡</span><span class="sn-l">All</span><span class="sn-c" data-c="all"></span></a>
+  <a href="#nfl" class="sn" data-sk="nfl"><span class="sn-ic" aria-hidden="true">🏈</span><span class="sn-l">NFL</span><span class="sn-c" data-c="nfl"></span></a>
+  <a href="#cfb" class="sn" data-sk="cfb"><span class="sn-ic" aria-hidden="true">🎓</span><span class="sn-l">College</span><span class="sn-c" data-c="cfb"></span></a>
+  <a href="#ufc" class="sn" data-sk="ufc"><span class="sn-ic" aria-hidden="true">🥊</span><span class="sn-l">UFC</span><span class="sn-c" data-c="ufc"></span></a>
+</nav>
 
 <main id="top">
   <div id="stopBanner" class="stop-banner" hidden role="status" aria-live="polite">
@@ -60,6 +71,11 @@
     <div id="picksList" class="picks-grid"></div>
     <p class="breakeven">Break-even reminder: at -110 you need to win about <b>52.4%</b> of bets just to break even.</p>
     <p class="disclaimer">No pick is guaranteed. The house has an edge on every bet. Stakes are capped at 2% of your bankroll.</p>
+  </section>
+
+  <section id="homeNewsSec" class="section" hidden>
+    <div class="section-head"><h2>Breaking: high impact</h2><a class="small" href="#news">All news →</a></div>
+    <div id="homeNews" class="news-list"></div>
   </section>
 
   <!-- FRESH DATA -->
@@ -102,9 +118,9 @@
     <div class="section-head"><h2>This week's slate</h2><span class="muted small" id="slateUpdated"></span></div>
     <p class="slate-intro muted small">Lines from ESPN's free feed (the odds provider is named on each card). Tap a game for odds, injuries and research links. Always check DraftKings and FanDuel yourself before betting.</p>
     <div class="log-filters" id="slateFilters">
-      <button class="chip active" data-sport="all">All</button><button class="chip" data-sport="NFL">NFL</button><button class="chip" data-sport="College Football">College</button><button class="chip" data-sport="UFC">UFC</button>
       <button class="chip chip-toggle" id="slateUpcoming" aria-pressed="true">Upcoming only</button>
     </div>
+    <div id="slatePicks" class="pick-strip" hidden></div>
     <div id="slateList" class="slate-list"><div class="empty">Loading slate…</div></div>
   </section>
   </div>
@@ -135,6 +151,14 @@
   </section>
   </div>
   <!-- EXPERTS -->
+  <div class="view" id="v-news" hidden>
+  <section class="section">
+    <div class="section-head"><h2>News</h2><span class="muted small" id="newsUpdated"></span></div>
+    <p class="slate-intro muted small">Weigh-ins, injuries, lineups and line moves that can change a bet. High-impact items are pinned. Follows the sport you pick on the left.</p>
+    <div id="newsList" class="news-list"><div class="empty">Loading news…</div></div>
+  </section>
+  </div>
+
   <div class="view" id="v-experts" hidden>
   <section class="section">
     <div class="section-head"><h2>Experts watch list</h2><span class="muted small" id="expUpdated"></span></div>

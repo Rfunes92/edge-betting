@@ -194,7 +194,7 @@
     const get = (f) => fetch('data/' + f + '?t=' + Math.floor(Date.now() / 6e5), { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
     [games, inj, meta] = await Promise.all([get('games.json'), get('injuries.json'), get('meta.json')]);
     if (meta && meta.updated) $('slateUpdated').textContent = 'Updated ' + E.fmtET(meta.updated);
-    render(); renderHome(); renderInjuries(true);
+    render(); renderHome(); renderInjuries(true); counts();
     window.EdgeData = { games, inj, meta };
     document.dispatchEvent(new Event('edge:data'));
   }
@@ -203,10 +203,12 @@
     const up = [];
     ['nfl', 'cfb'].forEach((k) => (games[k] && games[k].games || []).forEach((g) => { if (g.status.state === 'pre') { up.push({ g, k }); index[g.id] = { type: 'fb', g, key: k }; } }));
     up.sort((a, b) => new Date(a.g.start) - new Date(b.g.start));
-    const nfl = up.filter((x) => x.k === 'nfl').slice(0, 2), cfb = up.filter((x) => x.k === 'cfb' && (x.g.home.rank || x.g.away.rank)).slice(0, 2);
+    const sk = sportKey(), n = sk === 'all' ? 2 : 4;
+    const nfl = sk === 'all' || sk === 'nfl' ? up.filter((x) => x.k === 'nfl').slice(0, n) : [];
+    const cfb = sk === 'all' || sk === 'cfb' ? up.filter((x) => x.k === 'cfb' && (sk === 'cfb' || x.g.home.rank || x.g.away.rank)).slice(0, n) : [];
     let html = [...nfl, ...cfb].map((x) => footballCard(x.g, x.k)).join('');
-    const ev = games.ufc && games.ufc.events[0]; const main = ev && ev.fights.find((f) => f.status.state === 'pre');
-    if (main) { index[ev.id + ':' + main.id] = { type: 'ufc', ev, f: main }; html += fightCard(ev, main, ev.fights.indexOf(main)); }
+    const ev = games.ufc && games.ufc.events[0];
+    if (ev && (sk === 'all' || sk === 'ufc')) ev.fights.filter((f) => f.status.state === 'pre').slice(0, sk === 'ufc' ? 4 : 1).forEach((f) => { index[ev.id + ':' + f.id] = { type: 'ufc', ev, f }; html += fightCard(ev, f, ev.fights.indexOf(f)); });
     hs.innerHTML = html || '<div class="empty">No upcoming games in the feed.</div>';
     const fg = $('freshGrid');
     if (fg) {
@@ -233,13 +235,44 @@
     }).join('');
     list.innerHTML = html || `<div class="empty">${teams.length ? 'Nobody matches this filter.' : 'No injury data from ESPN for this league right now.'}</div>`;
   }
+  // ---------- Sport selector (left rail / sticky bar) ----------
+  const SK = { all: 'all', nfl: 'nfl', cfb: 'cfb', college: 'cfb', ufc: 'ufc' };
+  const SPORT = { all: 'all', nfl: 'NFL', cfb: 'College Football', ufc: 'UFC' };
+  const LS_KEY = 'edge.sport';
+  const sportKey = () => Object.keys(SPORT).find((k) => SPORT[k] === sport) || 'all';
+  function setSport(k, scroll) {
+    sport = SPORT[k] || 'all';
+    try { localStorage.setItem(LS_KEY, k); } catch (e) {}
+    document.querySelectorAll('#sportNav .sn').forEach((a) => { const on = a.dataset.sk === k; a.classList.toggle('active', on); a.toggleAttribute('aria-current', on); });
+    if ((k === 'nfl' || k === 'cfb') && typeof injSport !== 'undefined' && injSport !== k) { const ic = document.querySelector('#injSport .chip[data-s="' + k + '"]'); if (ic) ic.click(); }
+    if (games) { render(); renderHome(); }
+    window.EdgeSport = k; document.dispatchEvent(new CustomEvent('edge:sport', { detail: k }));
+    if (scroll) setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 40);
+  }
+  function counts() {
+    if (!games) return;
+    const live = (g) => !upcoming || g.status.state !== 'post';
+    const c = { nfl: ((games.nfl && games.nfl.games) || []).filter(live).length, cfb: ((games.cfb && games.cfb.games) || []).filter(live).length,
+      ufc: ((games.ufc && games.ufc.events) || []).reduce((n, ev) => n + ev.fights.filter(live).length, 0) };
+    c.all = c.nfl + c.cfb + c.ufc;
+    document.querySelectorAll('#sportNav .sn-c').forEach((el) => { el.textContent = c[el.dataset.c]; });
+  }
+  function initSportNav() {
+    const nav = $('sportNav'); if (!nav) return;
+    let saved = null; try { saved = localStorage.getItem(LS_KEY); } catch (e) {}
+    const k = SK[location.hash.slice(1)] || SK[saved] || 'all';
+    setSport(k, false);
+    nav.addEventListener('click', (e) => { const a = e.target.closest('.sn'); if (a && location.hash === '#' + a.dataset.sk) { e.preventDefault(); setSport(a.dataset.sk, true); } });
+    const tb = document.querySelector('.topbar');
+    const sync = () => document.documentElement.style.setProperty('--tb-h', tb.offsetHeight + 'px');
+    if (tb) { sync(); if (window.ResizeObserver) new ResizeObserver(sync).observe(tb); else window.addEventListener('resize', sync); }
+  }
   function init() {
     E = window.Edge; if (!E) return;
     $('slateFilters').addEventListener('click', (e) => {
       const c = e.target.closest('.chip'); if (!c) return;
       if (c.id === 'slateUpcoming') { upcoming = !upcoming; c.classList.toggle('active', upcoming); c.setAttribute('aria-pressed', upcoming); }
-      else { sport = c.dataset.sport; $('slateFilters').querySelectorAll('.chip[data-sport]').forEach((x) => x.classList.toggle('active', x === c)); }
-      render();
+      render(); counts();
     });
     $('slateUpcoming').classList.add('active');
     ['slateList', 'homeSlate'].forEach((id) => $(id) && $(id).addEventListener('click', (e) => { const g = e.target.closest('.game'); if (g) openSheet(g.dataset.key); }));
@@ -250,7 +283,8 @@
       const b = e.target.closest('[data-shop]'); if (b) { try { shop(JSON.parse(b.dataset.shop)); } catch (err) {} }
     });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !$('sheet').hidden) closeSheet(); });
-    window.addEventListener('hashchange', () => { if (!$('sheet').hidden) closeSheet(); });
+    window.addEventListener('hashchange', () => { if (!$('sheet').hidden) closeSheet(); const k = SK[location.hash.slice(1)]; if (k) setSport(k, true); });
+    initSportNav();
     load();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
