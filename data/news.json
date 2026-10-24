@@ -1,6 +1,61 @@
 {
-  "updated": "2026-10-24T02:13:08.651Z",
+  "updated": "2026-10-24T03:51:46.055Z",
   "items": [
+    {
+      "id": "espn-cfb-50262750",
+      "sport": "cfb",
+      "type": "news",
+      "title": "Texas AD Del Conte clarifies AI use on key play that failed in loss to Florida",
+      "summary": "Texas AD Chris Del Conte on Friday sought to clarify a report the team used a new AI-driven platform on a crucial play that failed in last week's loss to Florida.",
+      "event": "",
+      "fighters_or_teams": [
+        "Texas Longhorns",
+        "University of Texas"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/college-football/story/_/id/50262750/texas-ad-clarifies-use-ai-key-play-loss-florida",
+      "published": "2026-10-24T03:45:38Z"
+    },
+    {
+      "id": "espn-cfb-50262734",
+      "sport": "cfb",
+      "type": "news",
+      "title": "Duke uses trick-play TD pass from Nate Sheppard to pull out 19-16 victory over Virginia",
+      "summary": "— Duke running back Nate Sheppard threw a 28-yard touchdown pass to a wide-open Brody Keefe with 1:14 left to give the Blue Devils a 19-16 win over Virginia on Friday night at...",
+      "event": "",
+      "fighters_or_teams": [
+        "Virginia Cavaliers",
+        "University of Virginia",
+        "Duke Blue Devils",
+        "Duke University"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "http://www.espn.com/ncf/recap?gameId=401858271",
+      "published": "2026-10-24T03:41:46Z"
+    },
+    {
+      "id": "espn-cfb-50262755",
+      "sport": "cfb",
+      "type": "news",
+      "title": "Kalieb Osborne, Shamar Porter guide UConn to 35-16 victory over UMass",
+      "summary": "— Kalieb Osborne threw two touchdown passes and ran for a score to lead Connecticut to a 35-16 victory over Massachusetts on Friday night.",
+      "event": "",
+      "fighters_or_teams": [
+        "UConn Huskies",
+        "University of Connecticut",
+        "Massachusetts Minutemen",
+        "University of Massachusetts"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "http://www.espn.com/ncf/recap?gameId=401861965",
+      "published": "2026-10-24T02:51:52Z"
+    },
     {
       "id": "espn-nfl-50261735",
       "sport": "nfl",
