@@ -1,6 +1,132 @@
 {
-  "updated": "2026-10-24T09:48:30.364Z",
+  "updated": "2026-10-24T12:58:00.423Z",
   "items": [
+    {
+      "id": "espn-cfb-50265129",
+      "sport": "cfb",
+      "type": "news",
+      "title": "Sources: Mississippi State eyes return for QB Taylor, RB Bothwell",
+      "summary": "Mississippi State QB Kamario Taylor is expected to attempt to play while RB Fluff Bothwell will be available vs. Oklahoma, sources told ESPN.",
+      "event": "",
+      "fighters_or_teams": [
+        "Kamario Taylor",
+        "Fluff Bothwell",
+        "Mississippi State Bulldogs",
+        "Mississippi State University"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/college-football/story/_/id/50265129/sources-mississippi-state-eyes-return-taylor-bothwell",
+      "published": "2026-10-24T12:27:36Z"
+    },
+    {
+      "id": "espn-nfl-50264705",
+      "sport": "nfl",
+      "type": "news",
+      "title": "NFL House in Paris closes ahead of street protests in French capital",
+      "summary": "The NFL closed its \"NFL House\" in Paris as the city braced for street protests with a heavy police presence and storefronts boarded up.",
+      "event": "",
+      "fighters_or_teams": [
+        "Pittsburgh Steelers",
+        "New Orleans Saints"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50264705/nfl-house-paris-closes-ahead-street-protests",
+      "published": "2026-10-24T12:21:04Z"
+    },
+    {
+      "id": "espn-cfb-32644138",
+      "sport": "cfb",
+      "type": "news",
+      "title": "The 2001 Miami Hurricanes are one of college football's greatest teams ever",
+      "summary": "The Canes became one of CFB's greatest teams 25 years ago. Here is the story of the 2001 season, told in their own words.",
+      "event": "",
+      "fighters_or_teams": [
+        "Miami Hurricanes",
+        "University of Miami"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/college-football/story/_/id/32644138/2001-miami-greatest-teams-ever",
+      "published": "2026-10-24T12:15:49Z"
+    },
+    {
+      "id": "espn-nfl-50253343",
+      "sport": "nfl",
+      "type": "news",
+      "title": "Will Niners have edge with ex-Falcons coach facing Penix?",
+      "summary": "With all of the familiarity between Morris and the Falcons, Sunday's game should come down to execution.",
+      "event": "",
+      "fighters_or_teams": [
+        "Atlanta Falcons",
+        "Michael Penix Jr",
+        "Bijan Robinson"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50253343/atlanta-falcons-san-francisco-49er-raheem-morris",
+      "published": "2026-10-24T10:00:21Z"
+    },
+    {
+      "id": "espn-nfl-50253768",
+      "sport": "nfl",
+      "type": "news",
+      "title": "Fernando Mendoza is embracing being Raiders' latest Hispanic QB",
+      "summary": "The rookie's next chapter is inspired by the legacies of a Hispanic coach, QB and a Raiders' fan base embracing the culture.",
+      "event": "",
+      "fighters_or_teams": [
+        "Las Vegas Raiders",
+        "Fernando Mendoza",
+        "Alberto Mendoza",
+        "Georgia Tech Yellow Jackets"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50253768/raiders-qb-fernando-mendoza-hispanic-plunkett-flores",
+      "published": "2026-10-24T10:00:13Z"
+    },
+    {
+      "id": "espn-nfl-50258881",
+      "sport": "nfl",
+      "type": "news",
+      "title": "Inside the silent messages Boye Mafe sends every game day",
+      "summary": "The Bengals defensive end uses sign language to say \"I love you\" to his mother, Bola, who died of pancreatic cancer in 2018.",
+      "event": "",
+      "fighters_or_teams": [
+        "Cincinnati Bengals",
+        "Boye Mafe"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50258881/cincinnati-bengals-boye-mafe-sign-language",
+      "published": "2026-10-24T10:00:12Z"
+    },
+    {
+      "id": "espn-nfl-50249972",
+      "sport": "nfl",
+      "type": "news",
+      "title": "NFL Week 7 predictions: Upsets, fantasy sleepers, stat lines, TD scorers, more",
+      "summary": "Touchdowns for Tucker Kraft and Germie Bernard? Cardinals pull another upset? Revenge game for Trey Hendrickson? Let's predict 15 things for Week 7.",
+      "event": "",
+      "fighters_or_teams": [
+        "Arizona Cardinals",
+        "Kansas City Chiefs",
+        "Detroit Lions",
+        "Pittsburgh Steelers"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50249972/week-7-predictions-upsets-fantasy-sleepers-stats-2026",
+      "published": "2026-10-24T10:00:03Z"
+    },
     {
       "id": "espn-cfb-50263768",
       "sport": "cfb",
@@ -723,6 +849,25 @@
       "published": "2026-10-23T17:43:58Z"
     },
     {
+      "id": "espn-nfl-50257261",
+      "sport": "nfl",
+      "type": "news",
+      "title": "David Andrews' blood clot diagnosis illuminates what's going on with Jalen Hurts",
+      "summary": "The former NFL center tells ESPN about his experience as it might provide a window into the Eagles QB's situation.",
+      "event": "",
+      "fighters_or_teams": [
+        "Philadelphia Eagles",
+        "Jalen Hurts",
+        "New England Patriots",
+        "David Andrews"
+      ],
+      "impact": "low",
+      "edge_take": "",
+      "source_name": "ESPN",
+      "source_url": "https://www.espn.com/nfl/story/_/id/50257261/patriots-david-andrews-blood-clots-eagles-jalen-hurts",
+      "published": "2026-10-23T17:41:35Z"
+    },
+    {
       "id": "espn-ufc-50257331",
       "sport": "ufc",
       "type": "news",
@@ -896,59 +1041,6 @@
       "published": "2026-10-22T00:20:14Z"
     },
     {
-      "id": "espn-ufc-24067525",
-      "sport": "ufc",
-      "type": "news",
-      "title": "Blanchfield out, Suarez and Jandiroba move up in pound-for-pound rankings",
-      "summary": "After winning UFC women's flyweight title, Silva rises in ESPN's P4P top 10.",
-      "event": "",
-      "fighters_or_teams": [
-        "Islam Makhachev",
-        "Petr Yan",
-        "Merab Dvalishvili",
-        "Tom Aspinall"
-      ],
-      "impact": "low",
-      "edge_take": "",
-      "source_name": "ESPN",
-      "source_url": "https://www.espn.com/mma/story/_/id/24067525/mma-pound-pound-rankings",
-      "published": "2026-10-21T13:59:22Z"
-    },
-    {
-      "id": "espn-ufc-50189696",
-      "sport": "ufc",
-      "type": "news",
-      "title": "UFC champ Alexander Volkanovski proposes 'send-off' superbout vs. Justin Gaethje",
-      "summary": "UFC featherweight champion Alexander Volkanovski is calling for a \"send-off\" superfight against lightweight champion Justin Gaethje.",
-      "event": "",
-      "fighters_or_teams": [
-        "Alexander Volkanovski",
-        "Justin Gaethje"
-      ],
-      "impact": "low",
-      "edge_take": "",
-      "source_name": "ESPN",
-      "source_url": "https://www.espn.com/mma/story/_/id/50189696/ufc-champ-volkanovski-proposes-send-superbout-vs-gaethje",
-      "published": "2026-10-21T13:12:41Z"
-    },
-    {
-      "id": "espn-ufc-50207665",
-      "sport": "ufc",
-      "type": "news",
-      "title": "Jasmine Jasudavicius outpoints Erin Blanchfield at UFC Fight Night",
-      "summary": "Jasmine Jasudavicius stated her case as a contender in the UFC women's featherweight division, dominating Erin Blanchfield on the canvas to win by unanimous decision.",
-      "event": "",
-      "fighters_or_teams": [
-        "Jasmine Jasudavicius",
-        "Erin Blanchfield"
-      ],
-      "impact": "low",
-      "edge_take": "",
-      "source_name": "ESPN",
-      "source_url": "https://www.espn.com/college-football/story/_/id/50207665/jasmine-jasudavicius-outpoints-erin-blanchfield-ufc-fight-night",
-      "published": "2026-10-21T13:11:05Z"
-    },
-    {
       "id": "ufc333-injury-yan-back",
       "sport": "ufc",
       "type": "injury",
@@ -964,44 +1056,6 @@
       "source_name": "MMA Fighting",
       "source_url": "https://www.mmafighting.com/ufc/516750/sean-omalley-thinks-petr-yan-made-a-mistake-ahead-of-trilogy-bout-with-merab-dvalishvili",
       "published": "2026-10-20T12:00:00-04:00"
-    },
-    {
-      "id": "espn-ufc-21807736",
-      "sport": "ufc",
-      "type": "news",
-      "title": "Knockout performance lands Mike Malott in MMA divisional rankings",
-      "summary": "Here's a look at every weight class to determine the best of the best in UFC, PFL and beyond.",
-      "event": "",
-      "fighters_or_teams": [
-        "Dricus Du Plessis",
-        "Islam Makhachev",
-        "Ilia Topuria",
-        "Zhang Weili"
-      ],
-      "impact": "low",
-      "edge_take": "",
-      "source_name": "ESPN",
-      "source_url": "https://www.espn.com/mma/story/_/id/21807736/mma-divisional-rankings-ufc-pfl-rankings-weight-class",
-      "published": "2026-10-20T11:51:55Z"
-    },
-    {
-      "id": "espn-ufc-50206478",
-      "sport": "ufc",
-      "type": "news",
-      "title": "Petr Yan vs. Merab Dvalishvili joins rare list of trilogy bouts at UFC 333",
-      "summary": "ESPN categorizes all 19 of the UFC's trilogies ahead of Petr Yan vs. Merab Dvalishvili 3 at UFC 333 on Saturday.",
-      "event": "",
-      "fighters_or_teams": [
-        "Merab Dvalishvili",
-        "Petr Yan",
-        "Alexander Volkanovski",
-        "Max Holloway"
-      ],
-      "impact": "low",
-      "edge_take": "",
-      "source_name": "ESPN",
-      "source_url": "https://www.espn.com/mma/story/_/id/50206478/ufc-333-petr-yan-merab-dvalishvili-join-trilogy-list",
-      "published": "2026-10-19T13:45:06Z"
     },
     {
       "id": "ufc333-news-allen-out-keita-in",

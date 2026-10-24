@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T09:48:30.323Z",
+  "updated": "2026-10-24T12:58:00.131Z",
   "oddsApi": {
     "lastFetch": "2026-10-24T09:48:29.553Z",
     "remaining": 486,
@@ -15,20 +15,25 @@
   "source": "ESPN public site API (site.api.espn.com, sports.core.api.espn.com) + The Odds API (DraftKings, FanDuel)",
   "oddsNote": "Odds provider is labeled exactly as ESPN returns it.",
   "sources": {
-    "cfb_injuries": {
-      "ok": true,
-      "teams": 3,
-      "players": 3
-    },
     "nfl_scoreboard": {
       "ok": true,
       "count": 14,
       "withOdds": 13
     },
+    "nfl_injuries": {
+      "ok": true,
+      "teams": 32,
+      "players": 800
+    },
     "cfb_scoreboard": {
       "ok": true,
       "count": 56,
       "withOdds": 44
+    },
+    "cfb_injuries": {
+      "ok": true,
+      "teams": 3,
+      "players": 3
     },
     "ufc_scoreboard": {
       "ok": true,
@@ -36,20 +41,10 @@
       "fights": 14,
       "withOdds": 14
     },
-    "nfl_injuries": {
-      "ok": true,
-      "teams": 32,
-      "players": 800
-    },
     "oddsapi": {
       "ok": true,
-      "events": {
-        "nfl": 14,
-        "cfb": 48,
-        "ufc": 14
-      },
-      "remaining": 486,
-      "cost": 7
+      "skipped": "budget: next pull in 2.8h",
+      "remaining": 486
     },
     "espn_predictor": {
       "ok": true,
