@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-23T22:20:00-04:00",
+  "updated": "2026-10-23T22:05:00-04:00",
   "items": [
     {
       "id": "ufc333-wi-caliari-miss",
@@ -223,7 +223,7 @@
         "Atlanta Falcons"
       ],
       "impact": "high",
-      "edge_take": "This hits Edge's own pass rule for SF -2.5 (both Evans and Bosa out), so the play should be pulled unless Edge re-grades it.",
+      "edge_take": "Pick pulled — pass",
       "source_name": "NBC Sports Bay Area",
       "source_url": "https://www.nbcsportsbayarea.com/nfl/san-francisco-49ers/mike-evans-nick-bosa-out-injury-report/1973551/",
       "published": "2026-10-23T16:30:00-04:00"
@@ -238,8 +238,8 @@
       "fighters_or_teams": [
         "San Francisco 49ers"
       ],
-      "impact": "medium",
-      "edge_take": "Doesn't save the SF -2.5 play; the WR room is very thin.",
+      "impact": "high",
+      "edge_take": "Pick pulled — pass",
       "source_name": "ProFootballTalk",
       "source_url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-evans-nick-bosa-among-several-49ers-ruled-out-for-week-7",
       "published": "2026-10-23T16:45:00-04:00"
@@ -256,7 +256,7 @@
         "Seattle Seahawks"
       ],
       "impact": "high",
-      "edge_take": "The KC ML play's key check (the tackles) has gone against it, so Edge should re-grade it or lean pass.",
+      "edge_take": "Pick pulled — pass",
       "source_name": "Seahawks.com",
       "source_url": "https://www.seahawks.com/news/2026-week-7-injury-report-chiefs-at-seahawks",
       "published": "2026-10-23T15:39:00-04:00"
@@ -272,8 +272,8 @@
         "Seattle Seahawks",
         "Kansas City Chiefs"
       ],
-      "impact": "medium",
-      "edge_take": "Small help for KC, but it doesn't offset losing both tackles.",
+      "impact": "high",
+      "edge_take": "Pick pulled — pass",
       "source_name": "Seahawks.com",
       "source_url": "https://www.seahawks.com/news/2026-week-7-injury-report-chiefs-at-seahawks",
       "published": "2026-10-23T15:39:00-04:00"
