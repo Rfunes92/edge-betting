@@ -544,3 +544,31 @@ html{scroll-padding-top:calc(var(--tk) + var(--tb-h,130px) + 70px)}
 .fbk{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:6px;font-size:12px;align-items:center}
 .bp{display:inline-block;margin-left:4px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--cyan);border:1px solid var(--cyan-b);border-radius:999px;padding:1px 6px}
 .bktbl td.r .bkc{min-width:70px}
+
+/* Research extras */
+.wx{font-size:11px;color:var(--muted);border:1px solid var(--border);border-radius:999px;padding:2px 7px;margin-left:6px;white-space:nowrap}
+.wx.warn{color:#f5c56b;border-color:rgba(255,184,0,.35);background:rgba(255,184,0,.07)}
+.g-top{align-items:center}
+.cy{color:var(--cyan)}
+.vb{display:grid;gap:8px}
+.vb-row{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:minmax(0,1.6fr) repeat(4,minmax(0,.7fr));gap:6px;align-items:center;padding:10px 12px;border:1px solid var(--border);border-radius:14px;background:linear-gradient(180deg,var(--card),var(--bg2));transition:border-color .2s}
+.vb-row:hover{border-color:var(--cyan-b)}
+.vb-team{display:flex;align-items:center;gap:8px;min-width:0;font-size:14px;line-height:1.25}
+.vb-team .tlogo{width:28px;height:28px;flex:0 0 auto}
+.vb-num{display:flex;flex-direction:column;align-items:center;font-variant-numeric:tabular-nums}
+.vb-num small{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+.vb-num b{font-size:15px}
+.vb-num.gap b{color:#7ee2a8}
+@media (max-width:520px){.vb-row{grid-template-columns:repeat(4,1fr)}.vb-team{grid-column:1/-1}}
+.spark{margin:6px 0 10px}
+.sp-l{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-bottom:2px}
+.sp-l b{color:var(--text);font-variant-numeric:tabular-nums}
+.spark svg{width:100%;height:46px;display:block;background:rgba(0,229,255,.03);border:1px solid var(--border);border-radius:10px}
+.otbl.fair th,.otbl.fair td{font-size:12.5px;padding-left:4px;padding-right:4px}
+.bk-row{grid-template-columns:38px repeat(4,minmax(0,1fr));gap:3px}
+.bkc b{font-weight:600}.bkc.best b{font-weight:800}
+.bkc small{display:block;font-size:10.5px;color:var(--muted);margin-top:1px}
+.bkc.best small{color:var(--cyan);opacity:.85}
+.bk-row .bkc{padding:3px 2px;overflow:hidden}
+.bktbl .bkc{display:inline-flex;gap:6px;align-items:baseline;justify-content:flex-end}.bktbl .bkc small{display:inline;margin:0}
+.fbk .bkc b{font-weight:600}
